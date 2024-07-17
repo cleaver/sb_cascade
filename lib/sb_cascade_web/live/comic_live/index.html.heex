@@ -1,0 +1,47 @@
+<.header>
+  Listing Comics
+  <:actions>
+    <.link patch={~p"/comics/new"}>
+      <.button>New Comic</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="comics"
+  rows={@streams.comics}
+  row_click={fn {_id, comic} -> JS.navigate(~p"/comics/#{comic}") end}
+>
+  <:col :let={{_id, comic}} label="Title"><%= comic.title %></:col>
+  <:col :let={{_id, comic}} label="Body"><%= comic.body %></:col>
+  <:col :let={{_id, comic}} label="Slug"><%= comic.slug %></:col>
+  <:col :let={{_id, comic}} label="Published"><%= comic.published %></:col>
+  <:col :let={{_id, comic}} label="Post date"><%= comic.post_date %></:col>
+  <:col :let={{_id, comic}} label="Meta description"><%= comic.meta_description %></:col>
+  <:col :let={{_id, comic}} label="Image alt text"><%= comic.image_alt_text %></:col>
+  <:action :let={{_id, comic}}>
+    <div class="sr-only">
+      <.link navigate={~p"/comics/#{comic}"}>Show</.link>
+    </div>
+    <.link patch={~p"/comics/#{comic}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, comic}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: comic.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="comic-modal" show on_cancel={JS.patch(~p"/comics")}>
+  <.live_component
+    module={SbCascadeWeb.ComicLive.FormComponent}
+    id={@comic.id || :new}
+    title={@page_title}
+    action={@live_action}
+    comic={@comic}
+    patch={~p"/comics"}
+  />
+</.modal>

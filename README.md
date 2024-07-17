@@ -2,7 +2,8 @@
 
 ## Todo:
 
-- [ ] Authentication
+- [x] Authentication
+- [ ] Main menu
 - [ ] Data model
   - [ ] Comics
   - [ ] Tags

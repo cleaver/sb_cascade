@@ -68,6 +68,13 @@ defmodule SbCascadeWeb.Router do
       on_mount: [{SbCascadeWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/comics", ComicLive.Index, :index
+      live "/comics/new", ComicLive.Index, :new
+      live "/comics/:id/edit", ComicLive.Index, :edit
+
+      live "/comics/:id", ComicLive.Show, :show
+      live "/comics/:id/show/edit", ComicLive.Show, :edit
     end
   end
 
