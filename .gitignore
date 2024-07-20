@@ -41,3 +41,6 @@ npm-debug.log
 
 # Ignore the Elixir LS files
 /.elixir_ls/
+
+# Snippets
+/snippets.md
