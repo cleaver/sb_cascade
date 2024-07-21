@@ -12,7 +12,16 @@
     </script>
   </head>
   <body class="bg-white dark:bg-slate-950">
-    <SbCascadeWeb.Components.Sections.Navigation.side_menu current_user={@current_user} />
-    <%= @inner_content %>
+    <div class="flex">
+      <div class="shrink">
+        <SbCascadeWeb.Components.Sections.Navigation.side_menu
+          current_user={@current_user}
+          current_path={@current_path}
+        />
+      </div>
+      <div class="grow">
+        <%= @inner_content %>
+      </div>
+    </div>
   </body>
 </html>

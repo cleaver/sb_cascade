@@ -2,6 +2,7 @@ defmodule SbCascadeWeb.Router do
   use SbCascadeWeb, :router
 
   import SbCascadeWeb.UserAuth
+  import SbCascadeWeb.Plugs
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +12,7 @@ defmodule SbCascadeWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug :assign_current_path
   end
 
   pipeline :api do

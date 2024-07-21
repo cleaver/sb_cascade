@@ -3,7 +3,7 @@ defmodule SbCascadeWeb.Components.Sections.Navigation do
 
   def side_menu(assigns) do
     ~H"""
-    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+    <ul class="relative z-10 flex flex-col items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
       <%= if @current_user do %>
         <li class="text-[0.8125rem] leading-6 text-zinc-900">
           <%= @current_user.email %>
