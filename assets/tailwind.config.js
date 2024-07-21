@@ -11,6 +11,7 @@ module.exports = {
     "../lib/sb_cascade_web.ex",
     "../lib/sb_cascade_web/**/*.*ex"
   ],
+  darkMode: "selector",
   theme: {
     extend: {
       colors: {
