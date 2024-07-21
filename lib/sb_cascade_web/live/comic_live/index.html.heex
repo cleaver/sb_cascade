@@ -15,7 +15,13 @@
   <:col :let={{_id, comic}} label="Title"><%= comic.title %></:col>
   <:col :let={{_id, comic}} label="Slug"><%= comic.slug %></:col>
   <:col :let={{_id, comic}} label="Post date"><%= comic.post_date %></:col>
-  <:col :let={{_id, comic}} label="Published"><%= comic.published %></:col>
+  <:col :let={{_id, comic}} label="Published">
+    <%= if comic.published do %>
+      <span class="px-4 py-2 border-2 border-green-600 rounded-sm">Published</span>
+    <% else %>
+      <span class="px-4 py-2 border-2 border-red-600 rounded-sm">Draft</span>
+    <% end %>
+  </:col>
   <:action :let={{_id, comic}}>
     <div class="sr-only">
       <.link navigate={~p"/comics/#{comic}"}>Show</.link>
