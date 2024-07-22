@@ -4,6 +4,8 @@
 
 - [x] Authentication
 - [ ] Main menu
+  - [ ] Links
+  - [ ] Make pretty
 - [ ] Data model
   - [ ] Comics
   - [ ] Tags

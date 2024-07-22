@@ -8,7 +8,10 @@ defmodule SbCascadeWeb.UserLoginLive do
         Log in to account
         <:subtitle>
           Don't have an account?
-          <.link navigate={~p"/users/register"} class="font-semibold text-brand hover:underline">
+          <.link
+            navigate={~p"/users/register"}
+            class="font-semibold text-brand dark:text-brand_dark hover:underline"
+          >
             Sign up
           </.link>
           for an account now.
