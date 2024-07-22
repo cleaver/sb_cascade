@@ -84,6 +84,7 @@ defmodule SbCascadeWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
+      import SbCascadeWeb.Components.CustomComponents
       import SbCascadeWeb.CoreComponents
       import SbCascadeWeb.Gettext
 

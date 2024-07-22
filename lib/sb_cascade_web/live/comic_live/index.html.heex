@@ -38,7 +38,7 @@
   </:action>
 </.table>
 
-<.modal
+<.panel
   :if={@live_action in [:new, :edit]}
   id="comic-modal"
   show
@@ -52,4 +52,4 @@
     comic={@comic}
     patch={~p"/comics"}
   />
-</.modal>
+</.panel>

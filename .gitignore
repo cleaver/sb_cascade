@@ -47,3 +47,6 @@ npm-debug.log
 
 # Ignore lexical
 /.lexical
+
+# Ignore elixir-tools
+/.elixir-tools
