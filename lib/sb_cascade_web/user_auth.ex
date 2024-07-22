@@ -1,4 +1,8 @@
 defmodule SbCascadeWeb.UserAuth do
+  @moduledoc """
+  Auth hooks and functions.
+  """
+
   use SbCascadeWeb, :verified_routes
 
   import Plug.Conn

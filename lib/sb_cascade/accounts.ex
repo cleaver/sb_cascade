@@ -4,9 +4,8 @@ defmodule SbCascade.Accounts do
   """
 
   import Ecto.Query, warn: false
+  alias SbCascade.Accounts.{User, UserNotifier, UserToken}
   alias SbCascade.Repo
-
-  alias SbCascade.Accounts.{User, UserToken, UserNotifier}
 
   ## Database getters
 

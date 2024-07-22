@@ -1,4 +1,7 @@
 defmodule SbCascade.Accounts.UserNotifier do
+  @moduledoc """
+  User notifications, emails, etc.
+  """
   import Swoosh.Email
 
   alias SbCascade.Mailer

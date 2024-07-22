@@ -1,5 +1,8 @@
 # lib/darktoggle_web/components/theme_toggle.ex
 defmodule SbCascadeWeb.Components.ToggleTheme do
+  @moduledoc """
+  Theme toggle component.
+  """
   use SbCascadeWeb, :html
 
   def render(assigns) do

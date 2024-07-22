@@ -1,4 +1,8 @@
 defmodule SbCascadeWeb.Components.Sections.Navigation do
+  @moduledoc """
+  Navigation components.
+  """
+
   use SbCascadeWeb, :html
 
   def side_menu(assigns) do

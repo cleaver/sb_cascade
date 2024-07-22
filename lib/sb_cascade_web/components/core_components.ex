@@ -1,3 +1,5 @@
+# credo:disable-for-this-file
+
 defmodule SbCascadeWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.

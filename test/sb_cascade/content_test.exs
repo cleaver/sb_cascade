@@ -8,7 +8,15 @@ defmodule SbCascade.ContentTest do
 
     import SbCascade.ContentFixtures
 
-    @invalid_attrs %{title: nil, body: nil, slug: nil, published: nil, post_date: nil, meta_description: nil, image_alt_text: nil}
+    @invalid_attrs %{
+      title: nil,
+      body: nil,
+      slug: nil,
+      published: nil,
+      post_date: nil,
+      meta_description: nil,
+      image_alt_text: nil
+    }
 
     test "list_comics/0 returns all comics" do
       comic = comic_fixture()
@@ -21,7 +29,15 @@ defmodule SbCascade.ContentTest do
     end
 
     test "create_comic/1 with valid data creates a comic" do
-      valid_attrs = %{title: "some title", body: "some body", slug: "some slug", published: true, post_date: ~D[2024-07-16], meta_description: "some meta_description", image_alt_text: "some image_alt_text"}
+      valid_attrs = %{
+        title: "some title",
+        body: "some body",
+        slug: "some slug",
+        published: true,
+        post_date: ~D[2024-07-16],
+        meta_description: "some meta_description",
+        image_alt_text: "some image_alt_text"
+      }
 
       assert {:ok, %Comic{} = comic} = Content.create_comic(valid_attrs)
       assert comic.title == "some title"
@@ -39,7 +55,16 @@ defmodule SbCascade.ContentTest do
 
     test "update_comic/2 with valid data updates the comic" do
       comic = comic_fixture()
-      update_attrs = %{title: "some updated title", body: "some updated body", slug: "some updated slug", published: false, post_date: ~D[2024-07-17], meta_description: "some updated meta_description", image_alt_text: "some updated image_alt_text"}
+
+      update_attrs = %{
+        title: "some updated title",
+        body: "some updated body",
+        slug: "some updated slug",
+        published: false,
+        post_date: ~D[2024-07-17],
+        meta_description: "some updated meta_description",
+        image_alt_text: "some updated image_alt_text"
+      }
 
       assert {:ok, %Comic{} = comic} = Content.update_comic(comic, update_attrs)
       assert comic.title == "some updated title"

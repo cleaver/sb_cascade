@@ -1,4 +1,8 @@
 defmodule SbCascade.Content.Comic do
+  @moduledoc """
+  The Comic schema.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -18,7 +22,23 @@ defmodule SbCascade.Content.Comic do
   @doc false
   def changeset(comic, attrs) do
     comic
-    |> cast(attrs, [:title, :body, :slug, :published, :post_date, :meta_description, :image_alt_text])
-    |> validate_required([:title, :body, :slug, :published, :post_date, :meta_description, :image_alt_text])
+    |> cast(attrs, [
+      :title,
+      :body,
+      :slug,
+      :published,
+      :post_date,
+      :meta_description,
+      :image_alt_text
+    ])
+    |> validate_required([
+      :title,
+      :body,
+      :slug,
+      :published,
+      :post_date,
+      :meta_description,
+      :image_alt_text
+    ])
   end
 end

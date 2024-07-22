@@ -1,4 +1,8 @@
 defmodule SbCascade.Accounts.UserToken do
+  @moduledoc """
+  Manage user tokens.
+  """
+
   use Ecto.Schema
   import Ecto.Query
   alias SbCascade.Accounts.UserToken

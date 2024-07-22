@@ -1,4 +1,8 @@
 defmodule SbCascadeWeb.Plugs do
+  @moduledoc """
+  Custom plugs.
+  """
+
   import Plug.Conn
   import Phoenix.Controller
 
