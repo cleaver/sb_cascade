@@ -12,7 +12,7 @@ defmodule SbCascadeWeb.Components.ToggleTheme do
       type="button"
       phx-update="ignore"
       phx-hook="ToggleThemeHook"
-      class="text-grey-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-300 rounded-lg text-sm p-2"
+      class="text-nav_text hover:bg-gray-100 dark:text-nav_text_dark dark:hover:bg-gray-700 dark:hover:text-gray-300 rounded-lg text-sm p-2"
       title="Toggle theme"
     >
       <svg

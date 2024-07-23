@@ -15,8 +15,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        body_bg: "#F2F2F4",
+        body_bg_dark: "#181826",
         brand: "#3935C6",
         brand_dark: "#9998FF",
+        nav_bg: "#FFFFFF",
+        nav_bg_dark: "#212134",
+        nav_border: "#E3E3E8",
+        nav_border_dark: "#32324D",
+        nav_text: "#666687",
+        nav_text_dark: "#B1B1CC",
+        nav_text_hover: "#5E5E87",
+        nav_text_hover_dark: "#C1C1CC",
       },
     },
   },
