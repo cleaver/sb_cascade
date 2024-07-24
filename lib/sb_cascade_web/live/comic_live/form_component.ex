@@ -6,7 +6,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div>
+    <div class="p-4 bg-light_bg dark:bg-light_bg_dark">
       <.header>
         <%= @title %>
         <:subtitle>Use this form to manage comic records in your database.</:subtitle>

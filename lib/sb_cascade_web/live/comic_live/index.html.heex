@@ -1,4 +1,4 @@
-<.header>
+<.header :if={@live_action == :index}>
   Listing Comics
   <:actions>
     <.link patch={~p"/comics/new"}>
@@ -8,48 +8,52 @@
 </.header>
 
 <.table
+  :if={@live_action == :index}
   id="comics"
   rows={@streams.comics}
   row_click={fn {_id, comic} -> JS.navigate(~p"/comics/#{comic}") end}
 >
+  <:col :let={{_id, comic}} label="Post date"><%= comic.post_date %></:col>
   <:col :let={{_id, comic}} label="Title"><%= comic.title %></:col>
   <:col :let={{_id, comic}} label="Slug"><%= comic.slug %></:col>
-  <:col :let={{_id, comic}} label="Post date"><%= comic.post_date %></:col>
   <:col :let={{_id, comic}} label="Published">
     <%= if comic.published do %>
-      <span class="px-4 py-2 border-2 border-green-600 rounded-sm">Published</span>
+      <span class="px-4 py-2 border border-outline rounded-sm bg-green-100 text-green-700 font-bold">
+        Published
+      </span>
     <% else %>
-      <span class="px-4 py-2 border-2 border-red-600 rounded-sm">Draft</span>
+      <span class="px-4 py-2 border border-outline rounded-sm bg-blue-100 text-blue-800 font-bold">
+        Draft
+      </span>
     <% end %>
   </:col>
   <:action :let={{_id, comic}}>
     <div class="sr-only">
       <.link navigate={~p"/comics/#{comic}"}>Show</.link>
     </div>
-    <.link patch={~p"/comics/#{comic}/edit"}>Edit</.link>
+    <.link patch={~p"/comics/#{comic}/edit"} title="Edit">
+      <.icon name="hero-pencil-square-solid" class="h-5 w-5" />
+      <span class="sr-only">Edit</span>
+    </.link>
   </:action>
   <:action :let={{id, comic}}>
     <.link
       phx-click={JS.push("delete", value: %{id: comic.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"
+      title="Delete"
     >
-      Delete
+      <.icon name="hero-trash-solid" class="h-5 w-5" />
+      <span class="sr-only">Delete</span>
     </.link>
   </:action>
 </.table>
 
-<.panel
+<.live_component
   :if={@live_action in [:new, :edit]}
-  id="comic-modal"
-  show
-  on_cancel={JS.patch(~p"/comics")}
->
-  <.live_component
-    module={SbCascadeWeb.ComicLive.FormComponent}
-    id={@comic.id || :new}
-    title={@page_title}
-    action={@live_action}
-    comic={@comic}
-    patch={~p"/comics"}
-  />
-</.panel>
+  module={SbCascadeWeb.ComicLive.FormComponent}
+  id={@comic.id || :new}
+  title={@page_title}
+  action={@live_action}
+  comic={@comic}
+  patch={~p"/comics"}
+/>

@@ -3,6 +3,7 @@
 ## Todo:
 
 - [x] Authentication
+- [ ] Darkmode enhancements
 - [ ] Main menu
   - [x] Links
   - [ ] Make pretty
