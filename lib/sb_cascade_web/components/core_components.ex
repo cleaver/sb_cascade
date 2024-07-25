@@ -482,7 +482,7 @@ defmodule SbCascadeWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0 rounded-t-md bg-light_bg dark:bg-light_bg_dark">
+    <div class="overflow-y-auto pb-3 rounded-md sm:overflow-visible sm:px-0 bg-light_bg dark:bg-light_bg_dark">
       <table class="w-[40rem] mt-11 sm:w-full">
         <thead class="text-sm text-left leading-6 text-light_text dark:text-light_text_dark">
           <tr class="">
