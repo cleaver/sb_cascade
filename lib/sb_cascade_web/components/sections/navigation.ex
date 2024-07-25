@@ -42,6 +42,24 @@ defmodule SbCascadeWeb.Components.Sections.Navigation do
                   Pages
                 </.link>
               </li>
+              <li class="">
+                <.link
+                  href={~p"/"}
+                  class="leading-6 font-semibold hover:text-nav_text_hover dark:hover:text-nav_text_hover_dark"
+                >
+                  <span class="pr-2"><.icon name="hero-tag-solid" class="h-5 w-5" /></span>
+                  Tags
+                </.link>
+              </li>
+              <li class="">
+                <.link
+                  href={~p"/"}
+                  class="leading-6 font-semibold hover:text-nav_text_hover dark:hover:text-nav_text_hover_dark"
+                >
+                  <span class="pr-2"><.icon name="hero-globe-alt-solid" class="h-5 w-5" /></span>
+                  Site
+                </.link>
+              </li>
             <% end %>
           </ul>
         </div>
