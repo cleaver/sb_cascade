@@ -18,7 +18,9 @@ defmodule SbCascade.Content do
 
   """
   def list_comics do
-    Repo.all(Comic)
+    Comic
+    |> order_by([p], desc: p.post_date)
+    |> Repo.all()
   end
 
   @doc """

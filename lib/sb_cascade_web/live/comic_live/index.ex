@@ -33,7 +33,7 @@ defmodule SbCascadeWeb.ComicLive.Index do
   end
 
   @impl true
-  def handle_info({SbCascadeWeb.ComicLive.FormComponent, {:saved, comic}}, socket) do
+  def handle_info({SbCascadeWeb.ComicLive.FormComponent, {:saved, _comic}}, socket) do
     {:noreply, stream(socket, :comics, Content.list_comics())}
   end
 
