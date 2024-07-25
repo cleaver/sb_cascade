@@ -6,10 +6,9 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="p-4 bg-light_bg dark:bg-light_bg_dark">
+    <div class="p-6 bg-light_bg dark:bg-light_bg_dark">
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage comic records in your database.</:subtitle>
       </.header>
 
       <.simple_form
@@ -20,14 +19,24 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:body]} type="text" label="Body" />
+        <.input field={@form[:body]} type="textarea" rows="7" label="Body" />
         <.input field={@form[:slug]} type="text" label="Slug" />
-        <.input field={@form[:published]} type="checkbox" label="Published" />
-        <.input field={@form[:post_date]} type="date" label="Post date" />
+        <div class="flex gap-6">
+          <div class="flex-1">
+            <.input field={@form[:post_date]} type="date" label="Post date" />
+          </div>
+          <div class="flex-1">
+            <.input field={@form[:published]} type="checkbox" label="Published" />
+          </div>
+        </div>
         <.input field={@form[:meta_description]} type="text" label="Meta description" />
         <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Comic</.button>
+          <div class="w-full flex justify-end">
+            <.button phx-disable-with="Saving..." class="bg-brand dark:bg-primary_dark">
+              Save Comic
+            </.button>
+          </div>
         </:actions>
       </.simple_form>
     </div>

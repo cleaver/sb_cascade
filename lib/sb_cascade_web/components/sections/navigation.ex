@@ -7,10 +7,11 @@ defmodule SbCascadeWeb.Components.Sections.Navigation do
 
   def side_menu(assigns) do
     ~H"""
-    <nav class="text-nav_text dark:text-nav_text_dark bg-nav_bg dark:bg-nav_bg_dark min-h-screen flex flex-col justify-between border-r border-nav_border dark:border-nav_border_dark">
+    <nav class="text-nav_text dark:text-nav_text_dark bg-nav_bg dark:bg-nav_bg_dark min-h-screen
+        flex flex-col justify-between border-r border-nav_border dark:border-nav_border_dark">
       <div class="pb-4">
-        <div class="z-10 p-4 mb-6 border-b border-nav_border dark:border-nav_border_dark">
-          Sorrowbacon
+        <div class="z-10 p-4 mb-6 border-b border-nav_border dark:border-nav_border_dark font-bold text-lg">
+          SorrowbaconCMS
         </div>
         <div>
           <ul class="relative z-10 flex flex-col gap-6 px-4 sm:px-6 lg:px-8">

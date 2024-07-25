@@ -1,8 +1,8 @@
 <.header :if={@live_action == :index}>
-  Listing Comics
+  Comics
   <:actions>
     <.link patch={~p"/comics/new"}>
-      <.button>New Comic</.button>
+      <.button class="bg-brand dark:bg-brand_dark">New Comic</.button>
     </.link>
   </:actions>
 </.header>
@@ -18,11 +18,13 @@
   <:col :let={{_id, comic}} label="Slug"><%= comic.slug %></:col>
   <:col :let={{_id, comic}} label="Published">
     <%= if comic.published do %>
-      <span class="px-4 py-2 border border-outline rounded-sm bg-green-100 text-green-700 font-bold">
+      <span class="px-3 py-2 border border-outline dark:border-outline_dark rounded
+          bg-green-100 dark:bg-body_bg_dark text-green-600 font-bold">
         Published
       </span>
     <% else %>
-      <span class="px-4 py-2 border border-outline rounded-sm bg-blue-100 text-blue-800 font-bold">
+      <span class="px-3 py-2 border border-outline dark:border-outline_dark rounded
+          bg-blue-100 dark:bg-body_bg_dark text-blue-700 font-bold">
         Draft
       </span>
     <% end %>

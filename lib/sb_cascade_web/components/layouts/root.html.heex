@@ -12,14 +12,14 @@
     </script>
   </head>
   <body class="bg-body_bg dark:bg-body_bg_dark">
-    <div class="flex">
-      <div class="shrink">
+    <div class="flex max-h-dvh overflow-scroll">
+      <div class="shrink min-w-52">
         <SbCascadeWeb.Components.Sections.Navigation.side_menu
           current_user={@current_user}
           current_path={@current_path}
         />
       </div>
-      <div class="grow">
+      <div class="grow overflow-scroll">
         <%= @inner_content %>
       </div>
     </div>
