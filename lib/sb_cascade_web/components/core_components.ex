@@ -559,10 +559,10 @@ defmodule SbCascadeWeb.CoreComponents do
   def list(assigns) do
     ~H"""
     <div class="mt-14">
-      <dl class="-my-4 divide-y divide-zinc-100">
+      <dl class="-my-4 divide-y divide-outline dark:divide-outline_dark">
         <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
-          <dt class="w-1/4 flex-none text-zinc-500"><%= item.title %></dt>
-          <dd class="text-zinc-700"><%= render_slot(item) %></dd>
+          <dt class="w-1/4 flex-none text-light_text dark:text-light_text_dark"><%= item.title %></dt>
+          <dd class="text-body_text dark:text-body_text_dark"><%= render_slot(item) %></dd>
         </div>
       </dl>
     </div>
