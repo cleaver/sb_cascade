@@ -10,13 +10,13 @@
 <.table
   :if={@live_action == :index}
   id="comics"
-  rows={@streams.comics}
-  row_click={fn {_id, comic} -> JS.navigate(~p"/comics/#{comic}") end}
+  rows={@comics}
+  row_click={fn comic -> JS.navigate(~p"/comics/#{comic.id}") end}
 >
-  <:col :let={{_id, comic}} label="Post date"><%= comic.post_date %></:col>
-  <:col :let={{_id, comic}} label="Title"><%= comic.title %></:col>
-  <:col :let={{_id, comic}} label="Slug"><%= comic.slug %></:col>
-  <:col :let={{_id, comic}} label="Published">
+  <:col :let={comic} label="Post date"><%= comic.post_date %></:col>
+  <:col :let={comic} label="Title"><%= comic.title %></:col>
+  <:col :let={comic} label="Slug"><%= comic.slug %></:col>
+  <:col :let={comic} label="Published">
     <%= if comic.published do %>
       <span class="px-3 py-2 border border-outline dark:border-outline_dark rounded
           bg-green-100 dark:bg-body_bg_dark text-green-600 font-bold">
@@ -29,7 +29,7 @@
       </span>
     <% end %>
   </:col>
-  <:action :let={{_id, comic}}>
+  <:action :let={comic}>
     <div class="sr-only">
       <.link navigate={~p"/comics/#{comic}"}>Show</.link>
     </div>
@@ -38,9 +38,9 @@
       <span class="sr-only">Edit</span>
     </.link>
   </:action>
-  <:action :let={{id, comic}}>
+  <:action :let={comic}>
     <.link
-      phx-click={JS.push("delete", value: %{id: comic.id}) |> hide("##{id}")}
+      phx-click={JS.push("delete", value: %{id: comic.id}) |> hide("##{comic.id}")}
       data-confirm="Are you sure?"
       title="Delete"
     >

@@ -6,12 +6,23 @@ defmodule SbCascadeWeb.ComicLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :comics, Content.list_comics())}
+    # {:ok, stream(socket, :comics, Content.list_comics())}
+    {:ok, socket}
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
+  def handle_params(params, _url, socket) when socket.assigns.live_action in [:edit, :new] do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  end
+
+  def handle_params(params, _url, socket) do
+    case Content.list_comics(params) do
+      {:ok, {comics, meta}} ->
+        {:noreply, assign(socket, %{comics: comics, meta: meta})}
+
+      {:error, _meta} ->
+        {:noreply, push_navigate(socket, to: ~p"/comics")}
+    end
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do

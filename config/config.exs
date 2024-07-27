@@ -31,6 +31,9 @@ config :sb_cascade, SbCascadeWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :sb_cascade, SbCascade.Mailer, adapter: Swoosh.Adapters.Local
 
+# Flop config
+config :flop, repo: SbCascade.Repo
+
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",

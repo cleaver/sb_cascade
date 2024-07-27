@@ -23,6 +23,10 @@ defmodule SbCascade.Content do
     |> Repo.all()
   end
 
+  def list_comics(params) do
+    Flop.validate_and_run(Comic, params, for: Comic)
+  end
+
   @doc """
   Gets a single comic.
 

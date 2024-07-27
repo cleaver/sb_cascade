@@ -6,6 +6,11 @@ defmodule SbCascade.Content.Comic do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {
+    Flop.Schema,
+    filterable: [:title, :body], sortable: [:title, :body, :post_date]
+  }
+
   schema "comics" do
     field :title, :string
     field :body, :string
