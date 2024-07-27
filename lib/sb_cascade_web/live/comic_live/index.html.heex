@@ -11,6 +11,7 @@
   :if={@live_action == :index}
   id="comics"
   rows={@comics}
+  row_id={fn comic -> "comics-#{comic.id}" end}
   row_click={fn comic -> JS.navigate(~p"/comics/#{comic.id}") end}
 >
   <:col :let={comic} label="Post date"><%= comic.post_date %></:col>

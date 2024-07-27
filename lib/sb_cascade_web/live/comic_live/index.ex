@@ -6,7 +6,6 @@ defmodule SbCascadeWeb.ComicLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    # {:ok, stream(socket, :comics, Content.list_comics())}
     {:ok, socket}
   end
 
@@ -16,7 +15,13 @@ defmodule SbCascadeWeb.ComicLive.Index do
   end
 
   def handle_params(params, _url, socket) do
-    case Content.list_comics(params) do
+    socket
+    |> assign(params: params)
+    |> fetch_data()
+  end
+
+  defp fetch_data(socket) do
+    case Content.list_comics(socket.assigns.params) do
       {:ok, {comics, meta}} ->
         {:noreply, assign(socket, %{comics: comics, meta: meta})}
 
@@ -45,7 +50,7 @@ defmodule SbCascadeWeb.ComicLive.Index do
 
   @impl true
   def handle_info({SbCascadeWeb.ComicLive.FormComponent, {:saved, _comic}}, socket) do
-    {:noreply, stream(socket, :comics, Content.list_comics())}
+    fetch_data(socket)
   end
 
   @impl true
@@ -53,6 +58,6 @@ defmodule SbCascadeWeb.ComicLive.Index do
     comic = Content.get_comic!(id)
     {:ok, _} = Content.delete_comic(comic)
 
-    {:noreply, stream_delete(socket, :comics, comic)}
+    fetch_data(socket)
   end
 end
