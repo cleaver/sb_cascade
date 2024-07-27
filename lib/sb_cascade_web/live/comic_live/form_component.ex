@@ -32,8 +32,9 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
         <.input field={@form[:meta_description]} type="text" label="Meta description" />
         <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />
         <:actions>
-          <div class="w-full flex justify-end">
-            <.button phx-disable-with="Saving..." class="bg-brand dark:bg-primary_dark">
+          <div class="w-full flex justify-end space-x-6">
+            <.button phx-click={JS.patch(~p"/comics")} class="bg-secondary">Cancel</.button>
+            <.button phx-disable-with="Saving..." class="bg-primary dark:bg-primary_dark">
               Save Comic
             </.button>
           </div>

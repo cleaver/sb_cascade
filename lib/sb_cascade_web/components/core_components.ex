@@ -224,6 +224,7 @@ defmodule SbCascadeWeb.CoreComponents do
   """
   attr :type, :string, default: nil
   attr :class, :string, default: nil
+  attr :color, :string, default: nil
   attr :rest, :global, include: ~w(disabled form name value)
 
   slot :inner_block, required: true
@@ -233,8 +234,9 @@ defmodule SbCascadeWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+        "phx-submit-loading:opacity-75 rounded-lg py-2 px-3",
         "text-sm font-semibold leading-6 text-white active:text-white/80",
+        button_color(@color),
         @class
       ]}
       {@rest}
@@ -243,6 +245,10 @@ defmodule SbCascadeWeb.CoreComponents do
     </button>
     """
   end
+
+  defp button_color("primary"), do: "bg-primary hover:bg-primary"
+  defp button_color("secondary"), do: "bg-secondary hover:bg-secondary"
+  defp button_color(nil), do: button_color("primary")
 
   @doc """
   Renders an input with label and error messages.

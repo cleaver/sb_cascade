@@ -39,6 +39,8 @@ module.exports = {
         outline_dark: "#32324D",
         primary: "#3935C6",
         primary_dark: "#4D4CA2",
+        secondary: "#475569",
+        secondary_dark: "#475569",
       },
     },
   },

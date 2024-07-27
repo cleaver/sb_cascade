@@ -47,7 +47,7 @@ defmodule SbCascadeWeb.ComicLiveTest do
         |> log_in_user(user_fixture())
         |> live(~p"/comics")
 
-      assert html =~ "Listing Comics"
+      assert html =~ "Comics"
       assert html =~ comic.title
     end
 
@@ -83,7 +83,7 @@ defmodule SbCascadeWeb.ComicLiveTest do
         |> log_in_user(user_fixture())
         |> live(~p"/comics")
 
-      assert index_live |> element("#comics-#{comic.id} a", "Edit") |> render_click() =~
+      assert index_live |> element("a[href='/comics/#{comic.id}/edit']", "Edit") |> render_click() =~
                "Edit Comic"
 
       assert_patch(index_live, ~p"/comics/#{comic}/edit")
