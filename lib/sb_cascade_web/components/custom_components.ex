@@ -46,17 +46,21 @@ defmodule SbCascadeWeb.Components.CustomComponents do
       ],
       previous_link_attrs: [
         class:
-          "bg-secondary dark:bg-secondary_dark hover:bg-brand dark:hover:bg-brand_dark text-white dark:text-white px-3 py-1 rounded-md"
+          "bg-secondary dark:bg-secondary_dark hover:bg-brand dark:hover:bg-brand_dark text-white dark:text-white 
+          px-3 py-1 rounded-md"
       ],
       next_link_attrs: [
         class:
-          "order-last bg-secondary dark:bg-secondary_dark hover:bg-brand dark:hover:bg-brand_dark text-white dark:text-white px-3 py-1 rounded-md"
+          "order-last bg-secondary dark:bg-secondary_dark hover:bg-brand dark:hover:bg-brand_dark
+          text-white dark:text-white px-3 py-1 rounded-md"
       ],
       pagination_list_attrs: [
         class: "flex space-x-1 mt-1"
       ],
       pagination_link_attrs: [
-        class: "text-light_text dark:text-light_text_dark px-3 py-1"
+        class: 
+          "text-light_text dark:text-light_text_dark hover:text-brand dark:hover:text-brand_dark  hover:underline 
+          px-3 py-1"
       ],
       current_link_attrs: [
         class: "text-body_text dark:text-body_text_dark font-bold px-3 py-1"

@@ -7,7 +7,6 @@
   </:actions>
 </.header>
 
-
 <Flop.Phoenix.table
   :if={@live_action == :index}
   items={@comics}
@@ -54,7 +53,7 @@
   </:action>
 </Flop.Phoenix.table>
 
-<Flop.Phoenix.pagination meta={@meta} path={~p"/comics"} />
+<Flop.Phoenix.pagination :if={@live_action == :index} meta={@meta} path={~p"/comics"} />
 
 <.live_component
   :if={@live_action in [:new, :edit]}
