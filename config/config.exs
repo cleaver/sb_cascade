@@ -34,6 +34,10 @@ config :sb_cascade, SbCascade.Mailer, adapter: Swoosh.Adapters.Local
 # Flop config
 config :flop, repo: SbCascade.Repo
 
+config :flop_phoenix,
+  pagination: [opts: {SbCascadeWeb.Components.CustomComponents, :pagination_opts}],
+  table: [opts: {SbCascadeWeb.Components.CustomComponents, :table_opts}]
+
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",

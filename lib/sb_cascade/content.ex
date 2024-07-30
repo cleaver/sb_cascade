@@ -24,7 +24,25 @@ defmodule SbCascade.Content do
   end
 
   def list_comics(params) do
+    params =
+      params
+      |> Map.new(fn {k, v} -> {String.to_existing_atom(k), v} end)
+      |> Map.put(:page_size, 2)
+      |> maybe_set_order()
+
     Flop.validate_and_run(Comic, params, for: Comic)
+  end
+
+  defp maybe_set_order(params) do
+    case Map.get(params, :order_by) do
+      nil ->
+        params
+        |> Map.put(:order_by, [:post_date])
+        |> Map.put(:order_directions, [:desc])
+
+      _ ->
+        params
+    end
   end
 
   @doc """

@@ -40,7 +40,7 @@ module.exports = {
         primary: "#3935C6",
         primary_dark: "#4D4CA2",
         secondary: "#475569",
-        secondary_dark: "#475569",
+        secondary_dark: "#2F3946",
       },
     },
   },
