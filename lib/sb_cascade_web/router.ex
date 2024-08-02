@@ -77,6 +77,13 @@ defmodule SbCascadeWeb.Router do
 
       live "/comics/:id", ComicLive.Show, :show
       live "/comics/:id/show/edit", ComicLive.Show, :edit
+
+      live "/files", FileLive.Index, :index
+      live "/files/new", FileLive.Index, :new
+      live "/files/:id/edit", FileLive.Index, :edit
+
+      live "/files/:id", FileLive.Show, :show
+      live "/files/:id/show/edit", FileLive.Show, :edit
     end
   end
 

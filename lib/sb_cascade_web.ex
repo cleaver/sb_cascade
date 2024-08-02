@@ -85,6 +85,7 @@ defmodule SbCascadeWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import SbCascadeWeb.Components.CustomComponents
+      import SbCascadeWeb.Components.FlopComponents
       import SbCascadeWeb.CoreComponents
       import SbCascadeWeb.Gettext
 

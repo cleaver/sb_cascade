@@ -14,7 +14,6 @@
   path={~p"/comics"}
   row_id={fn comic -> "comics-#{comic.id}" end}
   row_click={fn comic -> JS.navigate(~p"/comics/#{comic.id}") end}
-  class="w-full"
 >
   <:col :let={comic} label="Post date" field={:post_date}><%= comic.post_date %></:col>
   <:col :let={comic} label="Title" field={:title}><%= comic.title %></:col>

@@ -23,4 +23,21 @@ defmodule SbCascade.ContentFixtures do
 
     comic
   end
+
+  @doc """
+  Generate a file.
+  """
+  def file_fixture(attrs \\ %{}) do
+    {:ok, file} =
+      attrs
+      |> Enum.into(%{
+        height: 42,
+        name: "some name",
+        url: "some url",
+        width: 42
+      })
+      |> SbCascade.Content.create_file()
+
+    file
+  end
 end

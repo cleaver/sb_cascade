@@ -4,6 +4,7 @@ defmodule SbCascade.Content do
   """
 
   import Ecto.Query, warn: false
+  import SbCascade.Helpers.Param
   alias SbCascade.Repo
 
   alias SbCascade.Content.Comic
@@ -26,23 +27,11 @@ defmodule SbCascade.Content do
   def list_comics(params) do
     params =
       params
-      |> Map.new(fn {k, v} -> {String.to_existing_atom(k), v} end)
-      |> Map.put(:page_size, 2)
-      |> maybe_set_order()
+      |> string_keys_to_atom_keys()
+      |> set_default_page_size()
+      |> set_default_order(:post_date, :desc)
 
     Flop.validate_and_run(Comic, params, for: Comic)
-  end
-
-  defp maybe_set_order(params) do
-    case Map.get(params, :order_by) do
-      nil ->
-        params
-        |> Map.put(:order_by, [:post_date])
-        |> Map.put(:order_directions, [:desc])
-
-      _ ->
-        params
-    end
   end
 
   @doc """
@@ -124,5 +113,111 @@ defmodule SbCascade.Content do
   """
   def change_comic(%Comic{} = comic, attrs \\ %{}) do
     Comic.changeset(comic, attrs)
+  end
+
+  alias SbCascade.Content.File
+
+  @doc """
+  Returns the list of files.
+
+  ## Examples
+
+      iex> list_files()
+      [%File{}, ...]
+
+  """
+  def list_files do
+    Repo.all(File)
+  end
+
+  def list_files(params) do
+    params =
+      params
+      |> string_keys_to_atom_keys()
+      |> set_default_page_size()
+      |> set_default_order(:inserted_at, :desc)
+
+    Flop.validate_and_run(File, params, for: File)
+  end
+
+  @doc """
+  Gets a single file.
+
+  Raises `Ecto.NoResultsError` if the File does not exist.
+
+  ## Examples
+
+      iex> get_file!(123)
+      %File{}
+
+      iex> get_file!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_file!(id), do: Repo.get!(File, id)
+
+  @doc """
+  Creates a file.
+
+  ## Examples
+
+      iex> create_file(%{field: value})
+      {:ok, %File{}}
+
+      iex> create_file(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_file(attrs \\ %{}) do
+    %File{}
+    |> File.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a file.
+
+  ## Examples
+
+      iex> update_file(file, %{field: new_value})
+      {:ok, %File{}}
+
+      iex> update_file(file, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_file(%File{} = file, attrs) do
+    file
+    |> File.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a file.
+
+  ## Examples
+
+      iex> delete_file(file)
+      {:ok, %File{}}
+
+      iex> delete_file(file)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_file(%File{} = file) do
+    Repo.delete(file)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking file changes.
+
+  ## Examples
+
+      iex> change_file(file)
+      %Ecto.Changeset{data: %File{}}
+
+  """
+  def change_file(%File{} = file, attrs \\ %{}) do
+    File.changeset(file, attrs)
   end
 end

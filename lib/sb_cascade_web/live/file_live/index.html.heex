@@ -1,0 +1,55 @@
+<.header :if={@live_action == :index}>
+  Files
+  <:actions>
+    <.link patch={~p"/files/new"}>
+      <.button color="primary">New File</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<Flop.Phoenix.table
+  :if={@live_action == :index}
+  id="files"
+  items={@files}
+  meta={@meta}
+  path={~p"/files"}
+  row_id={fn file -> "files-#{file.id}" end}
+  row_click={fn file -> JS.navigate(~p"/files/#{file.id}") end}
+>
+  <:col :let={file} label="Name" field={:name}><%= file.name %></:col>
+  <:col :let={file} label="Width" field={:width}><%= file.width %></:col>
+  <:col :let={file} label="Height" field={:height}><%= file.height %></:col>
+  <:col :let={file} label="Created" field={:inserted_at}>
+    <.time datetime={file.inserted_at} />
+  </:col>
+  <:action :let={file}>
+    <div class="sr-only">
+      <.link navigate={~p"/files/#{file}"}>Show</.link>
+    </div>
+    <.link patch={~p"/files/#{file}/edit"}>
+      <.icon name="hero-pencil-square-solid" class="h5 w-5" />
+      <span class="sr-only">Edit</span>
+    </.link>
+  </:action>
+  <:action :let={file}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: file.id}) |> hide("#files#{file.id}")}
+      data-confirm="Are you sure?"
+    >
+      <.icon name="hero-trash-solid" class="h5 w-5" />
+      <span class="sr-only">Delete</span>
+    </.link>
+  </:action>
+</Flop.Phoenix.table>
+
+<Flop.Phoenix.pagination :if={@live_action == :index} meta={@meta} path={~p"/files"} />
+
+<.live_component
+  :if={@live_action in [:new, :edit]}
+  module={SbCascadeWeb.FileLive.FormComponent}
+  id={@file.id || :new}
+  title={@page_title}
+  action={@live_action}
+  file={@file}
+  patch={~p"/files"}
+/>

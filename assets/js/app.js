@@ -40,6 +40,27 @@ topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
 window.addEventListener("phx:page-loading-start", (_info) => topbar.show(300));
 window.addEventListener("phx:page-loading-stop", (_info) => topbar.hide());
 
+// Format all time elements with a datetime attribute
+document.addEventListener("phx:update", () => {
+  const source_elements = document.querySelectorAll("time");
+  source_elements.forEach((source_element) => {
+    source_element.innerText = new Date(
+      source_element.getAttribute("datetime"),
+    ).toLocaleString();
+  });
+});
+
+// Have flash messages disappear after 6 seconds.
+document.addEventListener("phx:update", () => {
+  const flashMessages = document.querySelectorAll("#flash-group > div");
+  console.log(flashMessages);
+  flashMessages.forEach((flashMessage) => {
+    setTimeout(() => {
+      flashMessage.remove();
+    }, 6000);
+  });
+});
+
 // connect if there are any LiveViews on the page
 liveSocket.connect();
 

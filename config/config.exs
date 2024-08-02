@@ -9,7 +9,8 @@ import Config
 
 config :sb_cascade,
   ecto_repos: [SbCascade.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime],
+  local_timezone: "America/New_York"
 
 # Configures the endpoint
 config :sb_cascade, SbCascadeWeb.Endpoint,
@@ -35,8 +36,8 @@ config :sb_cascade, SbCascade.Mailer, adapter: Swoosh.Adapters.Local
 config :flop, repo: SbCascade.Repo
 
 config :flop_phoenix,
-  pagination: [opts: {SbCascadeWeb.Components.CustomComponents, :pagination_opts}],
-  table: [opts: {SbCascadeWeb.Components.CustomComponents, :table_opts}]
+  pagination: [opts: {SbCascadeWeb.Components.FlopComponents, :pagination_opts}],
+  table: [opts: {SbCascadeWeb.Components.FlopComponents, :table_opts}]
 
 # Configure esbuild (the version is required)
 config :esbuild,
@@ -67,6 +68,9 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Time zone database
+config :elixir, :time_zone_database, Tz.TimeZoneDatabase
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
