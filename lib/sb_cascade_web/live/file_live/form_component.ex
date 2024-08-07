@@ -1,42 +1,16 @@
 defmodule SbCascadeWeb.FileLive.FormComponent do
   use SbCascadeWeb, :live_component
 
+  import SbCascadeWeb.Helpers.Upload
+
   alias SbCascade.Content
-
-  @impl true
-  def render(assigns) do
-    ~H"""
-    <div>
-      <.header>
-        <%= @title %>
-        <:subtitle>Use this form to manage file records in your database.</:subtitle>
-      </.header>
-
-      <.simple_form
-        for={@form}
-        id="file-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:width]} type="number" label="Width" />
-        <.input field={@form[:height]} type="number" label="Height" />
-        <.input field={@form[:url]} type="text" label="Url" />
-        <.live_file_input upload={@uploads.image} />
-        <:actions>
-          <.button phx-disable-with="Saving...">Save File</.button>
-        </:actions>
-      </.simple_form>
-    </div>
-    """
-  end
 
   @impl true
   def update(%{file: file} = assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:show_browser, false)
      |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 1)
      |> assign_new(:form, fn ->
        to_form(Content.change_file(file))
@@ -51,6 +25,14 @@ defmodule SbCascadeWeb.FileLive.FormComponent do
 
   def handle_event("save", %{"file" => file_params}, socket) do
     save_file(socket, socket.assigns.action, file_params)
+  end
+
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :image, ref)}
+  end
+
+  def handle_event("show-browser", _, socket) do
+    {:noreply, assign(socket, show_browser: true)}
   end
 
   defp save_file(socket, :edit, file_params) do

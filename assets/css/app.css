@@ -3,3 +3,19 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+input[type="file"]::file-selector-button {
+    @apply bg-secondary dark:bg-secondary_dark;
+    @apply rounded rounded-r-none;
+
+    border: none;
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+input[type="file"]::file-selector-button:hover {
+    @apply bg-brand dark:bg-brand_dark;
+}

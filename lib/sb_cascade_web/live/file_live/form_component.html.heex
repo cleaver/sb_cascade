@@ -1,0 +1,86 @@
+<div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
+  <.header>
+    <%= @title %>
+    <:subtitle>Use this form to manage file records in your database.</:subtitle>
+  </.header>
+
+  <.simple_form
+    for={@form}
+    id="file-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <.input field={@form[:name]} type="text" label="Name" />
+    <.input field={@form[:width]} type="number" label="Width" />
+    <.input field={@form[:height]} type="number" label="Height" />
+    <.input field={@form[:url]} type="text" label="Url" />
+
+    <section
+      phx-drop-target={@uploads.image.ref}
+      class="flex flex-col justify-start w-full min-h-36 p-6 rounded-lg border-2 border-dashed border-outline dark:border-outline_dark"
+    >
+      <div class="w-full h-full text-center align-middle">
+        <div :if={@uploads.image.entries == []}>
+          <p class="text-2xl font-bold text-light_text dark:text-light_text_dark">
+            Drop files here, or
+          </p>
+          <button
+            :if={not @show_browser}
+            type="button"
+            phx-click="show-browser"
+            phx-target={@myself}
+            class="p-0 underline hover:no-underline text-2xl font-bold text-light_text dark:text-light_text_dark"
+          >
+            select files
+          </button>
+        </div>
+        <div style={maybe_show(@uploads.image.entries == [] and @show_browser)}>
+          <.live_file_input
+            upload={@uploads.image}
+            class={[
+              "mt-4 text-light_text dark:text-light_text_dark border-outline dark:border-outline_dark",
+              "rounded cursor-pointer bg-body_bg dark:bg-body_bg_dark placeholder-body_text"
+            ]}
+          />
+        </div>
+      </div>
+      <div class="flex w-full justify-start">
+      <%= for entry <- @uploads.image.entries do %>
+        <article class="flex flex-col items-end">
+          <button
+            type="button"
+            phx-click="cancel-upload"
+            phx-target={@myself}
+            phx-value-ref={entry.ref}
+            aria-label="cancel"
+            class="drop-shadow-lg"
+          >
+            <.icon
+              name="hero-x-circle-solid"
+              class="w-5 h-5 text-light_bg_text dark:text-light_text_dark"
+            />
+          </button>
+          <figure class="drop-shadow-lg">
+            <.live_img_preview entry={entry} class="max-w-56 h-auto" />
+          </figure>
+          <progress value={entry.progress} max="100" class="w-full drop-shadow-lg">
+            <%= entry.progress %>%
+          </progress>
+          <%= for err <- upload_errors(@uploads.image, entry) do %>
+            <p class="alert alert-danger"><%= error_to_string(err) %></p>
+          <% end %>
+        </article>
+      <% end %>
+    </div>
+    </section>
+    <:actions>
+      <div class="w-full flex justify-end space-x-6">
+        <.button type="button" phx-click={JS.patch(~p"/comics")} color="secondary">
+          Cancel
+        </.button>
+        <.button phx-disable-with="Saving..." color="primary">Save File</.button>
+      </div>
+    </:actions>
+  </.simple_form>
+</div>

@@ -6,7 +6,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="p-6 bg-light_bg dark:bg-light_bg_dark">
+    <div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
       <.header>
         <%= @title %>
       </.header>
@@ -33,7 +33,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
         <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />
         <:actions>
           <div class="w-full flex justify-end space-x-6">
-            <.button type="button" phx-click={JS.patch(~p"/comics")} class="bg-secondary">
+            <.button type="button" phx-click={JS.patch(~p"/comics")} color="secondary">
               Cancel
             </.button>
             <.button phx-disable-with="Saving..." class="bg-primary dark:bg-primary_dark">

@@ -88,6 +88,7 @@ defmodule SbCascadeWeb do
       import SbCascadeWeb.Components.FlopComponents
       import SbCascadeWeb.CoreComponents
       import SbCascadeWeb.Gettext
+      import SbCascadeWeb.Helpers.Style
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

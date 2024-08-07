@@ -42,6 +42,9 @@ module.exports = {
         secondary: "#475569",
         secondary_dark: "#2F3946",
       },
+      borderWidth: {
+        3: '3px',
+      },
     },
   },
   plugins: [
