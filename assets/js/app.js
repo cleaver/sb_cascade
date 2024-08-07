@@ -53,7 +53,6 @@ document.addEventListener("phx:update", () => {
 // Have flash messages disappear after 6 seconds.
 document.addEventListener("phx:update", () => {
   const flashMessages = document.querySelectorAll("#flash-group > div");
-  console.log(flashMessages);
   flashMessages.forEach((flashMessage) => {
     setTimeout(() => {
       flashMessage.remove();
