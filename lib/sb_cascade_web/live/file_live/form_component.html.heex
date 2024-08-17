@@ -14,7 +14,7 @@
     <.input field={@form[:name]} type="text" label="Name" />
     <.input field={@form[:width]} type="number" label="Width" />
     <.input field={@form[:height]} type="number" label="Height" />
-    <.input field={@form[:url]} type="text" label="Url" />
+    <.input field={@form[:url]} type="hidden" />
 
     <section
       phx-drop-target={@uploads.image.ref}
@@ -46,33 +46,33 @@
         </div>
       </div>
       <div class="flex w-full justify-start">
-      <%= for entry <- @uploads.image.entries do %>
-        <article class="flex flex-col items-end">
-          <button
-            type="button"
-            phx-click="cancel-upload"
-            phx-target={@myself}
-            phx-value-ref={entry.ref}
-            aria-label="cancel"
-            class="drop-shadow-lg"
-          >
-            <.icon
-              name="hero-x-circle-solid"
-              class="w-5 h-5 text-light_bg_text dark:text-light_text_dark"
-            />
-          </button>
-          <figure class="drop-shadow-lg">
-            <.live_img_preview entry={entry} class="max-w-56 h-auto" />
-          </figure>
-          <progress value={entry.progress} max="100" class="w-full drop-shadow-lg">
-            <%= entry.progress %>%
-          </progress>
-          <%= for err <- upload_errors(@uploads.image, entry) do %>
-            <p class="alert alert-danger"><%= error_to_string(err) %></p>
-          <% end %>
-        </article>
-      <% end %>
-    </div>
+        <%= for entry <- @uploads.image.entries do %>
+          <article class="flex flex-col items-end">
+            <button
+              type="button"
+              phx-click="cancel-upload"
+              phx-target={@myself}
+              phx-value-ref={entry.ref}
+              aria-label="cancel"
+              class="drop-shadow-lg"
+            >
+              <.icon
+                name="hero-x-circle-solid"
+                class="w-5 h-5 text-light_bg_text dark:text-light_text_dark"
+              />
+            </button>
+            <figure class="drop-shadow-lg">
+              <.live_img_preview entry={entry} class="max-w-56 h-auto" />
+            </figure>
+            <progress value={entry.progress} max="100" class="w-full drop-shadow-lg">
+              <%= entry.progress %>%
+            </progress>
+            <%= for err <- upload_errors(@uploads.image, entry) do %>
+              <p class="alert alert-danger"><%= error_to_string(err) %></p>
+            <% end %>
+          </article>
+        <% end %>
+      </div>
     </section>
     <:actions>
       <div class="w-full flex justify-end space-x-6">

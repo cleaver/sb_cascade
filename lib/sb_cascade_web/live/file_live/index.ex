@@ -1,6 +1,8 @@
 defmodule SbCascadeWeb.FileLive.Index do
   use SbCascadeWeb, :live_view
 
+  import SbCascade.Helpers.File, only: [delete_uploaded_file: 1]
+
   alias SbCascade.Content
   alias SbCascade.Content.File
 
@@ -57,6 +59,7 @@ defmodule SbCascadeWeb.FileLive.Index do
   def handle_event("delete", %{"id" => id}, socket) do
     file = Content.get_file!(id)
     {:ok, _} = Content.delete_file(file)
+    delete_uploaded_file(file.url)
 
     fetch_data(socket)
   end

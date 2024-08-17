@@ -50,3 +50,6 @@ npm-debug.log
 
 # Ignore elixir-tools
 /.elixir-tools
+
+# Ignore uploads
+/priv/static/uploads/
