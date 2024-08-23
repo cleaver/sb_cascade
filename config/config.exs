@@ -11,8 +11,7 @@ config :sb_cascade,
   ecto_repos: [SbCascade.Repo],
   generators: [timestamp_type: :utc_datetime],
   local_timezone: "America/New_York",
-  upload_path: "priv/static/uploads",
-  upload_dir: "/uploads"
+  upload_path: "priv/static/uploads"
 
 # Configures the endpoint
 config :sb_cascade, SbCascadeWeb.Endpoint,
