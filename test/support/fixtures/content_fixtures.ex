@@ -33,7 +33,7 @@ defmodule SbCascade.ContentFixtures do
       |> Enum.into(%{
         height: 42,
         name: "some name",
-        url: "some url",
+        url: "/uploads/rubber-duck-icon.png",
         width: 42
       })
       |> SbCascade.Content.create_file()

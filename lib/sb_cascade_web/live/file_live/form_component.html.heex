@@ -20,59 +20,47 @@
       phx-drop-target={@uploads.image.ref}
       class="flex flex-col justify-start w-full min-h-36 p-6 rounded-lg border-2 border-dashed border-outline dark:border-outline_dark"
     >
-      <div class="w-full h-full text-center align-middle">
-        <div :if={@uploads.image.entries == []}>
-          <p class="text-2xl font-bold text-light_text dark:text-light_text_dark">
-            Drop files here, or
-          </p>
-          <button
-            :if={not @show_browser}
-            type="button"
-            phx-click="show-browser"
-            phx-target={@myself}
-            class="p-0 underline hover:no-underline text-2xl font-bold text-light_text dark:text-light_text_dark"
-          >
-            select files
-          </button>
+      <%= if @action == :edit and @existing_image do %>
+        <div class="flex w-full justify-start">
+          <Image.thumbnail src={@existing_image} close_event="delete-image" target={@myself} />
         </div>
-        <div style={maybe_show(@uploads.image.entries == [] and @show_browser)}>
-          <.live_file_input
-            upload={@uploads.image}
-            class={[
-              "mt-4 text-light_text dark:text-light_text_dark border-outline dark:border-outline_dark",
-              "rounded cursor-pointer bg-body_bg dark:bg-body_bg_dark placeholder-body_text"
-            ]}
-          />
-        </div>
-      </div>
-      <div class="flex w-full justify-start">
-        <%= for entry <- @uploads.image.entries do %>
-          <article class="flex flex-col items-end">
+      <% else %>
+        <div class="w-full h-full text-center align-middle">
+          <div :if={@uploads.image.entries == []}>
+            <p class="text-2xl font-bold text-light_text dark:text-light_text_dark">
+              Drop files here, or
+            </p>
             <button
+              :if={not @show_browser}
               type="button"
-              phx-click="cancel-upload"
+              phx-click="show-browser"
               phx-target={@myself}
-              phx-value-ref={entry.ref}
-              aria-label="cancel"
-              class="drop-shadow-lg"
+              class="p-0 underline hover:no-underline text-2xl font-bold text-light_text dark:text-light_text_dark"
             >
-              <.icon
-                name="hero-x-circle-solid"
-                class="w-5 h-5 text-light_bg_text dark:text-light_text_dark"
-              />
+              select files
             </button>
-            <figure class="drop-shadow-lg">
-              <.live_img_preview entry={entry} class="max-w-56 h-auto" />
-            </figure>
-            <progress value={entry.progress} max="100" class="w-full drop-shadow-lg">
-              <%= entry.progress %>%
-            </progress>
-            <%= for err <- upload_errors(@uploads.image, entry) do %>
-              <p class="alert alert-danger"><%= error_to_string(err) %></p>
-            <% end %>
-          </article>
-        <% end %>
-      </div>
+          </div>
+          <div style={maybe_show(@uploads.image.entries == [] and @show_browser)}>
+            <.live_file_input
+              upload={@uploads.image}
+              class={[
+                "mt-4 text-light_text dark:text-light_text_dark border-outline dark:border-outline_dark",
+                "rounded cursor-pointer bg-body_bg dark:bg-body_bg_dark placeholder-body_text"
+              ]}
+            />
+          </div>
+        </div>
+        <div class="flex w-full justify-start">
+          <%= for entry <- @uploads.image.entries do %>
+            <Image.thumbnail
+              entry={entry}
+              close_event="cancel-upload"
+              target={@myself}
+              uploads={@uploads.image}
+            />
+          <% end %>
+        </div>
+      <% end %>
     </section>
     <:actions>
       <div class="w-full flex justify-end space-x-6">

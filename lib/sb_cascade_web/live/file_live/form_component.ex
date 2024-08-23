@@ -2,9 +2,9 @@ defmodule SbCascadeWeb.FileLive.FormComponent do
   use SbCascadeWeb, :live_component
 
   import SbCascade.Helpers.File
-  import SbCascadeWeb.Helpers.Upload
 
   alias SbCascade.Content
+  alias SbCascadeWeb.UI.Image
 
   @impl true
   def update(%{file: file} = assigns, socket) do
@@ -12,6 +12,7 @@ defmodule SbCascadeWeb.FileLive.FormComponent do
      socket
      |> assign(assigns)
      |> assign(:show_browser, false)
+     |> assign(existing_image: file.url)
      |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 1)
      |> assign_new(:form, fn ->
        to_form(Content.change_file(file))
@@ -37,16 +38,19 @@ defmodule SbCascadeWeb.FileLive.FormComponent do
     {:noreply, assign(socket, show_browser: true)}
   end
 
+  def handle_event("delete-image", _, socket) do
+    {:noreply, assign(socket, existing_image: nil)}
+  end
+
   defp set_url_placeholder(socket, file_params) do
     case socket.assigns.uploads.image.entries do
-      [] -> Map.put(file_params, "url", "")
-      _ -> Map.put(file_params, "url", "Uploading...")
+      [entry | _] -> Map.put(file_params, "url", "/uploads/#{entry.client_name}")
+      _ -> file_params
     end
   end
 
   defp save_file(socket, :edit, file_params) do
-    [file_url] = copy_uploaded_file(socket)
-    Map.put(file_params, "url", file_url)
+    file_params = maybe_update_file_url(socket, file_params)
 
     case Content.update_file(socket.assigns.file, file_params) do
       {:ok, file} ->
@@ -82,6 +86,17 @@ defmodule SbCascadeWeb.FileLive.FormComponent do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
+    end
+  end
+
+  defp maybe_update_file_url(socket, file_params) do
+    case socket.assigns.uploads.image.entries do
+      [_entry | _] ->
+        [file_url] = copy_uploaded_file(socket)
+        Map.put(file_params, "url", file_url)
+
+      _ ->
+        file_params
     end
   end
 

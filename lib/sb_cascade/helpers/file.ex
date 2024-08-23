@@ -3,6 +3,14 @@ defmodule SbCascade.Helpers.File do
   File helper functions
   """
 
+  def upload_path do
+    Application.get_env(:sb_cascade, :upload_path)
+  end
+
+  defp full_upload_path do
+    Application.app_dir(:sb_cascade, upload_path())
+  end
+
   def copy_file_to_upload_path(source_file, file_name) do
     destination_filename = unique_destination_filename(file_name)
     File.cp!(source_file, destination_filename)
@@ -10,10 +18,7 @@ defmodule SbCascade.Helpers.File do
   end
 
   def unique_destination_filename(file_name) do
-    upload_path = Application.get_env(:sb_cascade, :upload_path)
-
-    destination_filename =
-      Path.join(Application.app_dir(:sb_cascade, upload_path), Path.basename(file_name))
+    destination_filename = Path.join(full_upload_path(), Path.basename(file_name))
 
     if File.exists?(destination_filename) do
       file_name
@@ -35,11 +40,13 @@ defmodule SbCascade.Helpers.File do
     end
   end
 
-  def delete_uploaded_file(file_url) do
-    file_name = URI.decode(file_url)
+  def delete_uploaded_file(nil), do: nil
 
-    Application.app_dir(:sb_cascade, Application.get_env(:sb_cascade, :upload_path))
-    |> Path.join(Path.basename(file_name))
-    |> File.rm!()
+  def delete_uploaded_file(file_url) do
+    file_path = URI.decode(file_url)
+
+    full_upload_path()
+    |> Path.join(Path.basename(file_path))
+    |> File.rm()
   end
 end

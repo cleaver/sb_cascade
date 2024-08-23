@@ -1,4 +1,7 @@
 defmodule SbCascadeWeb.UI.Image do
+  @moduledoc """
+  Image components.
+  """
   use SbCascadeWeb, :html
 
   import SbCascadeWeb.Helpers.Upload
@@ -7,7 +10,7 @@ defmodule SbCascadeWeb.UI.Image do
   attr :target, :any, required: true
   attr :uploads, :map
   attr :entry, :map, default: %{}
-  attr :src, :string
+  attr :src, :string, default: nil
   attr :rest, :global
 
   def thumbnail(assigns) do

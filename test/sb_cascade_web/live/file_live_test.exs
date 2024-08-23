@@ -1,21 +1,49 @@
 defmodule SbCascadeWeb.FileLiveTest do
-  use SbCascadeWeb.ConnCase
+  @moduledoc """
+  File live tests.
+
+  `async: false` to prevent conflicts with file uploads.
+  """
+  use SbCascadeWeb.ConnCase, async: false
 
   import Phoenix.LiveViewTest
   import SbCascade.ContentFixtures
   import SbCascade.AccountsFixtures
 
-  @create_attrs %{name: "some name", width: 42, url: "some url", height: 42}
-  @update_attrs %{name: "some updated name", width: 43, url: "some updated url", height: 43}
-  @invalid_attrs %{name: nil, width: nil, url: nil, height: nil}
+  alias SbCascade.Helpers.File, as: FileHelper
+
+  @create_attrs %{name: "some name", width: 42, height: 42}
+  @update_attrs %{name: "some updated name", width: 43, height: 43}
+  @invalid_attrs %{name: nil, width: nil, height: nil}
+  @file_name "rubber-duck-icon.png"
+
+  defp file_upload_metadata() do
+    %{
+      name: @file_name,
+      last_modified: 1_588_099_286,
+      size: 3_239,
+      type: "image/png",
+      content: File.read!(Path.join("./test/support/fixtures", @file_name))
+    }
+  end
 
   defp create_file(_) do
     file = file_fixture()
     %{file_fixture: file}
   end
 
+  defp clean_upload_directory(_) do
+    File.ls!(FileHelper.upload_path())
+    |> Enum.reject(&(&1 == ".keep"))
+    |> Enum.each(fn file ->
+      FileHelper.upload_path()
+      |> Path.join(file)
+      |> File.rm!()
+    end)
+  end
+
   describe "Index" do
-    setup [:create_file]
+    setup [:create_file, :clean_upload_directory]
 
     test "lists all files", %{conn: conn, file_fixture: file} do
       {:ok, _index_live, html} = conn |> log_in_user(user_fixture()) |> live(~p"/files")
@@ -35,6 +63,9 @@ defmodule SbCascadeWeb.FileLiveTest do
       assert index_live
              |> form("#file-form", file: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
+
+      upload_image = file_input(index_live, "#file-form", :image, [file_upload_metadata()])
+      assert render_upload(upload_image, @file_name) =~ "100%"
 
       assert index_live
              |> form("#file-form", file: @create_attrs)

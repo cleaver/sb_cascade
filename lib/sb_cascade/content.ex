@@ -8,6 +8,7 @@ defmodule SbCascade.Content do
   alias SbCascade.Repo
 
   alias SbCascade.Content.Comic
+  alias SbCascade.Helpers.File, as: FileHelper
 
   @doc """
   Returns the list of comics.
@@ -175,7 +176,7 @@ defmodule SbCascade.Content do
   end
 
   @doc """
-  Updates a file.
+  Updates a file record and the filesystem.
 
   ## Examples
 
@@ -187,9 +188,22 @@ defmodule SbCascade.Content do
 
   """
   def update_file(%File{} = file, attrs) do
+    new_file_url = attrs["url"]
+
     file
     |> File.changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, file} ->
+        if file.url != new_file_url do
+          FileHelper.delete_uploaded_file(new_file_url)
+        end
+
+        {:ok, file}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
   end
 
   @doc """

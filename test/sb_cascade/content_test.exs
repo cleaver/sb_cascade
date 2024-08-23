@@ -112,12 +112,12 @@ defmodule SbCascade.ContentTest do
     end
 
     test "create_file/1 with valid data creates a file" do
-      valid_attrs = %{name: "some name", width: 42, url: "some url", height: 42}
+      valid_attrs = %{name: "some name", width: 42, url: "/uploads/image.png", height: 42}
 
       assert {:ok, %File{} = file} = Content.create_file(valid_attrs)
       assert file.name == "some name"
       assert file.width == 42
-      assert file.url == "some url"
+      assert file.url == "/uploads/image.png"
       assert file.height == 42
     end
 
@@ -127,12 +127,18 @@ defmodule SbCascade.ContentTest do
 
     test "update_file/2 with valid data updates the file" do
       file = file_fixture()
-      update_attrs = %{name: "some updated name", width: 43, url: "some updated url", height: 43}
+
+      update_attrs = %{
+        name: "some updated name",
+        width: 43,
+        url: "/uploads/image.png",
+        height: 43
+      }
 
       assert {:ok, %File{} = file} = Content.update_file(file, update_attrs)
       assert file.name == "some updated name"
       assert file.width == 43
-      assert file.url == "some updated url"
+      assert file.url == "/uploads/image.png"
       assert file.height == 43
     end
 
