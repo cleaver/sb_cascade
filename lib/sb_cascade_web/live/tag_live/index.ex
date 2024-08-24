@@ -6,12 +6,28 @@ defmodule SbCascadeWeb.TagLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :tags, Content.list_tags())}
+    {:ok, socket}
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
+  def handle_params(params, _url, socket) when socket.assigns.live_action in [:edit, :new] do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  end
+
+  def handle_params(params, _url, socket) do
+    socket
+    |> assign(params: params)
+    |> fetch_data()
+  end
+
+  defp fetch_data(socket) do
+    case Content.list_tags(socket.assigns.params) do
+      {:ok, {tags, meta}} ->
+        {:noreply, assign(socket, %{tags: tags, meta: meta})}
+
+      {:error, _meta} ->
+        {:noreply, push_navigate(socket, to: ~p"/tags")}
+    end
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
@@ -33,8 +49,8 @@ defmodule SbCascadeWeb.TagLive.Index do
   end
 
   @impl true
-  def handle_info({SbCascadeWeb.TagLive.FormComponent, {:saved, tag}}, socket) do
-    {:noreply, stream_insert(socket, :tags, tag)}
+  def handle_info({SbCascadeWeb.TagLive.FormComponent, {:saved, _tag}}, socket) do
+    fetch_data(socket)
   end
 
   @impl true
@@ -42,6 +58,6 @@ defmodule SbCascadeWeb.TagLive.Index do
     tag = Content.get_tag!(id)
     {:ok, _} = Content.delete_tag(tag)
 
-    {:noreply, stream_delete(socket, :tags, tag)}
+    fetch_data(socket)
   end
 end

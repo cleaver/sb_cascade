@@ -8,7 +8,9 @@ defmodule SbCascade.Content do
   alias SbCascade.Repo
 
   alias SbCascade.Content.Comic
+  alias SbCascade.Content.File
   alias SbCascade.Helpers.File, as: FileHelper
+  alias SbCascade.Content.Tag
 
   @doc """
   Returns the list of comics.
@@ -115,8 +117,6 @@ defmodule SbCascade.Content do
   def change_comic(%Comic{} = comic, attrs \\ %{}) do
     Comic.changeset(comic, attrs)
   end
-
-  alias SbCascade.Content.File
 
   @doc """
   Returns the list of files.
@@ -235,8 +235,6 @@ defmodule SbCascade.Content do
     File.changeset(file, attrs)
   end
 
-  alias SbCascade.Content.Tag
-
   @doc """
   Returns the list of tags.
 
@@ -248,6 +246,16 @@ defmodule SbCascade.Content do
   """
   def list_tags do
     Repo.all(Tag)
+  end
+
+  def list_tags(params) do
+    params =
+      params
+      |> string_keys_to_atom_keys()
+      |> set_default_page_size()
+      |> set_default_order(:inserted_at, :desc)
+
+    Flop.validate_and_run(Tag, params, for: Tag)
   end
 
   @doc """
