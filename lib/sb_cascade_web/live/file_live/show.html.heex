@@ -1,6 +1,6 @@
 <.header>
-  File <%= @file.id %>
-  <:subtitle>This is a file record from your database.</:subtitle>
+  Media File: <%= @file.name %>
+  <:subtitle>This is a media record from your database.</:subtitle>
   <:actions>
     <.link patch={~p"/files/#{@file}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit file</.button>
