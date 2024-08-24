@@ -6,10 +6,9 @@ defmodule SbCascadeWeb.TagLive.FormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div>
+    <div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage tag records in your database.</:subtitle>
       </.header>
 
       <.simple_form
@@ -21,7 +20,10 @@ defmodule SbCascadeWeb.TagLive.FormComponent do
       >
         <.input field={@form[:name]} type="text" label="Name" />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Tag</.button>
+          <div class="w-full flex justify-end space-x-6">
+            <.button type="button" phx-click={JS.patch(~p"/tags")} color="secondary">Cancel</.button>
+            <.button phx-disable-with="Saving..." color="primary">Save Tag</.button>
+          </div>
         </:actions>
       </.simple_form>
     </div>

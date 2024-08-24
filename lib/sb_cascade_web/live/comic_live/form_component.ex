@@ -36,7 +36,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
             <.button type="button" phx-click={JS.patch(~p"/comics")} color="secondary">
               Cancel
             </.button>
-            <.button phx-disable-with="Saving..." class="bg-primary dark:bg-primary_dark">
+            <.button phx-disable-with="Saving..." color="primary">
               Save Comic
             </.button>
           </div>
