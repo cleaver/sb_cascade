@@ -40,4 +40,18 @@ defmodule SbCascade.ContentFixtures do
 
     file
   end
+
+  @doc """
+  Generate a tag.
+  """
+  def tag_fixture(attrs \\ %{}) do
+    {:ok, tag} =
+      attrs
+      |> Enum.into(%{
+        name: "some name"
+      })
+      |> SbCascade.Content.create_tag()
+
+    tag
+  end
 end
