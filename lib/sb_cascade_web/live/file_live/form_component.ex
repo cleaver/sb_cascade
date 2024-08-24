@@ -13,7 +13,11 @@ defmodule SbCascadeWeb.FileLive.FormComponent do
      |> assign(assigns)
      |> assign(:show_browser, false)
      |> assign(existing_image: file.url)
-     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 1)
+     |> allow_upload(:image,
+       accept: ~w(.jpg .jpeg .png),
+       max_entries: 1,
+       max_file_size: 5_000_000
+     )
      |> assign_new(:form, fn ->
        to_form(Content.change_file(file))
      end)}
