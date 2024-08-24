@@ -3,32 +3,32 @@
 ## Todo:
 
 - [x] Authentication
-- [ ] Darkmode enhancements
-  - [ ] light mode brand buttons
-- [ ] Navigation
-  - [ ] Cancel from forms
-- [ ] Main menu
+- [x] Darkmode enhancements
+  - [x] light mode brand buttons
+- [x] Navigation
+  - [x] Cancel from forms
+- [x] Main menu
   - [x] Links
   - [x] Make pretty
 - [ ] Data model
-  - [ ] Comics
-  - [ ] Tags
-  - [ ] Files
-  - [ ] Content
+  - [x] Comics
+  - [x] Tags
+  - [x] Files
+  - [ ] Pages
   - [ ] Site metadata
 - [ ] Filter and pagination
   - [ ] Comics
   - [ ] Tags
   - [ ] Files
-  - [ ] Content
+  - [ ] Pages
 - [ ] Edit forms
-  - [ ] Comics
+  - [x] Comics
   - [ ] Tags
-  - [ ] Files
-  - [ ] Content
+  - [x] Files
+  - [ ] Pages
   - [ ] Site metadata
 - [ ] API
   - [ ] Comics
   - [ ] Tags
-  - [ ] Content
+  - [ ] Pages
   - [ ] Site metadata
