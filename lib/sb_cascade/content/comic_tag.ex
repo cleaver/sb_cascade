@@ -6,10 +6,6 @@ defmodule SbCascade.Content.ComicTag do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @required_fields ~w(ordinal comic_id tag_id)a
-  @optional_fields ~w()a
-  @all_fields @required_fields ++ @optional_fields
-
   schema "comic_tags" do
     field :ordinal, :integer
     belongs_to :comic, SbCascade.Content.Comic
@@ -19,9 +15,11 @@ defmodule SbCascade.Content.ComicTag do
   end
 
   @doc false
-  def changeset(comic_tag, attrs) do
+  def changeset(comic_tag, attrs, ordinal) do
     comic_tag
-    |> cast(attrs, @all_fields)
-    |> validate_required(@required_fields)
+    |> cast(attrs, [:comic_id, :tag_id])
+    |> change(ordinal: ordinal)
+    |> validate_required([:comic_id, :ordinal, :tag_id])
+    |> unique_constraint([:comic, :tag], name: :comic__tag__comic_id__tag_id__index)
   end
 end

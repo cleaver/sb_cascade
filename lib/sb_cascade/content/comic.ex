@@ -39,5 +39,10 @@ defmodule SbCascade.Content.Comic do
     comic
     |> cast(attrs, @all_fields)
     |> validate_required(@required_fields)
+    |> cast_assoc(:comic_tags,
+      with: &SbCascade.Content.ComicTag.changeset/3,
+      sort_param: :tags_order,
+      delete_param: :tags_delete
+    )
   end
 end
