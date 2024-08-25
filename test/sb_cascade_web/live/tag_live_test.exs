@@ -23,7 +23,7 @@ defmodule SbCascadeWeb.TagLiveTest do
         |> log_in_user(user_fixture())
         |> live(~p"/tags")
 
-      assert html =~ "Listing Tags"
+      assert html =~ "Tags"
       assert html =~ tag.name
     end
 
