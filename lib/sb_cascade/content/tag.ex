@@ -11,6 +11,8 @@ defmodule SbCascade.Content.Tag do
   schema "tags" do
     field :name, :string
 
+    many_to_many :comics, SbCascade.Content.Comic, join_through: "comic_tags"
+
     timestamps(type: :utc_datetime)
   end
 

@@ -6,6 +6,10 @@ defmodule SbCascade.Content.Comic do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @required_fields ~w(title body slug published post_date meta_description image_alt_text)a
+  @optional_fields ~w(user_id)a
+  @all_fields @required_fields ++ @optional_fields
+
   @derive {
     Flop.Schema,
     filterable: [:title, :body], sortable: [:title, :body, :post_date]
@@ -21,29 +25,19 @@ defmodule SbCascade.Content.Comic do
     field :image_alt_text, :string
     field :user_id, :id
 
+    has_many :comic_tags, SbCascade.Content.ComicTag,
+      preload_order: [asc: :ordinal],
+      on_replace: :delete
+
+    has_many :tags, through: [:comic_tags, :tag]
+
     timestamps(type: :utc_datetime)
   end
 
   @doc false
   def changeset(comic, attrs) do
     comic
-    |> cast(attrs, [
-      :title,
-      :body,
-      :slug,
-      :published,
-      :post_date,
-      :meta_description,
-      :image_alt_text
-    ])
-    |> validate_required([
-      :title,
-      :body,
-      :slug,
-      :published,
-      :post_date,
-      :meta_description,
-      :image_alt_text
-    ])
+    |> cast(attrs, @all_fields)
+    |> validate_required(@required_fields)
   end
 end
