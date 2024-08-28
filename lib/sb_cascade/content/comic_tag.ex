@@ -8,8 +8,8 @@ defmodule SbCascade.Content.ComicTag do
 
   schema "comic_tags" do
     field :ordinal, :integer
-    belongs_to :comic, SbCascade.Content.Comic
-    belongs_to :tag, SbCascade.Content.Tag
+    belongs_to :comic, SbCascade.Content.Comic, primary_key: true
+    belongs_to :tag, SbCascade.Content.Tag, primary_key: true
 
     timestamps(type: :utc_datetime)
   end

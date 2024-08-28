@@ -172,6 +172,11 @@ defmodule SbCascade.ContentTest do
       assert Content.list_tags() == [tag]
     end
 
+    test "list_tag_options/0 returns all tags as options" do
+      tag = tag_fixture()
+      assert Content.list_tag_options() == [{tag.name, tag.id}]
+    end
+
     test "get_tag!/1 returns the tag with given id" do
       tag = tag_fixture()
       assert Content.get_tag!(tag.id) == tag

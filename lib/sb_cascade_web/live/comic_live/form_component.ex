@@ -1,65 +1,46 @@
 defmodule SbCascadeWeb.ComicLive.FormComponent do
+  alias SbCascade.Content.ComicTag
   use SbCascadeWeb, :live_component
 
   alias SbCascade.Content
 
   @impl true
-  def render(assigns) do
-    ~H"""
-    <div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
-      <.header>
-        <%= @title %>
-      </.header>
+  def update(%{comic: comic} = assigns, socket) do
+    changeset = Content.change_comic(comic)
 
-      <.simple_form
-        for={@form}
-        id="comic-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:body]} type="textarea" rows="7" label="Body" />
-        <.input field={@form[:slug]} type="text" label="Slug" />
-        <div class="flex gap-6">
-          <div class="flex-1">
-            <.input field={@form[:post_date]} type="date" label="Post date" />
-          </div>
-          <div class="flex-1">
-            <.input field={@form[:published]} type="checkbox" label="Published" />
-          </div>
-        </div>
-        <.input field={@form[:meta_description]} type="text" label="Meta description" />
-        <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />
-        <:actions>
-          <div class="w-full flex justify-end space-x-6">
-            <.button type="button" phx-click={JS.patch(~p"/comics")} color="secondary">
-              Cancel
-            </.button>
-            <.button phx-disable-with="Saving..." color="primary">
-              Save Comic
-            </.button>
-          </div>
-        </:actions>
-      </.simple_form>
-    </div>
-    """
+    socket =
+      socket
+      |> assign(assigns)
+      |> assign_form(changeset)
+      |> assign_tags()
+
+    {:ok, socket}
   end
 
-  @impl true
-  def update(%{comic: comic} = assigns, socket) do
-    {:ok,
-     socket
-     |> assign(assigns)
-     |> assign_new(:form, fn ->
-       to_form(Content.change_comic(comic))
-     end)}
+  defp assign_form(socket, %Ecto.Changeset{} = changeset) do
+    if Ecto.Changeset.get_field(changeset, :comic_tags) == [] do
+      comic_tag = %ComicTag{}
+      changeset = Ecto.Changeset.put_change(changeset, :comic_tags, [comic_tag])
+      assign(socket, :form, to_form(changeset))
+    else
+      assign(socket, :form, to_form(changeset))
+    end
+  end
+
+  defp assign_tags(socket) do
+    tags = Content.list_tag_options()
+    assign(socket, tags: tags)
   end
 
   @impl true
   def handle_event("validate", %{"comic" => comic_params}, socket) do
-    changeset = Content.change_comic(socket.assigns.comic, comic_params)
-    {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
+    comic_form =
+      socket.assigns.comic
+      |> Content.change_comic(comic_params)
+      |> Map.put(:action, :validate)
+      |> to_form()
+
+    {:noreply, assign(socket, :form, comic_form)}
   end
 
   def handle_event("save", %{"comic" => comic_params}, socket) do

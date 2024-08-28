@@ -259,6 +259,14 @@ defmodule SbCascade.Content do
   end
 
   @doc """
+  Returns a list of tag options for select inputs.
+  """
+  def list_tag_options do
+    Repo.all(Tag)
+    |> Enum.map(&{&1.name, &1.id})
+  end
+
+  @doc """
   Gets a single tag.
 
   Raises `Ecto.NoResultsError` if the Tag does not exist.

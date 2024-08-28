@@ -1,0 +1,60 @@
+<div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
+  <.header>
+    <%= @title %>
+  </.header>
+
+  <.simple_form
+    for={@form}
+    id="comic-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <.input field={@form[:title]} type="text" label="Title" />
+    <.input field={@form[:body]} type="textarea" rows="7" label="Body" />
+    <.input field={@form[:slug]} type="text" label="Slug" />
+    <div id="tags" phx-hook="SortableInputsFor" class="space-y-2">
+      <.inputs_for :let={comic_tag} field={@form[:comic_tags]}>
+        <div class="flex space-x-2 drag-item">
+          <.icon name="hero-bars-3" data-handle class="w-5 h-5" />
+          <input type="hidden" name="comic[tags_order][]" value={comic_tag.index} />
+          <label>
+            <input
+              type="checkbox"
+              name="comic[tags_delete][]"
+              value={comic_tag.index}
+              class="hidden"
+            />
+            <.icon name="hero-x-mark" class="w-5 h-5" />
+          </label>
+          <.input field={comic_tag[:tag_id]} type="select" label="Tag" options={@tags} />
+        </div>
+      </.inputs_for>
+
+      <label class="block cursor-pointer">
+        <input type="checkbox" name="comic[tags_order][]" class="hidden" />
+        <.icon name="hero-plus-circle" class="w-5 h-5 align-text-bottom" /> Add more
+      </label>
+    </div>
+    <div class="flex gap-6">
+      <div class="flex-1">
+        <.input field={@form[:post_date]} type="date" label="Post date" />
+      </div>
+      <div class="flex-1">
+        <.input field={@form[:published]} type="checkbox" label="Published" />
+      </div>
+    </div>
+    <.input field={@form[:meta_description]} type="text" label="Meta description" />
+    <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />
+    <:actions>
+      <div class="w-full flex justify-end space-x-6">
+        <.button type="button" phx-click={JS.patch(~p"/comics")} color="secondary">
+          Cancel
+        </.button>
+        <.button phx-disable-with="Saving..." color="primary">
+          Save Comic
+        </.button>
+      </div>
+    </:actions>
+  </.simple_form>
+</div>
