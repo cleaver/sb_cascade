@@ -40,11 +40,14 @@ defmodule SbCascade.Content.Comic do
   def changeset(comic, attrs) do
     comic
     |> cast(attrs, @all_fields)
+    |> IO.inspect(label: "comic changeset")
     |> validate_required(@required_fields)
     |> cast_assoc(:comic_tags,
       with: &ComicTag.changeset/3,
       sort_param: :tags_order,
-      delete_param: :tags_delete
+      drop_param:
+        :tags_delete
+        |> IO.inspect(label: "after cast_assoc")
     )
   end
 end

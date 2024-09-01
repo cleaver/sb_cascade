@@ -16,9 +16,10 @@
     <div id="tags" phx-hook="SortableInputsFor" class="space-y-2">
       <.inputs_for :let={comic_tag} field={@form[:comic_tags]}>
         <div class="flex space-x-2 drag-item">
-          <.icon name="hero-bars-3" data-handle class="w-5 h-5" />
+          <.icon name="hero-bars-2" data-handle class="w-5 h-5 mt-3" />
           <input type="hidden" name="comic[tags_order][]" value={comic_tag.index} />
-          <label>
+          <.select field={comic_tag[:tag_id]} label="Tag" options={@tags} />
+          <label class="mt-2">
             <input
               type="checkbox"
               name="comic[tags_delete][]"
@@ -27,11 +28,10 @@
             />
             <.icon name="hero-x-mark" class="w-5 h-5" />
           </label>
-          <.input field={comic_tag[:tag_id]} type="select" label="Tag" options={@tags} />
         </div>
       </.inputs_for>
 
-      <label class="block cursor-pointer">
+      <label class="block pt-3 cursor-pointer">
         <input type="checkbox" name="comic[tags_order][]" class="hidden" />
         <.icon name="hero-plus-circle" class="w-5 h-5 align-text-bottom" /> Add more
       </label>

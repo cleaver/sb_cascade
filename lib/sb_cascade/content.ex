@@ -34,7 +34,7 @@ defmodule SbCascade.Content do
       |> set_default_page_size()
       |> set_default_order(:post_date, :desc)
 
-    Flop.validate_and_run(Comic, params, for: Comic)
+    Flop.validate_and_run(params, for: Comic)
   end
 
   @doc """
@@ -51,7 +51,11 @@ defmodule SbCascade.Content do
       ** (Ecto.NoResultsError)
 
   """
-  def get_comic!(id), do: Repo.get!(Comic, id)
+  def get_comic!(id) do
+    Comic
+    |> Repo.get!(id)
+    |> Repo.preload([:comic_tags])
+  end
 
   @doc """
   Creates a comic.
@@ -115,6 +119,8 @@ defmodule SbCascade.Content do
 
   """
   def change_comic(%Comic{} = comic, attrs \\ %{}) do
+    IO.inspect(comic, label: "change_comic() - comic")
+    IO.inspect(attrs, label: "change_comic() - attrs")
     Comic.changeset(comic, attrs)
   end
 
