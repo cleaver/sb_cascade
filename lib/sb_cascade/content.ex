@@ -34,7 +34,7 @@ defmodule SbCascade.Content do
       |> set_default_page_size()
       |> set_default_order(:post_date, :desc)
 
-    Flop.validate_and_run(params, for: Comic)
+    Flop.validate_and_run(Comic, params, for: Comic)
   end
 
   @doc """

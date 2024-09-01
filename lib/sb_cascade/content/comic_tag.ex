@@ -19,7 +19,7 @@ defmodule SbCascade.Content.ComicTag do
     comic_tag
     |> cast(attrs, [:comic_id, :tag_id])
     |> change(ordinal: ordinal)
-    # |> validate_required([:comic_id, :ordinal, :tag_id])
+    |> validate_required([:comic_id, :ordinal, :tag_id])
     |> unique_constraint([:comic, :tag], name: :comic_tag_comic_id_tag_id_index)
   end
 end
