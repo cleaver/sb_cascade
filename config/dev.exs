@@ -2,10 +2,17 @@ import Config
 
 # Configure your database
 config :sb_cascade, SbCascade.Repo,
-  database: Path.expand("../sb_cascade_dev.db", __DIR__),
-  pool_size: 5,
+  # database: Path.expand("../sb_cascade_dev.db", __DIR__),
+  # pool_size: 5,
+  # stacktrace: true,
+  # show_sensitive_data_on_connection_error: true
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "sb_cascasde_dev",
   stacktrace: true,
-  show_sensitive_data_on_connection_error: true
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
