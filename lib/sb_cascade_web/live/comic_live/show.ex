@@ -13,7 +13,7 @@ defmodule SbCascadeWeb.ComicLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:comic, Content.get_comic!(id))}
+     |> assign(:comic, Content.get_comic!(id, load: :tags))}
   end
 
   defp page_title(:show), do: "Show Comic"

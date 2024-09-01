@@ -11,6 +11,11 @@
 <.list>
   <:item title="Title"><%= @comic.title %></:item>
   <:item title="Body"><%= @comic.body %></:item>
+  <:item title="Tags">
+    <ul>
+      <li :for={tag <- @comic.tags}><%= tag.name %></li>
+    </ul>
+  </:item>
   <:item title="Slug"><%= @comic.slug %></:item>
   <:item title="Published"><%= @comic.published %></:item>
   <:item title="Post date"><%= @comic.post_date %></:item>

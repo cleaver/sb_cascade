@@ -57,6 +57,12 @@ defmodule SbCascade.Content do
     |> Repo.preload([:comic_tags])
   end
 
+  def get_comic!(id, load: :tags) do
+    Comic
+    |> Repo.get!(id)
+    |> Repo.preload([:tags])
+  end
+
   @doc """
   Creates a comic.
 
