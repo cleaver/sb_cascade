@@ -20,6 +20,9 @@
   <:item title="Published"><%= @comic.published %></:item>
   <:item title="Post date"><%= @comic.post_date %></:item>
   <:item title="Meta description"><%= @comic.meta_description %></:item>
+  <:item title="Media">
+    <img :if={@comic.media} src={@comic.media.url} class="max-w-lg h-auto" />
+  </:item>
   <:item title="Image alt text"><%= @comic.image_alt_text %></:item>
 </.list>
 

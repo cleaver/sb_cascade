@@ -57,10 +57,10 @@ defmodule SbCascade.Content do
     |> Repo.preload([:comic_tags])
   end
 
-  def get_comic!(id, load: :tags) do
+  def get_comic!(id, preload: preload) do
     Comic
     |> Repo.get!(id)
-    |> Repo.preload([:tags])
+    |> Repo.preload(preload)
   end
 
   @doc """

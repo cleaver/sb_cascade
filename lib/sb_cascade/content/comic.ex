@@ -6,6 +6,7 @@ defmodule SbCascade.Content.Comic do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias SbCascade.Content.File
   alias SbCascade.Content.ComicTag
 
   @required_fields ~w(title body slug published post_date meta_description image_alt_text)a
@@ -27,6 +28,8 @@ defmodule SbCascade.Content.Comic do
     field :image_alt_text, :string
     field :user_id, :id
 
+    belongs_to :media, File
+
     has_many :comic_tags, ComicTag,
       preload_order: [asc: :ordinal],
       on_replace: :delete
@@ -41,6 +44,7 @@ defmodule SbCascade.Content.Comic do
     comic
     |> cast(attrs, @all_fields)
     |> validate_required(@required_fields)
+    |> cast_assoc(:media)
     |> cast_assoc(:comic_tags,
       with: &ComicTag.changeset/3,
       sort_param: :tags_order,
