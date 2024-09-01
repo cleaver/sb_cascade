@@ -58,7 +58,6 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset, label: "error changeset")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
@@ -74,7 +73,6 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset, label: "error changeset")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end

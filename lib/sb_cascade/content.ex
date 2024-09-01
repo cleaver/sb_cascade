@@ -119,8 +119,6 @@ defmodule SbCascade.Content do
 
   """
   def change_comic(%Comic{} = comic, attrs \\ %{}) do
-    IO.inspect(comic, label: "change_comic() - comic")
-    IO.inspect(attrs, label: "change_comic() - attrs")
     Comic.changeset(comic, attrs)
   end
 
