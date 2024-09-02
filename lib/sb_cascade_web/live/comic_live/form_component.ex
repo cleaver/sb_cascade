@@ -13,6 +13,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
       |> assign(assigns)
       |> assign_form(changeset)
       |> assign_tags()
+      |> assign(show_media_browser: false)
 
     {:ok, socket}
   end
@@ -33,6 +34,14 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
   end
 
   @impl true
+  def handle_event("show-media-browser", _params, socket) do
+    {:noreply, assign(socket, show_media_browser: true)}
+  end
+
+  def handle_event("hide-media-browser", _params, socket) do
+    {:noreply, assign(socket, show_media_browser: false)}
+  end
+
   def handle_event("validate", %{"comic" => comic_params}, socket) do
     comic_form =
       socket.assigns.comic

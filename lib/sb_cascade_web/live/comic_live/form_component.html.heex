@@ -46,6 +46,15 @@
     </div>
     <.input field={@form[:meta_description]} type="text" label="Meta description" />
     <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />
+    <.button
+      type="button"
+      phx-click={JS.push("show-media-browser")}
+      phx-target={@myself}
+      color="secondary"
+      class="mt-6"
+    >
+      Select image
+    </.button>
     <:actions>
       <div class="w-full flex justify-end space-x-6">
         <.button type="button" phx-click={JS.patch(~p"/comics")} color="secondary">
@@ -57,4 +66,16 @@
       </div>
     </:actions>
   </.simple_form>
+  <.modal
+    :if={@show_media_browser}
+    id="media-browser-modal"
+    show
+    on_cancel={JS.push("hide-media-browser")}
+  >
+    <.live_component
+      module={SbCascadeWeb.Components.MediaBrowser}
+      id="media-browser"
+      reply_to={@myself}
+    />
+  </.modal>
 </div>
