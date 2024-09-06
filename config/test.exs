@@ -4,7 +4,7 @@ import Config
 config :bcrypt_elixir, :log_rounds, 1
 
 config :sb_cascade,
-  upload_path: "test/support/static/uploads"
+  upload_path: "priv/static/test_uploads"
 
 # Configure your database
 #
@@ -37,6 +37,7 @@ config :swoosh, :api_client, false
 
 # Print only warnings and errors during test
 config :logger, level: :warning
+# config :logger, level: :debug
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
