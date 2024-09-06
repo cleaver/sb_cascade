@@ -24,7 +24,7 @@ defmodule SbCascade.ContentTest do
     end
 
     test "get_comic!/1 returns the comic with given id" do
-      comic = comic_fixture()
+      comic = comic_fixture() |> Repo.preload([:comic_tags])
       assert Content.get_comic!(comic.id) == comic
     end
 
@@ -77,7 +77,7 @@ defmodule SbCascade.ContentTest do
     end
 
     test "update_comic/2 with invalid data returns error changeset" do
-      comic = comic_fixture()
+      comic = comic_fixture() |> Repo.preload([:comic_tags])
       assert {:error, %Ecto.Changeset{}} = Content.update_comic(comic, @invalid_attrs)
       assert comic == Content.get_comic!(comic.id)
     end
@@ -99,7 +99,7 @@ defmodule SbCascade.ContentTest do
 
     import SbCascade.ContentFixtures
 
-    @invalid_attrs %{name: nil, width: nil, url: nil, height: nil}
+    @invalid_attrs %{name: nil, url: nil}
 
     test "list_files/0 returns all files" do
       file = file_fixture()
@@ -112,13 +112,11 @@ defmodule SbCascade.ContentTest do
     end
 
     test "create_file/1 with valid data creates a file" do
-      valid_attrs = %{name: "some name", width: 42, url: "/uploads/image.png", height: 42}
+      valid_attrs = %{name: "some name", url: "/uploads/image.png"}
 
       assert {:ok, %File{} = file} = Content.create_file(valid_attrs)
       assert file.name == "some name"
-      assert file.width == 42
       assert file.url == "/uploads/image.png"
-      assert file.height == 42
     end
 
     test "create_file/1 with invalid data returns error changeset" do
@@ -130,16 +128,12 @@ defmodule SbCascade.ContentTest do
 
       update_attrs = %{
         name: "some updated name",
-        width: 43,
-        url: "/uploads/image.png",
-        height: 43
+        url: "/uploads/image.png"
       }
 
       assert {:ok, %File{} = file} = Content.update_file(file, update_attrs)
       assert file.name == "some updated name"
-      assert file.width == 43
       assert file.url == "/uploads/image.png"
-      assert file.height == 43
     end
 
     test "update_file/2 with invalid data returns error changeset" do

@@ -38,8 +38,13 @@ defmodule SbCascadeWeb.ComicLiveTest do
     %{comic: comic}
   end
 
+  defp create_tag(_) do
+    tag = tag_fixture()
+    %{tag: tag}
+  end
+
   describe "Index" do
-    setup [:create_comic]
+    setup [:create_comic, :create_tag]
 
     test "lists all comics", %{conn: conn, comic: comic} do
       {:ok, _index_live, html} =
@@ -73,6 +78,7 @@ defmodule SbCascadeWeb.ComicLiveTest do
       assert_patch(index_live, ~p"/comics")
 
       html = render(index_live)
+
       assert html =~ "Comic created successfully"
       assert html =~ "some title"
     end
@@ -115,7 +121,7 @@ defmodule SbCascadeWeb.ComicLiveTest do
   end
 
   describe "Show" do
-    setup [:create_comic]
+    setup [:create_comic, :create_tag]
 
     test "displays comic", %{conn: conn, comic: comic} do
       {:ok, _show_live, html} =

@@ -8,11 +8,14 @@ defmodule SbCascade.ContentFixtures do
   Generate a comic.
   """
   def comic_fixture(attrs \\ %{}) do
+    file = file_fixture()
+
     {:ok, comic} =
       attrs
       |> Enum.into(%{
         body: "some body",
         image_alt_text: "some image_alt_text",
+        media_id: file.id,
         meta_description: "some meta_description",
         post_date: ~D[2024-07-16],
         published: true,
@@ -31,10 +34,8 @@ defmodule SbCascade.ContentFixtures do
     {:ok, file} =
       attrs
       |> Enum.into(%{
-        height: 42,
         name: "some name",
-        url: "/uploads/rubber-duck-icon.png",
-        width: 42
+        url: "/uploads/rubber-duck-icon.png"
       })
       |> SbCascade.Content.create_file()
 

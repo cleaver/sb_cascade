@@ -12,9 +12,9 @@ defmodule SbCascadeWeb.FileLiveTest do
 
   alias SbCascade.Helpers.File, as: FileHelper
 
-  @create_attrs %{name: "some name", width: 42, height: 42}
-  @update_attrs %{name: "some updated name", width: 43, height: 43}
-  @invalid_attrs %{name: nil, width: nil, height: nil}
+  @create_attrs %{name: "some name"}
+  @update_attrs %{name: "some updated name"}
+  @invalid_attrs %{name: nil}
   @file_name "rubber-duck-icon.png"
 
   defp file_upload_metadata() do
