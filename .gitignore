@@ -53,3 +53,4 @@ npm-debug.log
 
 # Ignore uploads
 /priv/static/uploads/
+/priv/static/test_uploads/
