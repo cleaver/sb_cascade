@@ -10,9 +10,7 @@ defmodule SbCascade.Content.File do
 
   schema "files" do
     field :name, :string
-    field :width, :integer
     field :url, :string
-    field :height, :integer
 
     timestamps(type: :utc_datetime)
   end
@@ -20,7 +18,7 @@ defmodule SbCascade.Content.File do
   @doc false
   def changeset(file, attrs) do
     file
-    |> cast(attrs, [:name, :width, :height, :url])
-    |> validate_required([:name, :width, :height, :url])
+    |> cast(attrs, [:name, :url])
+    |> validate_required([:name, :url])
   end
 end

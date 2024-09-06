@@ -17,8 +17,6 @@
   row_click={fn file -> JS.navigate(~p"/files/#{file.id}") end}
 >
   <:col :let={file} label="Name" field={:name}><%= file.name %></:col>
-  <:col :let={file} label="Width" field={:width}><%= file.width %></:col>
-  <:col :let={file} label="Height" field={:height}><%= file.height %></:col>
   <:col :let={file} label="Created" field={:inserted_at}>
     <.time datetime={file.inserted_at} />
   </:col>

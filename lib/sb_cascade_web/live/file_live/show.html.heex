@@ -10,9 +10,7 @@
 
 <.list>
   <:item title="Name"><%= @file.name %></:item>
-  <:item title="Width"><%= @file.width %></:item>
-  <:item title="Height"><%= @file.height %></:item>
-  <:item title="Url"><img src={"#{@file.url}"} class="max-w-lg w-full h-auto" /></:item>
+  <:item title="Image"><img src={"#{@file.url}"} class="max-w-lg w-full h-auto" /></:item>
 </.list>
 
 <.back navigate={~p"/files"}>Back to files</.back>
