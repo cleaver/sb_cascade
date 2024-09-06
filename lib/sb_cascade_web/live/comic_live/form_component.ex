@@ -12,6 +12,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
       socket
       |> assign(assigns)
       |> assign_form(changeset)
+      |> assign_media(comic)
       |> assign_tags()
       |> assign(show_media_browser: false)
 
@@ -28,6 +29,15 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
     end
   end
 
+  defp assign_media(socket, %{media_id: media_id}) when is_number(media_id) do
+    media_image = Content.get_file!(media_id)
+    assign(socket, media_image: media_image)
+  end
+
+  defp assign_media(socket, _params) do
+    assign(socket, media_image: %Content.File{})
+  end
+
   defp assign_tags(socket) do
     tags = Content.list_tag_options()
     assign(socket, tags: tags)
@@ -40,6 +50,16 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
 
   def handle_event("hide-media-browser", _params, socket) do
     {:noreply, assign(socket, show_media_browser: false)}
+  end
+
+  def handle_event("select-media", %{"media_id" => media_id}, socket) do
+    media_image = Content.get_file!(media_id)
+
+    socket =
+      socket
+      |> assign(media_image: media_image)
+
+    {:noreply, socket}
   end
 
   def handle_event("validate", %{"comic" => comic_params}, socket) do
@@ -57,6 +77,8 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
   end
 
   defp save_comic(socket, :edit, comic_params) do
+    comic_params = set_media_id(socket, comic_params)
+
     case Content.update_comic(socket.assigns.comic, comic_params) do
       {:ok, comic} ->
         notify_parent({:saved, comic})
@@ -72,6 +94,8 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
   end
 
   defp save_comic(socket, :new, comic_params) do
+    comic_params = set_media_id(socket, comic_params)
+
     case Content.create_comic(comic_params) do
       {:ok, comic} ->
         notify_parent({:saved, comic})
@@ -84,6 +108,10 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
+  end
+
+  defp set_media_id(socket, params) do
+    Map.put(params, "media_id", socket.assigns.media_image.id)
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})

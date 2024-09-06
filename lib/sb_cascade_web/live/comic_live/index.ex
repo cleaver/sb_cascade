@@ -33,7 +33,7 @@ defmodule SbCascadeWeb.ComicLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Comic")
-    |> assign(:comic, Content.get_comic!(id))
+    |> assign(:comic, Content.get_comic!(id, preload: [:comic_tags]))
   end
 
   defp apply_action(socket, :new, _params) do

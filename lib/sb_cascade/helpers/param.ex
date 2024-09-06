@@ -4,10 +4,13 @@ defmodule SbCascade.Helpers.Param do
   """
 
   def string_keys_to_atom_keys(map) do
-    Map.new(map, fn {k, v} -> {String.to_existing_atom(k), v} end)
+    Map.new(map, fn {k, v} -> {maybe_convert_to_atom(k), v} end)
   end
 
-  def set_default_page_size(map), do: Map.put(map, :page_size, 2)
+  defp maybe_convert_to_atom(value) when is_atom(value), do: value
+  defp maybe_convert_to_atom(value), do: String.to_existing_atom(value)
+
+  def set_default_page_size(map), do: Map.put_new(map, :page_size, 2)
 
   def set_default_order(map, field_name, direction \\ :asc) do
     case Map.get(map, :order_by) do

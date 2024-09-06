@@ -10,9 +10,10 @@
     phx-change="validate"
     phx-submit="save"
   >
+    <.input field={@form[:media_id]} type="hidden" />
     <.input field={@form[:title]} type="text" label="Title" />
-    <.input field={@form[:body]} type="textarea" rows="7" label="Body" />
     <.input field={@form[:slug]} type="text" label="Slug" />
+    <.input field={@form[:body]} type="textarea" rows="7" label="Body" />
     <div id="tags" phx-hook="SortableInputsFor" class="space-y-2">
       <.inputs_for :let={comic_tag} field={@form[:comic_tags]}>
         <div class="flex space-x-2 drag-item">
@@ -37,14 +38,13 @@
       </label>
     </div>
     <div class="flex gap-6">
+      <div class="flex-1 mt-8">
+        <.input field={@form[:published]} type="checkbox" label="Published" />
+      </div>
       <div class="flex-1">
         <.input field={@form[:post_date]} type="date" label="Post date" />
       </div>
-      <div class="flex-1">
-        <.input field={@form[:published]} type="checkbox" label="Published" />
-      </div>
     </div>
-    <.input field={@form[:meta_description]} type="text" label="Meta description" />
     <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />
     <.button
       type="button"
@@ -55,6 +55,8 @@
     >
       Select image
     </.button>
+    <img :if={@media_image} src={@media_image.url} class="w-full max-w-xl height-auto mt-6" />
+    <.input field={@form[:meta_description]} type="text" label="Meta description" />
     <:actions>
       <div class="w-full flex justify-end space-x-6">
         <.button type="button" phx-click={JS.patch(~p"/comics")} color="secondary">
@@ -70,7 +72,7 @@
     :if={@show_media_browser}
     id="media-browser-modal"
     show
-    on_cancel={JS.push("hide-media-browser")}
+    on_cancel={JS.push("hide-media-browser", target: @myself)}
   >
     <.live_component
       module={SbCascadeWeb.Components.MediaBrowser}

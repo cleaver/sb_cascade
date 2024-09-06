@@ -43,7 +43,12 @@ module.exports = {
         secondary_dark: "#2F3946",
       },
       borderWidth: {
-        3: '3px',
+        3: "3px",
+      },
+      maxHeight: {
+        "screen-3/5": "60vh",
+        "screen-3/4": "75vh",
+        "screen-4/5": "80vh",
       },
     },
   },

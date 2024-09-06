@@ -10,7 +10,7 @@ defmodule SbCascade.Content.Comic do
   alias SbCascade.Content.ComicTag
 
   @required_fields ~w(title body slug published post_date meta_description image_alt_text)a
-  @optional_fields ~w(user_id)a
+  @optional_fields ~w(media_id user_id)a
   @all_fields @required_fields ++ @optional_fields
 
   @derive {
@@ -28,7 +28,7 @@ defmodule SbCascade.Content.Comic do
     field :image_alt_text, :string
     field :user_id, :id
 
-    belongs_to :media, File
+    belongs_to :media, File, on_replace: :update
 
     has_many :comic_tags, ComicTag,
       preload_order: [asc: :ordinal],
