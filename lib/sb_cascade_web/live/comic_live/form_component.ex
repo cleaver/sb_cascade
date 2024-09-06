@@ -58,6 +58,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
     socket =
       socket
       |> assign(media_image: media_image)
+      |> assign(show_media_browser: false)
 
     {:noreply, socket}
   end
