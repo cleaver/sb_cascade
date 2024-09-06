@@ -1,6 +1,8 @@
 defmodule SbCascadeWeb.TagLive.FormComponent do
   use SbCascadeWeb, :live_component
 
+  require Logger
+
   alias SbCascade.Content
 
   @impl true
@@ -61,6 +63,7 @@ defmodule SbCascadeWeb.TagLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.error("Error updating tag: #{inspect(changeset)}")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
@@ -76,6 +79,7 @@ defmodule SbCascadeWeb.TagLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.error("Error creating tag: #{inspect(changeset)}")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end

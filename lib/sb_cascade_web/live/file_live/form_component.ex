@@ -1,6 +1,8 @@
 defmodule SbCascadeWeb.FileLive.FormComponent do
   use SbCascadeWeb, :live_component
 
+  require Logger
+
   import SbCascade.Helpers.File
 
   alias SbCascade.Content
@@ -70,6 +72,7 @@ defmodule SbCascadeWeb.FileLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.error("Error updating file: #{inspect(changeset)}")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
@@ -89,6 +92,7 @@ defmodule SbCascadeWeb.FileLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.error("Error creating file: #{inspect(changeset)}")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end

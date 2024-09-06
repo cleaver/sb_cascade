@@ -2,6 +2,8 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
   alias SbCascade.Content.ComicTag
   use SbCascadeWeb, :live_component
 
+  require Logger
+
   alias SbCascade.Content
 
   @impl true
@@ -90,6 +92,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.error("Failed to update comic: #{inspect(changeset)}")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
@@ -107,6 +110,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.error("Failed to create comic: #{inspect(changeset)}")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
