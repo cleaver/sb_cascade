@@ -9,8 +9,8 @@ defmodule SbCascade.Content do
 
   alias SbCascade.Content.Comic
   alias SbCascade.Content.File
-  alias SbCascade.Helpers.File, as: FileHelper
   alias SbCascade.Content.Tag
+  alias SbCascade.Helpers.File, as: FileHelper
 
   @doc """
   Returns the list of comics.

@@ -6,8 +6,8 @@ defmodule SbCascade.Content.Comic do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias SbCascade.Content.File
   alias SbCascade.Content.ComicTag
+  alias SbCascade.Content.File
 
   @required_fields ~w(title body slug published post_date meta_description image_alt_text)a
   @optional_fields ~w(media_id user_id)a
