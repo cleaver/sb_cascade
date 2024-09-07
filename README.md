@@ -21,6 +21,11 @@
   - [ ] Tags
   - [ ] Files
   - [ ] Pages
+- [ ] Usability
+  - [ ] Tabinfo
+    - [ ] Indices
+    - [ ] Edit forms
+    - [ ] Media browser
 - [ ] Edit forms
   - [x] Comics
   - [ ] Tags
