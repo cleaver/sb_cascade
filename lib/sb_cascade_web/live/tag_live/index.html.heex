@@ -7,6 +7,15 @@
   </:actions>
 </.header>
 
+<div class="mt-6">
+  <.filter_form
+    :if={@live_action == :index}
+    fields={[name: [label: "Filter by name", op: :ilike]]}
+    meta={@meta}
+    id="tag_filter_form"
+  />
+</div>
+
 <Flop.Phoenix.table
   :if={@live_action == :index}
   items={@tags}

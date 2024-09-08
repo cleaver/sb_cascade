@@ -1,6 +1,8 @@
 defmodule SbCascadeWeb.TagLive.Index do
   use SbCascadeWeb, :live_view
 
+  import SbCascadeWeb.Components.Flop.FilterForm
+
   alias SbCascade.Content
   alias SbCascade.Content.Tag
 
@@ -59,5 +61,10 @@ defmodule SbCascadeWeb.TagLive.Index do
     {:ok, _} = Content.delete_tag(tag)
 
     fetch_data(socket)
+  end
+
+  def handle_event("update-filter", params, socket) do
+    params = Map.delete(params, "_target")
+    {:noreply, push_patch(socket, to: ~p"/tags?#{params}")}
   end
 end
