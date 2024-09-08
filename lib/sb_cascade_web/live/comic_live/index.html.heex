@@ -7,6 +7,13 @@
   </:actions>
 </.header>
 
+<.filter_form
+  :if={@live_action == :index}
+  fields={[title: [op: :ilike]]}
+  meta={@meta}
+  id="comic_filter_form"
+/>
+
 <Flop.Phoenix.table
   :if={@live_action == :index}
   items={@comics}
