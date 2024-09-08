@@ -2,8 +2,6 @@ defmodule SbCascadeWeb.PageController do
   use SbCascadeWeb, :controller
 
   def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
-    render(conn, :home, layout: false)
+    redirect(conn, to: "/comics")
   end
 end
