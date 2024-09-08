@@ -21,7 +21,7 @@ defmodule SbCascadeWeb.Components.Flop.FilterForm do
         <.input field={i.field} label={i.label} type={i.type} phx-debounce={120} {i.rest} />
       </.filter_fields>
 
-      <button class="button" name="reset">reset</button>
+      <button class="mt-3" name="reset">reset</button>
     </.form>
     """
   end

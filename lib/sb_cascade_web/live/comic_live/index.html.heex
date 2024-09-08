@@ -7,12 +7,14 @@
   </:actions>
 </.header>
 
-<.filter_form
-  :if={@live_action == :index}
-  fields={[title: [op: :ilike]]}
-  meta={@meta}
-  id="comic_filter_form"
-/>
+<div class="mt-6">
+  <.filter_form
+    :if={@live_action == :index}
+    fields={[title: [label: "Filter by title", op: :ilike]]}
+    meta={@meta}
+    id="comic_filter_form"
+  />
+</div>
 
 <Flop.Phoenix.table
   :if={@live_action == :index}
