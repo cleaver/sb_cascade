@@ -1,6 +1,7 @@
 defmodule SbCascadeWeb.FileLive.Index do
   use SbCascadeWeb, :live_view
 
+  import SbCascadeWeb.Components.Flop.FilterForm
   import SbCascade.Helpers.File, only: [delete_uploaded_file: 1]
 
   alias SbCascade.Content
@@ -62,5 +63,10 @@ defmodule SbCascadeWeb.FileLive.Index do
     delete_uploaded_file(file.url)
 
     fetch_data(socket)
+  end
+
+  def handle_event("update-filter", params, socket) do
+    params = Map.delete(params, "_target")
+    {:noreply, push_patch(socket, to: ~p"/files?#{params}")}
   end
 end
