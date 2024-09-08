@@ -2,8 +2,11 @@ defmodule SbCascadeWeb.Components.MediaBrowser do
   @moduledoc """
   A component for browsing media.
   """
-  alias SbCascade.Content
   use SbCascadeWeb, :live_component
+
+  import SbCascadeWeb.Components.Flop.FilterForm
+
+  alias SbCascade.Content
 
   @impl true
   def mount(socket) do
@@ -37,12 +40,37 @@ defmodule SbCascadeWeb.Components.MediaBrowser do
     {:noreply, socket}
   end
 
+  def handle_event("update-filter", params, socket) do
+    params =
+      socket.assigns.params
+      |> Map.merge(params)
+      |> Map.delete("_target")
+
+    socket =
+      socket
+      |> assign(params: params)
+      |> assign_data()
+
+    {:noreply, socket}
+  end
+
   @impl true
   def render(assigns) do
     ~H"""
     <div class="media-browser">
       <div class="media-browser-header">
         <h2 class="text-2xl">Media Browser</h2>
+      </div>
+      <div class="my-6">
+        <.filter_form
+          fields={[name: [label: "Filter by name", op: :ilike]]}
+          meta={@meta}
+          target={@myself}
+          id="media_filter_form"
+        />
+      </div>
+      <div class="my-6">
+        <Flop.Phoenix.pagination meta={@meta} on_paginate={JS.push("paginate", target: @myself)} />
       </div>
       <div class="max-h-screen-3/5 overflow-y-scroll">
         <ul class="grid grid-cols-2 xl:grid-cols-3 gap-4">
