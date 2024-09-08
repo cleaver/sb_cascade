@@ -18,10 +18,8 @@ defmodule SbCascadeWeb.Components.Flop.FilterForm do
     ~H"""
     <.form for={@form} id={@id} phx-target={@target} phx-change={@on_change} phx-submit={@on_change}>
       <.filter_fields :let={i} form={@form} fields={@fields}>
-        <.input field={i.field} label={i.label} type={i.type} phx-debounce={120} {i.rest} />
+        <.input field={i.field} label={i.label} type={i.type} phx-debounce={300} {i.rest} />
       </.filter_fields>
-
-      <button class="mt-3" name="reset">reset</button>
     </.form>
     """
   end
