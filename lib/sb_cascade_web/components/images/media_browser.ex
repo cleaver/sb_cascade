@@ -63,7 +63,7 @@ defmodule SbCascadeWeb.Components.MediaBrowser do
       </div>
       <div class="my-6">
         <.filter_form
-          fields={[name: [label: "Filter by name", op: :ilike]]}
+          fields={[name: [label: "Filter by name", op: :ilike, autofocus: true]]}
           meta={@meta}
           target={@myself}
           id="media_filter_form"

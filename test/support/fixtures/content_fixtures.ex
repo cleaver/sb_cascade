@@ -49,7 +49,8 @@ defmodule SbCascade.ContentFixtures do
     {:ok, tag} =
       attrs
       |> Enum.into(%{
-        name: "some name"
+        name: "some name",
+        slug: "some-slug"
       })
       |> SbCascade.Content.create_tag()
 

@@ -5,8 +5,8 @@ defmodule SbCascadeWeb.TagLiveTest do
   import SbCascade.ContentFixtures
   import SbCascade.AccountsFixtures
 
-  @create_attrs %{name: "some name"}
-  @update_attrs %{name: "some updated name"}
+  @create_attrs %{name: "some name", slug: "some-slug"}
+  @update_attrs %{name: "some updated name", slug: "some-updated-slug"}
   @invalid_attrs %{name: nil}
 
   defp create_tag(_) do

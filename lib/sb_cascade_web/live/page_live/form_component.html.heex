@@ -10,7 +10,8 @@
     phx-change="validate"
     phx-submit="save"
   >
-    <.input field={@form[:title]} type="text" label="Title" />
+    <.input field={@form[:media_id]} type="hidden" />
+    <.input field={@form[:title]} type="text" label="Title" autofocus />
     <.input field={@form[:body]} type="textarea" rows="7" label="Body" />
     <.input field={@form[:slug]} type="text" label="Slug" />
     <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />

@@ -23,7 +23,7 @@
   - [x] Pages
   - [x] Media browser
 - [ ] Usability
-  - [ ] Tabinfo
+  - [ ] autofocus
     - [ ] Indices
     - [ ] Edit forms
     - [ ] Media browser

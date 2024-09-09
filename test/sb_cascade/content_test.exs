@@ -159,7 +159,7 @@ defmodule SbCascade.ContentTest do
 
     import SbCascade.ContentFixtures
 
-    @invalid_attrs %{name: nil}
+    @invalid_attrs %{name: nil, slug: nil}
 
     test "list_tags/0 returns all tags" do
       tag = tag_fixture()
@@ -177,10 +177,11 @@ defmodule SbCascade.ContentTest do
     end
 
     test "create_tag/1 with valid data creates a tag" do
-      valid_attrs = %{name: "some name"}
+      valid_attrs = %{name: "some name", slug: "some-slug"}
 
       assert {:ok, %Tag{} = tag} = Content.create_tag(valid_attrs)
       assert tag.name == "some name"
+      assert tag.slug == "some-slug"
     end
 
     test "create_tag/1 with invalid data returns error changeset" do

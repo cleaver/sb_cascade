@@ -10,7 +10,7 @@
 <div class="mt-6">
   <.filter_form
     :if={@live_action == :index}
-    fields={[title: [label: "Filter by title", op: :ilike]]}
+    fields={[title: [label: "Filter by title", op: :ilike, autofocus: true]]}
     meta={@meta}
     id="comic_filter_form"
   />

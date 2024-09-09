@@ -10,7 +10,7 @@
 <div class="mt-6">
   <.filter_form
     :if={@live_action == :index}
-    fields={[name: [label: "Filter by name", op: :ilike]]}
+    fields={[name: [label: "Filter by name", op: :ilike, autofocus: true]]}
     meta={@meta}
     id="tag_filter_form"
   />
@@ -25,6 +25,7 @@
   row_click={fn tag -> JS.navigate(~p"/tags/#{tag.id}") end}
 >
   <:col :let={tag} label="Name" field={:name}><%= tag.name %></:col>
+  <:col :let={tag} label="Slug" field={:slug}><%= tag.slug %></:col>
   <:col :let={tag} label="Created" field={:inserted_at}>
     <.time datetime={tag.inserted_at} />
   </:col>

@@ -11,7 +11,7 @@
     phx-submit="save"
   >
     <.input field={@form[:media_id]} type="hidden" />
-    <.input field={@form[:title]} type="text" label="Title" />
+    <.input field={@form[:title]} type="text" label="Title" autofocus />
     <.input field={@form[:slug]} type="text" label="Slug" />
     <.input field={@form[:body]} type="textarea" rows="7" label="Body" />
     <div id="tags" phx-hook="SortableInputsFor" class="space-y-2">

@@ -1,7 +1,7 @@
 <div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
   <.header>
     <%= @title %>
-    <:subtitle>Use this form to manage file records in your database.</:subtitle>
+    <:subtitle>Use this form to manage media records in your database.</:subtitle>
   </.header>
 
   <.simple_form
@@ -11,7 +11,7 @@
     phx-change="validate"
     phx-submit="save"
   >
-    <.input field={@form[:name]} type="text" label="Name" />
+    <.input field={@form[:name]} type="text" label="Name" autofocus />
     <.input field={@form[:url]} type="hidden" />
 
     <section

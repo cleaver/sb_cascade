@@ -20,7 +20,8 @@ defmodule SbCascadeWeb.TagLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:name]} type="text" label="Name" />
+        <.input field={@form[:name]} type="text" label="Name" autofocus />
+        <.input field={@form[:slug]} type="text" label="Name" />
         <:actions>
           <div class="w-full flex justify-end space-x-6">
             <.button type="button" phx-click={JS.patch(~p"/tags")} color="secondary">Cancel</.button>
