@@ -1,5 +1,4 @@
-defmodule SbCascadeWeb.ComicLive.FormComponent do
-  alias SbCascade.Content.ComicTag
+defmodule SbCascadeWeb.PageLive.FormComponent do
   use SbCascadeWeb, :live_component
 
   require Logger
@@ -8,28 +7,21 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
   alias SbCascadeWeb.Components.MediaBrowser
 
   @impl true
-  def update(%{comic: comic} = assigns, socket) do
-    changeset = Content.change_comic(comic)
+  def update(%{page: page} = assigns, socket) do
+    changeset = Content.change_page(page)
 
     socket =
       socket
       |> assign(assigns)
       |> assign_form(changeset)
-      |> assign_media(comic)
-      |> assign_tags()
+      |> assign_media(page)
       |> assign(show_media_browser: false)
 
     {:ok, socket}
   end
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
-    if Ecto.Changeset.get_field(changeset, :comic_tags) == [] do
-      comic_tag = %ComicTag{}
-      changeset = Ecto.Changeset.put_change(changeset, :comic_tags, [comic_tag])
-      assign(socket, :form, to_form(changeset))
-    else
-      assign(socket, :form, to_form(changeset))
-    end
+    assign(socket, :form, to_form(changeset))
   end
 
   defp assign_media(socket, %{media_id: media_id}) when is_number(media_id) do
@@ -39,11 +31,6 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
 
   defp assign_media(socket, _params) do
     assign(socket, media_image: %Content.File{})
-  end
-
-  defp assign_tags(socket) do
-    tags = Content.list_tag_options()
-    assign(socket, tags: tags)
   end
 
   @impl true
@@ -66,52 +53,52 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
     {:noreply, socket}
   end
 
-  def handle_event("validate", %{"comic" => comic_params}, socket) do
-    comic_form =
-      socket.assigns.comic
-      |> Content.change_comic(comic_params)
+  def handle_event("validate", %{"page" => page_params}, socket) do
+    page_form =
+      socket.assigns.page
+      |> Content.change_page(page_params)
       |> Map.put(:action, :validate)
       |> to_form()
 
-    {:noreply, assign(socket, :form, comic_form)}
+    {:noreply, assign(socket, form: page_form)}
   end
 
-  def handle_event("save", %{"comic" => comic_params}, socket) do
-    save_comic(socket, socket.assigns.action, comic_params)
+  def handle_event("save", %{"page" => page_params}, socket) do
+    save_page(socket, socket.assigns.action, page_params)
   end
 
-  defp save_comic(socket, :edit, comic_params) do
-    comic_params = set_media_id(socket, comic_params)
+  defp save_page(socket, :edit, page_params) do
+    page_params = set_media_id(socket, page_params)
 
-    case Content.update_comic(socket.assigns.comic, comic_params) do
-      {:ok, comic} ->
-        notify_parent({:saved, comic})
+    case Content.update_page(socket.assigns.page, page_params) do
+      {:ok, page} ->
+        notify_parent({:saved, page})
 
         {:noreply,
          socket
-         |> put_flash(:info, "Comic updated successfully")
+         |> put_flash(:info, "Page updated successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        Logger.error("Failed to update comic: #{inspect(changeset)}")
+        Logger.error("Error updating page: #{inspect(changeset)}")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
 
-  defp save_comic(socket, :new, comic_params) do
-    comic_params = set_media_id(socket, comic_params)
+  defp save_page(socket, :new, page_params) do
+    page_params = set_media_id(socket, page_params)
 
-    case Content.create_comic(comic_params) do
-      {:ok, comic} ->
-        notify_parent({:saved, comic})
+    case Content.create_page(page_params) do
+      {:ok, page} ->
+        notify_parent({:saved, page})
 
         {:noreply,
          socket
-         |> put_flash(:info, "Comic created successfully")
+         |> put_flash(:info, "Page created successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        Logger.error("Failed to create comic: #{inspect(changeset)}")
+        Logger.error("Error creating page: #{inspect(changeset)}")
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end

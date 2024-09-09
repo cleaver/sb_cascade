@@ -43,7 +43,7 @@ defmodule SbCascadeWeb.Components.Sections.Navigation do
               </li>
               <li class="">
                 <.link
-                  href={~p"/"}
+                  href={~p"/pages"}
                   class="leading-6 font-semibold hover:text-nav_text_hover dark:hover:text-nav_text_hover_dark"
                 >
                   <span class="pr-2"><.icon name="hero-newspaper-solid" class="h-5 w-5" /></span>

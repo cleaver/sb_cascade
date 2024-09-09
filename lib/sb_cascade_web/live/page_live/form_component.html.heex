@@ -1,0 +1,46 @@
+<div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
+  <.header>
+    <%= @title %>
+  </.header>
+
+  <.simple_form
+    for={@form}
+    id="page-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <.input field={@form[:title]} type="text" label="Title" />
+    <.input field={@form[:body]} type="textarea" rows="7" label="Body" />
+    <.input field={@form[:slug]} type="text" label="Slug" />
+    <.input field={@form[:image_alt_text]} type="text" label="Image alt text" />
+    <.button
+      type="button"
+      phx-click={JS.push("show-media-browser")}
+      phx-target={@myself}
+      color="secondary"
+      class="mt-6"
+    >
+      Select image
+    </.button>
+    <.input field={@form[:meta_description]} type="text" label="Meta description" />
+    <div class="mt-6">
+      <%= @media_image.url %>
+    </div>
+    <img :if={@media_image} src={@media_image.url} class="w-full max-w-xl height-auto mt-6" />
+    <:actions>
+      <div class="w-full flex justify-end space-x-6">
+        <.button type="button" phx-click={JS.patch(~p"/pages")} color="secondary">Cancel</.button>
+        <.button phx-disable-with="Saving..." color="primary">Save Page</.button>
+      </div>
+    </:actions>
+  </.simple_form>
+  <.modal
+    :if={@show_media_browser}
+    id="media-browser-modal"
+    show
+    on_cancel={JS.push("hide-media-browser", target: @myself)}
+  >
+    <.live_component module={MediaBrowser} id="media-browser" reply_to={@myself} />
+  </.modal>
+</div>

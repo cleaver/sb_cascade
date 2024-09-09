@@ -1,0 +1,59 @@
+<.header :if={@live_action == :index}>
+  Pages
+  <:actions>
+    <.link patch={~p"/pages/new"}>
+      <.button color="primary">New Page</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="mt-6">
+  <.filter_form
+    :if={@live_action == :index}
+    fields={[title: [label: "Filter by title", op: :ilike]]}
+    meta={@meta}
+    id="comic_filter_form"
+  />
+</div>
+
+<Flop.Phoenix.table
+  :if={@live_action == :index}
+  items={@pages}
+  meta={@meta}
+  path={~p"/pages"}
+  row_id={fn page -> "pages-#{page.id}" end}
+  row_click={fn page -> JS.navigate(~p"/pages/#{page.id}") end}
+>
+  <:col :let={page} label="Title"><%= page.title %></:col>
+  <:col :let={page} label="Slug"><%= page.slug %></:col>
+  <:col :let={page} label="Meta description"><%= page.meta_description %></:col>
+  <:action :let={page}>
+    <div class="sr-only">
+      <.link navigate={~p"/pages/#{page}"}>Show</.link>
+    </div>
+    <.link patch={~p"/pages/#{page}/edit"} title="Edit">
+      <.icon name="hero-pencil-square-solid" class="h-5 w-5" />
+      <span class="sr-only">Edit</span>
+    </.link>
+  </:action>
+  <:action :let={page}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: page.id}) |> hide("##{page.id}")}
+      data-confirm="Are you sure?"
+      title="Delete"
+    >
+      <.icon name="hero-trash-solid" class="h-5 w-5" />
+      <span class="sr-only">Delete</span>
+    </.link>
+  </:action>
+</Flop.Phoenix.table>
+
+<.live_component
+  :if={@live_action in [:new, :edit]}
+  module={SbCascadeWeb.PageLive.FormComponent}
+  id={@page.id || :new}
+  title={@page_title}
+  action={@live_action}
+  page={@page}
+  patch={~p"/pages"}
+/>

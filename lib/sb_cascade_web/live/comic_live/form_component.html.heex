@@ -74,10 +74,6 @@
     show
     on_cancel={JS.push("hide-media-browser", target: @myself)}
   >
-    <.live_component
-      module={SbCascadeWeb.Components.MediaBrowser}
-      id="media-browser"
-      reply_to={@myself}
-    />
+    <.live_component module={MediaBrowser} id="media-browser" reply_to={@myself} />
   </.modal>
 </div>

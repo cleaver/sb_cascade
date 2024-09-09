@@ -55,4 +55,25 @@ defmodule SbCascade.ContentFixtures do
 
     tag
   end
+
+  @doc """
+  Generate a page.
+  """
+  def page_fixture(attrs \\ %{}) do
+    file = file_fixture()
+
+    {:ok, page} =
+      attrs
+      |> Enum.into(%{
+        body: "some body",
+        image_alt_text: "some image_alt_text",
+        media_id: file.id,
+        meta_description: "some meta_description",
+        slug: "some slug",
+        title: "some title"
+      })
+      |> SbCascade.Content.create_page()
+
+    page
+  end
 end
