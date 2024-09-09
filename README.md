@@ -14,23 +14,25 @@
   - [x] Comics
   - [x] Tags
   - [x] Files
-  - [ ] Pages
+  - [x] Pages
   - [ ] Site metadata
-- [ ] Filter and pagination
-  - [ ] Comics
-  - [ ] Tags
-  - [ ] Files
-  - [ ] Pages
+- [x] Filter and pagination
+  - [x] Comics
+  - [x] Tags
+  - [x] Files
+  - [x] Pages
+  - [x] Media browser
 - [ ] Usability
   - [ ] Tabinfo
     - [ ] Indices
     - [ ] Edit forms
     - [ ] Media browser
+  - [ ] Registration and login cleanup
 - [ ] Edit forms
   - [x] Comics
-  - [ ] Tags
+  - [x] Tags
   - [x] Files
-  - [ ] Pages
+  - [x] Pages
   - [ ] Site metadata
 - [ ] API
   - [ ] Comics
