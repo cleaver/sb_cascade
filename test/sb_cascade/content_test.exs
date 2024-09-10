@@ -28,6 +28,11 @@ defmodule SbCascade.ContentTest do
       assert Content.get_comic!(comic.id) == comic
     end
 
+    test "get_comic_by_slug/1 returns the comic with given slug" do
+      comic = comic_fixture() |> Repo.preload([:tags, :media])
+      assert Content.get_comic_by_slug(comic.slug) == comic
+    end
+
     test "create_comic/1 with valid data creates a comic" do
       valid_attrs = %{
         title: "some title",

@@ -47,6 +47,14 @@ defmodule SbCascadeWeb.Router do
     end
   end
 
+  ## API routes
+  scope "/api", SbCascadeWeb do
+    pipe_through :api
+
+    get "/comics", Api.ComicController, :index
+    get "/comics/:slug", Api.ComicController, :show
+  end
+
   ## Authentication routes
 
   scope "/", SbCascadeWeb do

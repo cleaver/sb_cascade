@@ -37,6 +37,13 @@ defmodule SbCascade.Content do
     Flop.validate_and_run(Comic, params, for: Comic)
   end
 
+  def list_comics_preloaded do
+    Comic
+    |> order_by([p], desc: p.post_date)
+    |> preload([:tags, :media])
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single comic.
 
@@ -61,6 +68,24 @@ defmodule SbCascade.Content do
     Comic
     |> Repo.get!(id)
     |> Repo.preload(preload)
+  end
+
+  @doc """
+  Gets a single comic by slug.
+  """
+  def get_comic_by_slug("_front") do
+    Comic
+    |> order_by([c], desc: c.post_date)
+    |> limit(1)
+    |> preload([:tags, :media])
+    |> Repo.one()
+  end
+
+  def get_comic_by_slug(slug) do
+    Comic
+    |> where([c], c.slug == ^slug)
+    |> Repo.one()
+    |> Repo.preload([:tags, :media])
   end
 
   @doc """
