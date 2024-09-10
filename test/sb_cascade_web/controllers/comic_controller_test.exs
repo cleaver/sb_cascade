@@ -15,6 +15,13 @@ defmodule SbCascadeWeb.Api.ComicControllerTest do
       conn = get(conn, ~p"/api/comics")
       assert json_response(conn, 200)["data"] == []
     end
+
+    test "lists all slugs", %{conn: conn} do
+      comic = comic_fixture()
+      conn = get(conn, ~p"/api/comics?select=slug")
+
+      assert json_response(conn, 200)["data"] == [comic.slug]
+    end
   end
 
   describe "show" do

@@ -12,6 +12,11 @@ defmodule SbCascadeWeb.Api.ComicController do
 
   action_fallback FallbackController
 
+  def index(conn, %{"select" => select_column} = _params) do
+    comics = Content.list_comics_column(select_column)
+    render(conn, :index, comics: comics)
+  end
+
   def index(conn, _params) do
     comics = Content.list_comics_preloaded()
     render(conn, :index, comics: comics)

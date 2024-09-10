@@ -35,4 +35,6 @@ defmodule SbCascadeWeb.Api.ComicJSON do
       title: comic.title
     }
   end
+
+  defp data(column) when is_binary(column), do: column
 end

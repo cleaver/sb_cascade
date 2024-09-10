@@ -37,10 +37,26 @@ defmodule SbCascade.Content do
     Flop.validate_and_run(Comic, params, for: Comic)
   end
 
+  @doc """
+  Returns the list of comics with preloaded associations.
+  """
   def list_comics_preloaded do
     Comic
     |> order_by([p], desc: p.post_date)
     |> preload([:tags, :media])
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of comics with a specific column selected.
+  """
+  def list_comics_column(column) when is_binary(column),
+    do: list_comics_column(String.to_existing_atom(column))
+
+  def list_comics_column(column) do
+    Comic
+    |> select([c], field(c, ^column))
+    |> order_by([c], desc: c.post_date)
     |> Repo.all()
   end
 
