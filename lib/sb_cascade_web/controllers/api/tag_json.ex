@@ -2,6 +2,7 @@ defmodule SbCascadeWeb.Api.TagJSON do
   @moduledoc """
   Format JSON for tags.
   """
+  alias SbCascadeWeb.Api.ComicJSON
   alias SbCascade.Content.Tag
 
   @doc """
@@ -21,7 +22,9 @@ defmodule SbCascadeWeb.Api.TagJSON do
   @doc """
   Formats a list of tags for JSON.
   """
-  def list_data(tags), do: for(tag <- tags, do: data(tag))
+  def list_data(tags) when is_list(tags), do: for(tag <- tags, do: data(tag))
+  def list_data(%Ecto.Association.NotLoaded{} = _tags), do: "not loaded"
+  def list_data(_), do: []
 
   @doc """
   Formats a tag record for JSON.
@@ -29,8 +32,11 @@ defmodule SbCascadeWeb.Api.TagJSON do
   def data(%Tag{} = tag) do
     %{
       id: tag.id,
+      comics: tag.comics |> ComicJSON.list_data(),
       name: tag.name,
       slug: tag.slug
     }
   end
+
+  def data(column) when is_binary(column), do: column
 end

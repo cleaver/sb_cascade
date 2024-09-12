@@ -28,4 +28,10 @@ defmodule SbCascadeWeb.Api.FileJSON do
       url: file.url
     }
   end
+
+  def data(%Ecto.Association.NotLoaded{} = _file), do: "not loaded"
+
+  def data(_) do
+    %{}
+  end
 end

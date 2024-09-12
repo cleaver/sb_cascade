@@ -20,6 +20,12 @@ defmodule SbCascadeWeb.Api.ComicJSON do
     %{data: data(comic)}
   end
 
+  @doc """
+  Formats a list of comics for JSON.
+  """
+  def list_data(comics) when is_list(comics), do: for(comic <- comics, do: data(comic))
+  def list_data(_), do: []
+
   defp data(%Comic{} = comic) do
     %{
       body: comic.body,

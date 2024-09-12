@@ -31,7 +31,7 @@ defmodule SbCascade.Content do
     params =
       params
       |> string_keys_to_atom_keys()
-      |> set_default_page_size()
+      |> set_admin_default_page_size()
       |> set_default_order(:post_date, :desc)
 
     Flop.validate_and_run(Comic, params, for: Comic)
@@ -40,11 +40,26 @@ defmodule SbCascade.Content do
   @doc """
   Returns the list of comics with preloaded associations.
   """
-  def list_comics_preloaded do
+  def list_comics_preloaded(%{"page" => _page} = params) do
+    params =
+      params
+      |> string_keys_to_atom_keys()
+      |> convert_page_numbers_to_integer()
+      |> set_api_default_page_size()
+
+    offset = (params.page - 1) * params.page_size
+    limit = params.page_size
+
     Comic
     |> order_by([p], desc: p.post_date)
     |> preload([:tags, :media])
+    |> offset(^offset)
+    |> limit(^limit)
     |> Repo.all()
+  end
+
+  def list_comics_preloaded(%{}) do
+    list_comics_preloaded(%{"page" => 1})
   end
 
   @doc """
@@ -186,7 +201,7 @@ defmodule SbCascade.Content do
     params =
       params
       |> string_keys_to_atom_keys()
-      |> set_default_page_size()
+      |> set_admin_default_page_size()
       |> set_default_order(:inserted_at, :desc)
 
     Flop.validate_and_run(File, params, for: File)
@@ -303,10 +318,30 @@ defmodule SbCascade.Content do
     params =
       params
       |> string_keys_to_atom_keys()
-      |> set_default_page_size()
+      |> set_admin_default_page_size()
       |> set_default_order(:inserted_at, :desc)
 
     Flop.validate_and_run(Tag, params, for: Tag)
+  end
+
+  @doc """
+  Returns the list of tags with preloaded associations.
+  """
+  def list_tags_preloaded do
+    Tag
+    |> order_by([t], desc: t.inserted_at)
+    |> preload([:comics])
+    |> Repo.all()
+  end
+
+  def list_tags_column(column) when is_binary(column),
+    do: list_tags_column(String.to_existing_atom(column))
+
+  def list_tags_column(column) do
+    Tag
+    |> select([t], field(t, ^column))
+    |> order_by([t], desc: t.inserted_at)
+    |> Repo.all()
   end
 
   @doc """
@@ -332,6 +367,16 @@ defmodule SbCascade.Content do
 
   """
   def get_tag!(id), do: Repo.get!(Tag, id)
+
+  @doc """
+  Gets a single tag by slug.
+  """
+  def get_tag_by_slug(slug) do
+    Tag
+    |> where([t], t.slug == ^slug)
+    |> preload([:comics])
+    |> Repo.one()
+  end
 
   @doc """
   Creates a tag.
@@ -419,7 +464,7 @@ defmodule SbCascade.Content do
     params =
       params
       |> string_keys_to_atom_keys()
-      |> set_default_page_size()
+      |> set_admin_default_page_size()
       |> set_default_order(:title, :asc)
 
     Flop.validate_and_run(Page, params, for: Page)

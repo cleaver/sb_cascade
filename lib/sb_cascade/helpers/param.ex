@@ -10,7 +10,15 @@ defmodule SbCascade.Helpers.Param do
   defp maybe_convert_to_atom(value) when is_atom(value), do: value
   defp maybe_convert_to_atom(value), do: String.to_existing_atom(value)
 
-  def set_default_page_size(map), do: Map.put_new(map, :page_size, 2)
+  def set_admin_default_page_size(map) do
+    admin_default_page_size = Application.get_env(:sb_cascade, :admin_default_page_size)
+    Map.put_new(map, :page_size, admin_default_page_size)
+  end
+
+  def set_api_default_page_size(map) do
+    api_default_page_size = Application.get_env(:sb_cascade, :api_default_page_size)
+    Map.put_new(map, :page_size, api_default_page_size)
+  end
 
   def set_default_order(map, field_name, direction \\ :asc) do
     case Map.get(map, :order_by) do
@@ -23,4 +31,17 @@ defmodule SbCascade.Helpers.Param do
         map
     end
   end
+
+  def convert_page_numbers_to_integer(map) do
+    map
+    |> Enum.map(&convert_page_value_to_integer/1)
+    |> Map.new()
+  end
+
+  defp convert_page_value_to_integer({key, value})
+       when key in [:page, :page_size] and is_binary(value) do
+    {key, String.to_integer(value)}
+  end
+
+  defp convert_page_value_to_integer({key, value}), do: {key, value}
 end

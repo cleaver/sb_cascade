@@ -17,8 +17,8 @@ defmodule SbCascadeWeb.Api.ComicController do
     render(conn, :index, comics: comics)
   end
 
-  def index(conn, _params) do
-    comics = Content.list_comics_preloaded()
+  def index(conn, params) do
+    comics = Content.list_comics_preloaded(params)
     render(conn, :index, comics: comics)
   end
 

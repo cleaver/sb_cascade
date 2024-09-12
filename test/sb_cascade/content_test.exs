@@ -171,6 +171,11 @@ defmodule SbCascade.ContentTest do
       assert Content.list_tags() == [tag]
     end
 
+    test "list_tags_preloaded" do
+      tag = tag_fixture() |> Repo.preload([:comics])
+      assert Content.list_tags_preloaded() == [tag]
+    end
+
     test "list_tag_options/0 returns all tags as options" do
       tag = tag_fixture()
       assert Content.list_tag_options() == [{tag.name, tag.id}]
@@ -179,6 +184,11 @@ defmodule SbCascade.ContentTest do
     test "get_tag!/1 returns the tag with given id" do
       tag = tag_fixture()
       assert Content.get_tag!(tag.id) == tag
+    end
+
+    test "get_tag_by_slug/1 returns the tag with given slug" do
+      tag = tag_fixture() |> Repo.preload([:comics])
+      assert Content.get_tag_by_slug(tag.slug) == tag
     end
 
     test "create_tag/1 with valid data creates a tag" do
