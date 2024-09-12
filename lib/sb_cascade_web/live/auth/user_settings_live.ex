@@ -10,8 +10,8 @@ defmodule SbCascadeWeb.UserSettingsLive do
       <:subtitle>Manage your account email address and password settings</:subtitle>
     </.header>
 
-    <div class="space-y-12 divide-y">
-      <div>
+    <div class="space-y-12">
+      <div class="rounded-lg mt-6 px-6 pt-1 pb-12 bg-light_bg dark:bg-light_bg_dark">
         <.simple_form
           for={@email_form}
           id="email_form"
@@ -33,7 +33,7 @@ defmodule SbCascadeWeb.UserSettingsLive do
           </:actions>
         </.simple_form>
       </div>
-      <div>
+      <div class="rounded-lg mt-6 px-6 pt-1 pb-12 bg-light_bg dark:bg-light_bg_dark">
         <.simple_form
           for={@password_form}
           id="password_form"

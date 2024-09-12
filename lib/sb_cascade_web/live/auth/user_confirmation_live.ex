@@ -8,12 +8,14 @@ defmodule SbCascadeWeb.UserConfirmationLive do
     <div class="mx-auto max-w-sm">
       <.header class="text-center">Confirm Account</.header>
 
-      <.simple_form for={@form} id="confirmation_form" phx-submit="confirm_account">
-        <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
-        <:actions>
-          <.button phx-disable-with="Confirming..." class="w-full">Confirm my account</.button>
-        </:actions>
-      </.simple_form>
+      <div class="rounded-lg mt-6 px-6 pt-1 pb-12 bg-light_bg dark:bg-light_bg_dark">
+        <.simple_form for={@form} id="confirmation_form" phx-submit="confirm_account">
+          <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
+          <:actions>
+            <.button phx-disable-with="Confirming..." class="w-full">Confirm my account</.button>
+          </:actions>
+        </.simple_form>
+      </div>
 
       <p class="text-center mt-4">
         <.link href={~p"/users/register"}>Register</.link>

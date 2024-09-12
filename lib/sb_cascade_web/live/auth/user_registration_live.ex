@@ -21,26 +21,28 @@ defmodule SbCascadeWeb.UserRegistrationLive do
         </:subtitle>
       </.header>
 
-      <.simple_form
-        for={@form}
-        id="registration_form"
-        phx-submit="save"
-        phx-change="validate"
-        phx-trigger-action={@trigger_submit}
-        action={~p"/users/log_in?_action=registered"}
-        method="post"
-      >
-        <.error :if={@check_errors}>
-          Oops, something went wrong! Please check the errors below.
-        </.error>
+      <div class="rounded-lg mt-6 px-6 pt-1 pb-12 bg-light_bg dark:bg-light_bg_dark">
+        <.simple_form
+          for={@form}
+          id="registration_form"
+          phx-submit="save"
+          phx-change="validate"
+          phx-trigger-action={@trigger_submit}
+          action={~p"/users/log_in?_action=registered"}
+          method="post"
+        >
+          <.error :if={@check_errors}>
+            Oops, something went wrong! Please check the errors below.
+          </.error>
 
-        <.input field={@form[:email]} type="email" label="Email" required />
-        <.input field={@form[:password]} type="password" label="Password" required />
+          <.input field={@form[:email]} type="email" label="Email" required />
+          <.input field={@form[:password]} type="password" label="Password" required />
 
-        <:actions>
-          <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
-        </:actions>
-      </.simple_form>
+          <:actions>
+            <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
+          </:actions>
+        </.simple_form>
+      </div>
     </div>
     """
   end

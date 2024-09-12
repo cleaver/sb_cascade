@@ -11,14 +11,16 @@ defmodule SbCascadeWeb.UserForgotPasswordLive do
         <:subtitle>We'll send a password reset link to your inbox</:subtitle>
       </.header>
 
-      <.simple_form for={@form} id="reset_password_form" phx-submit="send_email">
-        <.input field={@form[:email]} type="email" placeholder="Email" required />
-        <:actions>
-          <.button phx-disable-with="Sending..." class="w-full">
-            Send password reset instructions
-          </.button>
-        </:actions>
-      </.simple_form>
+      <div class="rounded-lg mt-6 px-6 pt-1 pb-12 bg-light_bg dark:bg-light_bg_dark">
+        <.simple_form for={@form} id="reset_password_form" phx-submit="send_email">
+          <.input field={@form[:email]} type="email" placeholder="Email" required />
+          <:actions>
+            <.button phx-disable-with="Sending..." class="w-full">
+              Send password reset instructions
+            </.button>
+          </:actions>
+        </.simple_form>
+      </div>
       <p class="text-center text-sm mt-4">
         <.link href={~p"/users/register"}>Register</.link>
         | <.link href={~p"/users/log_in"}>Log in</.link>
