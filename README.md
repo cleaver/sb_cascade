@@ -23,10 +23,10 @@
   - [x] Pages
   - [x] Media browser
 - [ ] Usability
-  - [ ] autofocus
-    - [ ] Indices
-    - [ ] Edit forms
-    - [ ] Media browser
+  - [x] autofocus
+    - [x] Indices
+    - [x] Edit forms
+    - [x] Media browser
   - [ ] Registration and login cleanup
 - [ ] Edit forms
   - [x] Comics
@@ -35,7 +35,7 @@
   - [x] Pages
   - [ ] Site metadata
 - [ ] API
-  - [ ] Comics
-  - [ ] Tags
-  - [ ] Pages
+  - [x] Comics
+  - [x] Tags
+  - [x] Pages
   - [ ] Site metadata
