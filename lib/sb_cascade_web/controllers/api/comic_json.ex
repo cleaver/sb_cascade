@@ -2,9 +2,9 @@ defmodule SbCascadeWeb.Api.ComicJSON do
   @moduledoc """
   Format JSON for comics.
   """
-  alias SbCascadeWeb.Api.TagJSON
-  alias SbCascadeWeb.Api.FileJSON
   alias SbCascade.Content.Comic
+  alias SbCascadeWeb.Api.FileJSON
+  alias SbCascadeWeb.Api.TagJSON
 
   @doc """
   Renders a list of comics.

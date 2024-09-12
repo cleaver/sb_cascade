@@ -2,8 +2,8 @@ defmodule SbCascadeWeb.Api.TagJSON do
   @moduledoc """
   Format JSON for tags.
   """
-  alias SbCascadeWeb.Api.ComicJSON
   alias SbCascade.Content.Tag
+  alias SbCascadeWeb.Api.ComicJSON
 
   @doc """
   Renders a list of tags.

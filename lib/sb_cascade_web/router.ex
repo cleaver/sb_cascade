@@ -56,6 +56,9 @@ defmodule SbCascadeWeb.Router do
 
     get "/tags", Api.TagController, :index
     get "/tags/:slug", Api.TagController, :show
+
+    get "/pages", Api.PageController, :index
+    get "/pages/:slug", Api.PageController, :show
   end
 
   ## Authentication routes

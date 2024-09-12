@@ -491,6 +491,16 @@ defmodule SbCascade.Content do
   end
 
   @doc """
+  Gets a single page by slug.
+  """
+  def get_page_by_slug(slug) do
+    Page
+    |> where([p], p.slug == ^slug)
+    |> Repo.one()
+    |> Repo.preload([:media])
+  end
+
+  @doc """
   Creates a page.
 
   ## Examples
