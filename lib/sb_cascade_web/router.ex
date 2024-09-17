@@ -112,6 +112,8 @@ defmodule SbCascadeWeb.Router do
 
       live "/tags/:id", TagLive.Show, :show
       live "/tags/:id/show/edit", TagLive.Show, :edit
+
+      live "/site_settings", SiteLive.Settings, :edit
     end
   end
 

@@ -1,0 +1,16 @@
+<div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
+  <.header>
+    Site Settings
+  </.header>
+
+  <.simple_form for={@form} id="site-settings-form" phx-change="validate" phx-submit="save">
+    <.input field={@form[:site_title]} type="text" label="Site Title" autofocus />
+    <.input field={@form[:meta_title]} type="text" label="Meta Title" />
+    <.input field={@form[:meta_description]} type="textarea" label="Meta Description" />
+    <:actions>
+      <div class="w-full flex justify-end space-x-6">
+        <.button color="primary" phx-disable-with="Saving...">Save changes</.button>
+      </div>
+    </:actions>
+  </.simple_form>
+</div>

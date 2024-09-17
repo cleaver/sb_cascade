@@ -3,6 +3,7 @@
 ## Todo:
 
 - [x] Authentication
+  - [ ] API keys
 - [x] Darkmode enhancements
   - [x] light mode brand buttons
 - [x] Navigation
@@ -15,25 +16,26 @@
   - [x] Tags
   - [x] Files
   - [x] Pages
-  - [ ] Site metadata
+  - [x] Site metadata - site title, meta title, meta description.
+  - [ ] Unique constraints on slugs
 - [x] Filter and pagination
   - [x] Comics
   - [x] Tags
   - [x] Files
   - [x] Pages
   - [x] Media browser
-- [ ] Usability
+- [x] Usability
   - [x] autofocus
     - [x] Indices
     - [x] Edit forms
     - [x] Media browser
-  - [ ] Registration and login cleanup
-- [ ] Edit forms
+  - [x] Registration and login cleanup
+- [x] Edit forms
   - [x] Comics
   - [x] Tags
   - [x] Files
   - [x] Pages
-  - [ ] Site metadata
+  - [x] Site metadata
 - [ ] API
   - [x] Comics
   - [x] Tags
