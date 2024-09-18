@@ -44,6 +44,7 @@ defmodule SbCascade.Content.Comic do
     comic
     |> cast(attrs, @all_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:slug)
     |> cast_assoc(:media)
     |> cast_assoc(:comic_tags,
       with: &ComicTag.changeset/3,

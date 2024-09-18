@@ -26,5 +26,6 @@ defmodule SbCascade.Content.Tag do
     tag
     |> cast(attrs, @all_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:slug)
   end
 end
