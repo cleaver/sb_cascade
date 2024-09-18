@@ -5,14 +5,14 @@ defmodule SbCascade.Content do
 
   import Ecto.Query, warn: false
   import SbCascade.Helpers.Param
-  alias SbCascade.Helpers.Slug
-  alias Ecto.Changeset
-  alias SbCascade.Repo
 
+  alias Ecto.Changeset
   alias SbCascade.Content.Comic
   alias SbCascade.Content.File
   alias SbCascade.Content.Tag
   alias SbCascade.Helpers.File, as: FileHelper
+  alias SbCascade.Helpers.Slug
+  alias SbCascade.Repo
 
   @doc """
   Returns the list of comics.
