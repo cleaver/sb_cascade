@@ -269,4 +269,15 @@ defmodule SbCascadeWeb.UserAuthTest do
       refute conn.status
     end
   end
+
+  describe "fetch_api_user/2" do
+    test "fetches user by the API token", %{conn: conn} do
+      {user, token} = api_user_fixture()
+
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+      conn = UserAuth.fetch_api_user(conn, [])
+      refute conn.halted
+      assert conn.assigns.current_user.id == user.id
+    end
+  end
 end
