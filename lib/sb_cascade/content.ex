@@ -5,6 +5,8 @@ defmodule SbCascade.Content do
 
   import Ecto.Query, warn: false
   import SbCascade.Helpers.Param
+  alias SbCascade.Helpers.Slug
+  alias Ecto.Changeset
   alias SbCascade.Repo
 
   alias SbCascade.Content.Comic
@@ -117,6 +119,15 @@ defmodule SbCascade.Content do
     |> where([c], c.slug == ^slug)
     |> Repo.one()
     |> Repo.preload([:tags, :media])
+  end
+
+  @doc """
+  Generates a slug for a comic.
+  """
+  def generate_comic_slug(changeset) do
+    title = Changeset.get_field(changeset, :title)
+    slug = Slug.generate(title)
+    Changeset.put_change(changeset, :slug, slug)
   end
 
   @doc """
@@ -376,6 +387,15 @@ defmodule SbCascade.Content do
     |> where([t], t.slug == ^slug)
     |> preload([:comics])
     |> Repo.one()
+  end
+
+  @doc """
+  Generates a slug for a tag.
+  """
+  def generate_tag_slug(changeset) do
+    name = Changeset.get_field(changeset, :name)
+    slug = Slug.generate(name)
+    Changeset.put_change(changeset, :slug, slug)
   end
 
   @doc """

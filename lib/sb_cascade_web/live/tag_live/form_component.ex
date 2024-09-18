@@ -45,12 +45,24 @@ defmodule SbCascadeWeb.TagLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"tag" => tag_params}, socket) do
-    changeset = Content.change_tag(socket.assigns.tag, tag_params)
+    changeset =
+      socket.assigns.tag
+      |> Content.change_tag(tag_params)
+      |> maybe_generate_slug(socket.assigns.action, tag_params)
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
   def handle_event("save", %{"tag" => tag_params}, socket) do
     save_tag(socket, socket.assigns.action, tag_params)
+  end
+
+  defp maybe_generate_slug(changeset, action, params) do
+    if action == :new and Map.has_key?(params, "_unused_slug") do
+      Content.generate_tag_slug(changeset)
+    else
+      changeset
+    end
   end
 
   defp save_tag(socket, :edit, tag_params) do

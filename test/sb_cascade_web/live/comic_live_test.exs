@@ -6,13 +6,13 @@ defmodule SbCascadeWeb.ComicLiveTest do
   import SbCascade.AccountsFixtures
 
   @create_attrs %{
-    title: "some title",
-    body: "some body",
-    slug: "some slug",
+    title: "create some title",
+    body: "create some body",
+    slug: "create some slug",
     published: true,
     post_date: "2024-07-16",
-    meta_description: "some meta_description",
-    image_alt_text: "some image_alt_text"
+    meta_description: "create some meta_description",
+    image_alt_text: "create some image_alt_text"
   }
   @update_attrs %{
     title: "some updated title",

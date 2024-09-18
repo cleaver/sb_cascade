@@ -5,7 +5,7 @@ defmodule SbCascadeWeb.TagLiveTest do
   import SbCascade.ContentFixtures
   import SbCascade.AccountsFixtures
 
-  @create_attrs %{name: "some name", slug: "some-slug"}
+  @create_attrs %{name: "create some name", slug: "create some-slug"}
   @update_attrs %{name: "some updated name", slug: "some-updated-slug"}
   @invalid_attrs %{name: nil}
 

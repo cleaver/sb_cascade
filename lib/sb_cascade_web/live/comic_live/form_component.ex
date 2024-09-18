@@ -70,6 +70,7 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
     comic_form =
       socket.assigns.comic
       |> Content.change_comic(comic_params)
+      |> maybe_generate_slug(socket.assigns.action, comic_params)
       |> Map.put(:action, :validate)
       |> to_form()
 
@@ -78,6 +79,14 @@ defmodule SbCascadeWeb.ComicLive.FormComponent do
 
   def handle_event("save", %{"comic" => comic_params}, socket) do
     save_comic(socket, socket.assigns.action, comic_params)
+  end
+
+  defp maybe_generate_slug(changeset, action, params) do
+    if action == :new and Map.has_key?(params, "_unused_slug") do
+      Content.generate_comic_slug(changeset)
+    else
+      changeset
+    end
   end
 
   defp save_comic(socket, :edit, comic_params) do

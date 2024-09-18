@@ -25,8 +25,8 @@ defmodule SbCascadeWeb.Api.ComicControllerTest do
 
     test "paginates comics", %{conn: conn} do
       comic_fixtures =
-        Enum.map(1..10, fn _ ->
-          comic_fixture()
+        Enum.map(1..10, fn count ->
+          comic_fixture(%{slug: "slug-#{count}"})
         end)
 
       conn = get(conn, ~p"/api/comics?page=1&page_size=5")
