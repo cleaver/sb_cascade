@@ -1,4 +1,6 @@
 import Ecto.Query
-alias SbCascade.Repo
+alias SbCascade.Accounts.{User, UserToken}
 alias SbCascade.Content
-alias SbCascade.Content.{Comic, File}
+alias SbCascade.Content.{Comic, Tag, Page}
+alias SbCascade.Repo
+alias SbCascade.Site.Setting
