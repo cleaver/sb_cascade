@@ -59,6 +59,9 @@ defmodule SbCascadeWeb.Router do
 
     get "/pages", Api.PageController, :index
     get "/pages/:slug", Api.PageController, :show
+
+    get "/settings", Api.SiteController, :index
+    get "/settings/:setting", Api.SiteController, :show
   end
 
   ## Authentication routes

@@ -15,9 +15,9 @@ defmodule SbCascade.SiteTest do
       assert Site.list_settings() == [setting]
     end
 
-    test "get_setting!/1 returns the setting with given id" do
+    test "get_setting/1 returns the setting with given id" do
       setting = setting_fixture()
-      assert Site.get_setting!(setting.id) == setting
+      assert Site.get_setting(setting.id) == setting
     end
 
     test "create_setting/1 with valid data creates a setting" do
@@ -44,13 +44,13 @@ defmodule SbCascade.SiteTest do
     test "update_setting/2 with invalid data returns error changeset" do
       setting = setting_fixture()
       assert {:error, %Ecto.Changeset{}} = Site.update_setting(setting, @invalid_attrs)
-      assert setting == Site.get_setting!(setting.id)
+      assert setting == Site.get_setting(setting.id)
     end
 
     test "delete_setting/1 deletes the setting" do
       setting = setting_fixture()
       assert {:ok, %Setting{}} = Site.delete_setting(setting)
-      assert_raise Ecto.NoResultsError, fn -> Site.get_setting!(setting.id) end
+      assert Site.get_setting(setting.id) == nil
     end
 
     test "change_setting/1 returns a setting changeset" do
@@ -63,7 +63,7 @@ defmodule SbCascade.SiteTest do
     test "get_settings_group/0 returns settings in an embedded schema" do
       test_settings_group = settings_group_fixture()
 
-      assert setting = Site.get_setting!("site_title")
+      assert setting = Site.get_setting("site_title")
       assert setting.value == "some title"
 
       assert settings_group = Site.get_settings_group()
@@ -103,7 +103,8 @@ defmodule SbCascade.SiteTest do
           "meta_description" => "some updated meta description"
         })
 
-      assert %SettingsGroup{} = changeset
+      assert %Ecto.Changeset{} = changeset
+      assert %SettingsGroup{} = changeset.data
       assert(map_size(changeset.changes) == 3)
     end
   end

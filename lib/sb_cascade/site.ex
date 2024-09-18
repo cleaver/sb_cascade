@@ -37,11 +37,11 @@ defmodule SbCascade.Site do
       ** (Ecto.NoResultsError)
 
   """
-  def get_setting!(id) when is_binary(id), do: get_by_key!(id)
-  def get_setting!(id), do: Repo.get!(Setting, id)
+  def get_setting(id) when is_binary(id), do: get_by_key(id)
+  def get_setting(id), do: Repo.get(Setting, id)
 
-  defp get_by_key!(key) do
-    Repo.get_by!(Setting, key: key)
+  defp get_by_key(key) do
+    Repo.get_by(Setting, key: key)
   end
 
   @doc """
