@@ -4,7 +4,9 @@ defmodule SbCascadeWeb.Api.PageControllerTest do
   """
   use SbCascadeWeb.ConnCase
 
+  import SbCascade.AccountsFixtures
   import SbCascade.ContentFixtures
+  import SbCascadeWeb.Helpers.Api
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -12,15 +14,17 @@ defmodule SbCascadeWeb.Api.PageControllerTest do
 
   describe "index" do
     test "lists all pages", %{conn: conn} do
-      conn = get(conn, ~p"/api/pages")
+      {_user, token} = api_user_fixture()
+      conn = authenticated_request(conn, token, ~p"/api/pages")
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "show" do
     test "returns a single page", %{conn: conn} do
+      {_user, token} = api_user_fixture()
       page = page_fixture() |> SbCascade.Repo.preload([:media])
-      conn = get(conn, ~p"/api/pages/#{page.slug}")
+      conn = authenticated_request(conn, token, ~p"/api/pages/#{page.slug}")
 
       stringified_test_media =
         page.media
@@ -40,7 +44,8 @@ defmodule SbCascadeWeb.Api.PageControllerTest do
   end
 
   test "returns a 404 for a missing page", %{conn: conn} do
-    conn = get(conn, ~p"/api/pages/missing")
+    {_user, token} = api_user_fixture()
+    conn = authenticated_request(conn, token, ~p"/api/pages/missing")
     assert json_response(conn, 404)["errors"] == %{"detail" => "Not Found"}
   end
 end

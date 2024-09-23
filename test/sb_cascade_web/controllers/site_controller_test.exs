@@ -4,7 +4,9 @@ defmodule SbCascadeWeb.Api.SiteControllerTest do
   """
   use SbCascadeWeb.ConnCase
 
+  import SbCascade.AccountsFixtures
   import SbCascade.SiteFixtures
+  import SbCascadeWeb.Helpers.Api
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -12,15 +14,17 @@ defmodule SbCascadeWeb.Api.SiteControllerTest do
 
   describe "index" do
     test "lists all settings", %{conn: conn} do
-      conn = get(conn, ~p"/api/settings")
+      {_user, token} = api_user_fixture()
+      conn = authenticated_request(conn, token, ~p"/api/settings")
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "show" do
     test "returns a single setting", %{conn: conn} do
+      {_user, token} = api_user_fixture()
       setting = setting_fixture()
-      conn = get(conn, ~p"/api/settings/#{setting.key}")
+      conn = authenticated_request(conn, token, ~p"/api/settings/#{setting.key}")
 
       assert json_response(conn, 200)["data"] == %{
                "id" => setting.id,
@@ -33,7 +37,8 @@ defmodule SbCascadeWeb.Api.SiteControllerTest do
   end
 
   test "returns a 404 for a missing setting", %{conn: conn} do
-    conn = get(conn, ~p"/api/settings/missing")
+    {_user, token} = api_user_fixture()
+    conn = authenticated_request(conn, token, ~p"/api/settings/missing")
     assert json_response(conn, 404)["errors"] == %{"detail" => "Not Found"}
   end
 end
