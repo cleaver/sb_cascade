@@ -3,7 +3,7 @@
 ## Todo:
 
 - [x] Authentication
-  - [ ] API keys
+  - [x] API keys
 - [x] Data model
   - [x] Unique constraints on slugs
 - [x] Usability
