@@ -19,12 +19,35 @@ defmodule SbCascadeWeb.Api.ComicControllerTest do
       assert json_response(conn, 200)["data"] == []
     end
 
+    test "lists only published comics", %{conn: conn} do
+      {_user, token} = api_user_fixture()
+
+      _comic_1 = comic_fixture(%{published: false, slug: "slug-1"})
+      _comic_2 = comic_fixture(%{published: true, slug: "slug-2"})
+
+      conn = authenticated_request(conn, token, ~p"/api/comics")
+      data = json_response(conn, 200)["data"]
+      assert length(data) == 1
+    end
+
     test "lists all slugs", %{conn: conn} do
       {_user, token} = api_user_fixture()
       comic = comic_fixture()
       conn = authenticated_request(conn, token, ~p"/api/comics?select=slug")
 
       assert json_response(conn, 200)["data"] == [comic.slug]
+    end
+
+    test "lists only published slugs", %{conn: conn} do
+      {_user, token} = api_user_fixture()
+
+      _comic_1 = comic_fixture(%{published: false, slug: "slug-1"})
+      comic_2 = comic_fixture(%{published: true, slug: "slug-2"})
+
+      conn = authenticated_request(conn, token, ~p"/api/comics?select=slug")
+      data = json_response(conn, 200)["data"]
+      assert length(data) == 1
+      assert hd(data) == comic_2.slug
     end
 
     test "paginates comics", %{conn: conn} do
@@ -85,6 +108,25 @@ defmodule SbCascadeWeb.Api.ComicControllerTest do
 
       response_data = json_response(conn, 200)["data"]
       assert response_data["id"] == comic.id
+    end
+  end
+
+  describe "count" do
+    test "returns the count of all comics", %{conn: conn} do
+      {_user, token} = api_user_fixture()
+      comic_fixtures = Enum.map(1..10, fn count -> comic_fixture(%{slug: "slug-#{count}"}) end)
+      conn = authenticated_request(conn, token, ~p"/api/comics/_count")
+      assert json_response(conn, 200)["data"] == %{"count" => length(comic_fixtures)}
+    end
+
+    test "returns the count of published comics", %{conn: conn} do
+      {_user, token} = api_user_fixture()
+
+      _comic_1 = comic_fixture(%{published: false, slug: "slug-1"})
+      _comic_2 = comic_fixture(%{published: true, slug: "slug-2"})
+
+      conn = authenticated_request(conn, token, ~p"/api/comics/_count")
+      assert json_response(conn, 200)["data"] == %{"count" => 1}
     end
   end
 

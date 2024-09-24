@@ -27,4 +27,9 @@ defmodule SbCascadeWeb.Api.ComicController do
       render(conn, :show, comic: comic)
     end
   end
+
+  def count(conn, _params) do
+    count = Content.count_comics()
+    render(conn, :count, count: count)
+  end
 end

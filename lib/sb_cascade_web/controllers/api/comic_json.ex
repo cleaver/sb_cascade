@@ -43,4 +43,8 @@ defmodule SbCascadeWeb.Api.ComicJSON do
   end
 
   defp data(column) when is_binary(column), do: column
+
+  def count(%{count: count}) do
+    %{data: %{count: count}}
+  end
 end

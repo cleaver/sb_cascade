@@ -53,6 +53,7 @@ defmodule SbCascadeWeb.Router do
     pipe_through :api
 
     get "/comics", Api.ComicController, :index
+    get "/comics/_count", Api.ComicController, :count
     get "/comics/:slug", Api.ComicController, :show
 
     get "/tags", Api.TagController, :index

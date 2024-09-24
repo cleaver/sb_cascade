@@ -26,6 +26,7 @@ defmodule SbCascade.Content do
   def list_comics do
     Comic
     |> order_by([p], desc: p.post_date)
+    |> where([p], p.published == true)
     |> Repo.all()
   end
 
@@ -53,6 +54,7 @@ defmodule SbCascade.Content do
     limit = params.page_size
 
     Comic
+    |> where([p], p.published == true)
     |> order_by([p], desc: p.post_date)
     |> preload([:tags, :media])
     |> offset(^offset)
@@ -73,6 +75,7 @@ defmodule SbCascade.Content do
   def list_comics_column(column) do
     Comic
     |> select([c], field(c, ^column))
+    |> where([c], c.published == true)
     |> order_by([c], desc: c.post_date)
     |> Repo.all()
   end
@@ -128,6 +131,14 @@ defmodule SbCascade.Content do
     title = Changeset.get_field(changeset, :title)
     slug = Slug.generate(title)
     Changeset.put_change(changeset, :slug, slug)
+  end
+
+  @doc """
+  Counts the number of comics.
+  """
+  def count_comics do
+    query = from c in Comic, select: count(c.id), where: c.published == true
+    Repo.one!(query)
   end
 
   @doc """

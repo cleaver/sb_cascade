@@ -15,7 +15,7 @@ defmodule SbCascade.Content.Comic do
 
   @derive {
     Flop.Schema,
-    filterable: [:title, :body], sortable: [:title, :body, :post_date]
+    filterable: [:title, :body, :published], sortable: [:title, :body, :post_date]
   }
 
   schema "comics" do
