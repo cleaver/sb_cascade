@@ -370,7 +370,9 @@ defmodule SbCascade.Content do
   Returns a list of tag options for select inputs.
   """
   def list_tag_options do
-    Repo.all(Tag)
+    Tag
+    |> order_by([t], asc: t.name)
+    |> Repo.all()
     |> Enum.map(&{&1.name, &1.id})
   end
 
@@ -394,10 +396,14 @@ defmodule SbCascade.Content do
   Gets a single tag by slug.
   """
   def get_tag_by_slug(slug) do
-    Tag
-    |> where([t], t.slug == ^slug)
-    |> preload([:comics])
-    |> Repo.one()
+    query =
+      from t in Tag,
+        join: c in assoc(t, :comics),
+        where: t.slug == ^slug and c.published == true,
+        order_by: [desc: t.inserted_at],
+        preload: [comics: c]
+
+    Repo.one(query)
   end
 
   @doc """
