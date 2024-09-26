@@ -400,7 +400,7 @@ defmodule SbCascade.Content do
       from t in Tag,
         join: c in assoc(t, :comics),
         where: t.slug == ^slug and c.published == true,
-        order_by: [desc: t.inserted_at],
+        order_by: [desc: c.post_date],
         preload: [comics: c]
 
     Repo.one(query)
