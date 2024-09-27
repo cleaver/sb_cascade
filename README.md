@@ -1,5 +1,7 @@
 # SbCascade
 
+[![Elixir CI](https://github.com/cleaver/sb_cascade/actions/workflows/elixir.yml/badge.svg)](https://github.com/cleaver/sb_cascade/actions/workflows/elixir.yml)
+
 ## Todo:
 
 - [x] Authentication
