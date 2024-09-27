@@ -6,6 +6,7 @@ defmodule SbCascade.Content do
   import Ecto.Query, warn: false
   import SbCascade.Helpers.Param
 
+  alias SbCascade.Content.ComicTag
   alias Ecto.Changeset
   alias SbCascade.Content.Comic
   alias SbCascade.Content.File
@@ -393,13 +394,16 @@ defmodule SbCascade.Content do
   def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
-  Gets a single tag by slug.
+  Gets a single tag by slug with associated Comics.
   """
   def get_tag_by_slug(slug) do
     query =
       from t in Tag,
-        join: c in assoc(t, :comics),
-        where: t.slug == ^slug and c.published == true,
+        left_join: ct in ComicTag,
+        on: ct.tag_id == t.id,
+        left_join: c in Comic,
+        on: ct.comic_id == c.id and c.published == true,
+        where: t.slug == ^slug,
         order_by: [desc: c.post_date],
         preload: [comics: c]
 
