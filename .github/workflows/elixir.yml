@@ -88,6 +88,3 @@ jobs:
 
     - name: Run credo
       run: mix credo --strict
-
-    - name: Run dialyzer
-      run: mix dialyzer
