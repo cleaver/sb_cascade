@@ -6,9 +6,9 @@ defmodule SbCascade.Content do
   import Ecto.Query, warn: false
   import SbCascade.Helpers.Param
 
-  alias SbCascade.Content.ComicTag
   alias Ecto.Changeset
   alias SbCascade.Content.Comic
+  alias SbCascade.Content.ComicTag
   alias SbCascade.Content.File
   alias SbCascade.Content.Tag
   alias SbCascade.Helpers.File, as: FileHelper
