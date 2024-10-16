@@ -1,6 +1,6 @@
 services:
   web:
-    image: sb_exe2e
+    image: ghcr.io/cleaver/sb_cascade/sb_exe2e:latest
     ports:
       - "4000:4000"
     # For test only
@@ -15,7 +15,7 @@ services:
       - default
 
   db:
-    image: sb_dbe2e
+    image: ghcr.io/cleaver/sb_cascade/sb_dbe2e:latest
     # For test only
     environment:
       - POSTGRES_USER=postgres

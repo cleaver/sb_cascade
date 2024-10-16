@@ -13,12 +13,12 @@ help:
 # Build the database Docker image
 .PHONY: build-testdb
 build-testdb:
-	docker build -t sb_dbe2e -f Dockerfile.test.pgsql .
+	docker build -t ghcr.io/cleaver/sb_cascade/sb_dbe2e:latest -f Dockerfile.test.pgsql .
 
 # Build the Elixir Docker image
 .PHONY: build-testex
 build-testex:
-	docker build -t sb_exe2e -f Dockerfile.test.elixir .
+	docker build -t ghcr.io/cleaver/sb_cascade/sb_exe2e:latest -f Dockerfile.test.elixir .
 
 # Build both Docker images
 .PHONY: build
