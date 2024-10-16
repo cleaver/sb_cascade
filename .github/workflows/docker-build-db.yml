@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build Database Docker Image
 
 # Trigger the workflow on pushes or merges to the `main` branch
 on:
