@@ -1,0 +1,26 @@
+
+services:
+  web:
+    image: sb_exe2e
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./docker_test/.env
+    depends_on:
+      - db
+    networks:
+      - default
+
+  db:
+    image: sb_dbe2e
+    env_file:
+      - ./docker_test/.env
+    ports:
+      - "5432:5432"
+    networks:
+      - default
+
+networks:
+  default:
+    name: sb_cascade_prod
+

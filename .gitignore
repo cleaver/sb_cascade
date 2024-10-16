@@ -58,3 +58,6 @@ npm-debug.log
 # Ignore assorted junk
 *.tgz
 *.tar.gz
+
+# Ignore .env
+.env
