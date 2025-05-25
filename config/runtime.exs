@@ -20,6 +20,17 @@ if System.get_env("PHX_SERVER") do
   config :sb_cascade, SbCascadeWeb.Endpoint, server: true
 end
 
+allow_local = System.get_env("ALLOW_LOCAL_ORIGIN") == "true"
+
+origins =
+  if allow_local do
+    ["http://localhost:4000", "http://127.0.0.1:4000", "https://sbcms.pimpsmooth.com"]
+  else
+    ["https://sbcms.pimpsmooth.com"]
+  end
+
+config :sb_cascade, SbCascadeWeb.Endpoint, check_origin: origins
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
