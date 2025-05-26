@@ -13,6 +13,7 @@ jobs:
         with:
           owner: cleaver
           repository: sb_cascade
+          package: sb_exe2e,sb_prod
           older-than: 60 days
           keep-n-tagged: 5
           dry-run: false
