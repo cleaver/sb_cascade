@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: dataaxiom/ghcr-cleanup-action@v1
         with:
+          owner: cleaver
+          repository: sb_cascade
           older-than: 60 days
           keep-n-tagged: 5
           dry-run: false
