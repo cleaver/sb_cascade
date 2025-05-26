@@ -54,6 +54,7 @@ npm-debug.log
 # Ignore uploads
 /priv/static/uploads/
 /priv/static/test_uploads/
+/uploads/
 
 # Ignore assorted junk
 *.tgz

@@ -11,6 +11,14 @@
 - [x] Usability
   - [x] `slug` fields should be auto-generated
 
+## Runtime Configuration
+
+Environment Variables:
+
+- `ALLOW_REGISTRATION`: if set, new users can self-register.
+- `ALLOW_LOCAL_ORIGIN`: if set, prod image can be run and accessed on localhost.
+- `PHX_HOST_NAME`: the host URL, EG: `cms.myapp.com`.
+
 ## Register API User
 
 No user interface exists for registering an API user. Use the following code to register a user:

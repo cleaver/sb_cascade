@@ -48,14 +48,20 @@ defmodule SbCascadeWeb.UserRegistrationLive do
   end
 
   def mount(_params, _session, socket) do
-    changeset = Accounts.change_user_registration(%User{})
+    allow_registration = Application.get_env(:sb_cascade, :allow_registration)
 
-    socket =
-      socket
-      |> assign(trigger_submit: false, check_errors: false)
-      |> assign_form(changeset)
+    if allow_registration do
+      changeset = Accounts.change_user_registration(%User{})
 
-    {:ok, socket, temporary_assigns: [form: nil]}
+      socket =
+        socket
+        |> assign(trigger_submit: false, check_errors: false)
+        |> assign_form(changeset)
+
+      {:ok, socket, temporary_assigns: [form: nil]}
+    else
+      {:halt, Phoenix.LiveView.redirect(socket, to: "/")}
+    end
   end
 
   def handle_event("save", %{"user" => user_params}, socket) do

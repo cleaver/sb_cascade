@@ -7,14 +7,16 @@ defmodule SbCascadeWeb.UserLoginLive do
       <.header class="text-center">
         Log in to account
         <:subtitle>
-          Don't have an account?
-          <.link
-            navigate={~p"/users/register"}
-            class="font-semibold text-brand dark:text-brand_dark hover:underline"
-          >
-            Sign up
-          </.link>
-          for an account now.
+          <%= if @allow_registration do %>
+            Don't have an account?
+            <.link
+              navigate={~p"/users/register"}
+              class="font-semibold text-brand dark:text-brand_dark hover:underline"
+            >
+              Sign up
+            </.link>
+            for an account now.
+          <% end %>
         </:subtitle>
       </.header>
       <div class="rounded-lg mt-6 px-6 pt-1 pb-12 bg-light_bg dark:bg-light_bg_dark">
@@ -42,6 +44,13 @@ defmodule SbCascadeWeb.UserLoginLive do
   def mount(_params, _session, socket) do
     email = Phoenix.Flash.get(socket.assigns.flash, :email)
     form = to_form(%{"email" => email}, as: "user")
-    {:ok, assign(socket, form: form), temporary_assigns: [form: form]}
+    allow_registration = Application.get_env(:sb_cascade, :allow_registration)
+
+    socket =
+      socket
+      |> assign(allow_registration: allow_registration)
+      |> assign(form: form)
+
+    {:ok, socket, temporary_assigns: [form: form]}
   end
 end
