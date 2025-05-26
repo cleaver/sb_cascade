@@ -20,6 +20,10 @@ if System.get_env("PHX_SERVER") do
   config :sb_cascade, SbCascadeWeb.Endpoint, server: true
 end
 
+allow_registration = System.get_env("ALLOW_REGISTRATION") == "true" or config_env() == :test
+
+config :sb_cascade, :allow_registration, allow_registration
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
@@ -76,10 +80,6 @@ if config_env() == :prod do
     end
 
   config :sb_cascade, SbCascadeWeb.Endpoint, check_origin: origins
-
-  allow_registration = System.get_env("ALLOW_REGISTRATION") == "true"
-
-  config :sb_cascade, :allow_registration, allow_registration
 
   # ## SSL Support
   #
