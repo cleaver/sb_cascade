@@ -1,19 +1,16 @@
-name: Delete Old Container Images
+name: GHCR Cleanup
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 0" # Weekly
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
 
 jobs:
-  delete_versions:
+  ghcr_cleanup:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete old e2e test images
-        uses: actions/delete-package-versions@v5
+      - uses: dataaxiom/ghcr-cleanup-action@v1
         with:
-          package-name: sb-cascade/sb_exe2e
-          package-type: container
-          token: ${{ secrets.GHCR_PAT }}
-          min-versions-to-keep: 3
-          delete-only-untagged-versions: true
+          older-than: 60 days
+          keep-n-tagged: 5
+          dry-run: false
