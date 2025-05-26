@@ -1,0 +1,38 @@
+name: Purge Untagged Images
+
+on:
+  schedule:
+    - cron: "0 0 * * 0" # Runs every Sunday at midnight
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # - name: Set up GitHub CLI
+      #   uses: cli/cli@v2
+
+      - name: Authenticate with GitHub
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: List and Purge Untagged Images
+        run: |
+          PACKAGE_NAME="ghcr.io/cleaver/sb-cascade/sb_exe2e"
+
+          # List untagged versions
+          untagged_versions=$(gh api --paginate "/user/packages/container/$PACKAGE_NAME/versions" --jq '.[] | select(.metadata.container.tags == []) | .id')
+
+          # Loop through and delete each untagged version
+          for version_id in $untagged_versions; do
+            echo "Deleting version ID: $version_id"
+            gh api -X DELETE "/user/packages/container/$PACKAGE_NAME/versions/$version_id"
+          done
