@@ -12,7 +12,7 @@ jobs:
       - name: Delete old e2e test images
         uses: actions/delete-package-versions@v5
         with:
-          package-name: ghcr.io/cleaver/sb-cascade/sb_exe2e
+          package-name: ghcr.io/cleaver/sb_cascade/sb_exe2e
           package-type: container
           token: ${{ secrets.GHCR_PAT }}
           min-versions-to-keep: 3
