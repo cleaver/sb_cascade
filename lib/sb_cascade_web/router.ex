@@ -24,6 +24,7 @@ defmodule SbCascadeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/uploads/*path", UploadsController, :show
   end
 
   # Other scopes may use custom stacks.
