@@ -13,6 +13,7 @@ defmodule SbCascadeWeb.Router do
     plug :put_secure_browser_headers
     plug :fetch_current_user
     plug :assign_current_path
+    plug :assign_allow_registration
   end
 
   pipeline :api do

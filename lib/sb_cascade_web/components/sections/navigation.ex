@@ -86,14 +86,16 @@ defmodule SbCascadeWeb.Components.Sections.Navigation do
               </.link>
             </li>
           <% else %>
-            <li>
-              <.link
-                href={~p"/users/register"}
-                class="text-[0.8125rem] leading-6 font-semibold hover:text-nav_text_hover dark:hover:text-nav_text_hover_dark"
-              >
-                Register
-              </.link>
-            </li>
+            <%= if @allow_registration do %>
+              <li>
+                <.link
+                  href={~p"/users/register"}
+                  class="text-[0.8125rem] leading-6 font-semibold hover:text-nav_text_hover dark:hover:text-nav_text_hover_dark"
+                >
+                  Register
+                </.link>
+              </li>
+            <% end %>
             <li>
               <.link
                 href={~p"/users/log_in"}
