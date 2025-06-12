@@ -3,8 +3,6 @@ defmodule SbCascadeWeb.UploadsController do
   require Logger
 
   def show(conn, %{"path" => path}) do
-    IO.inspect(path, label: "path---------")
-
     safe_path = SbCascade.Helpers.File.full_upload_path(path)
 
     Logger.debug("Attempting to serve file: #{path}")
