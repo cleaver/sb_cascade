@@ -4,7 +4,7 @@ defmodule SbCascade.Helpers.File do
   """
 
   def upload_path do
-    Application.get_env(:sb_cascade, :upload_path)
+    Application.get_env(:sb_cascade, :uploads_path)
   end
 
   defp full_upload_path do

@@ -4,7 +4,7 @@ import Config
 config :bcrypt_elixir, :log_rounds, 1
 
 config :sb_cascade,
-  upload_path: "priv/static/test_uploads"
+  uploads_path: "priv/static/test_uploads"
 
 # Configure your database
 #
