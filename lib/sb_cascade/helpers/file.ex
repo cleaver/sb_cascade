@@ -7,8 +7,22 @@ defmodule SbCascade.Helpers.File do
     Application.get_env(:sb_cascade, :uploads_path)
   end
 
-  defp full_upload_path do
-    Application.app_dir(:sb_cascade, upload_path())
+  def full_upload_path do
+    app_dir = File.cwd!()
+    uploads_dir = Application.get_env(:sb_cascade, :uploads_path)
+    Path.join([app_dir, uploads_dir])
+  end
+
+  def full_upload_path([path]), do: full_upload_path(path)
+
+  def full_upload_path(path) do
+    # Decode URL-encoded characters
+    decoded_path = URI.decode(path)
+
+    case Path.safe_relative(decoded_path, full_upload_path()) do
+      {:ok, safe_path} -> Path.join(full_upload_path(), safe_path)
+      :error -> raise "Invalid path: #{path}"
+    end
   end
 
   def copy_file_to_upload_path(source_file, file_name) do

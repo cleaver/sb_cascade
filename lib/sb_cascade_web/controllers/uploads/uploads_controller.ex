@@ -3,9 +3,9 @@ defmodule SbCascadeWeb.UploadsController do
   require Logger
 
   def show(conn, %{"path" => path}) do
-    # Ensure the path is safe and doesn't contain directory traversal attempts
-    uploads_path = Application.get_env(:sb_cascade, :uploads_path)
-    safe_path = Path.join([uploads_path, path])
+    IO.inspect(path, label: "path---------")
+
+    safe_path = SbCascade.Helpers.File.full_upload_path(path)
 
     Logger.debug("Attempting to serve file: #{path}")
 
