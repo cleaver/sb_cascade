@@ -9,8 +9,8 @@ defmodule SbCascade.Content.Comic do
   alias SbCascade.Content.ComicTag
   alias SbCascade.Content.File
 
-  @required_fields ~w(title body slug published post_date meta_description image_alt_text)a
-  @optional_fields ~w(media_id user_id)a
+  @required_fields ~w(title slug published post_date meta_description image_alt_text)a
+  @optional_fields ~w(media_id user_id body)a
   @all_fields @required_fields ++ @optional_fields
 
   @derive {

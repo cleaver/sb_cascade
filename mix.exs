@@ -64,9 +64,11 @@ defmodule SbCascade.MixProject do
       # --- Added ---
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:dotenvy, "~> 0.8.0"},
+      {:dotenvy, "~> 1.0"},
       {:flop_phoenix, "~> 0.22.9"},
-      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
+      {:git_hooks, "~> 0.8.0", only: [:dev], runtime: false},
+      {:machete, "~> 0.3.11"},
+      {:mix_test_watch, "~> 1.3", only: [:dev, :test], runtime: false}
     ]
   end
 
