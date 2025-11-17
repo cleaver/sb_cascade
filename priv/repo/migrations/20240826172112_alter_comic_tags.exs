@@ -6,8 +6,8 @@ defmodule SbCascade.Repo.Migrations.AlterComicTags do
 
     create table(:comic_tags) do
       add :ordinal, :integer
-      add :comic_id, references(:comics, on_delete: :delete_all, on_replace: :delete)
-      add :tag_id, references(:tags, on_delete: :delete_all, on_replace: :delete)
+      add :comic_id, references(:comics, on_delete: :delete_all)
+      add :tag_id, references(:tags, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)
     end
