@@ -1,6 +1,6 @@
 <div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
   <.header>
-    <%= @title %>
+    {@title}
   </.header>
 
   <.simple_form
@@ -26,7 +26,7 @@
     </.button>
     <.input field={@form[:meta_description]} type="text" label="Meta description" />
     <div class="mt-6">
-      <%= @media_image.url %>
+      {@media_image.url}
     </div>
     <img :if={@media_image} src={@media_image.url} class="w-full max-w-xl height-auto mt-6" />
     <:actions>

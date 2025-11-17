@@ -43,7 +43,7 @@ defmodule SbCascadeWeb do
         layouts: [html: SbCascadeWeb.Layouts]
 
       import Plug.Conn
-      import SbCascadeWeb.Gettext
+      use Gettext, backend: SbCascadeWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -87,7 +87,7 @@ defmodule SbCascadeWeb do
       import SbCascadeWeb.Components.CustomComponents
       import SbCascadeWeb.Components.FlopComponents
       import SbCascadeWeb.CoreComponents
-      import SbCascadeWeb.Gettext
+      use Gettext, backend: SbCascadeWeb.Gettext
       import SbCascadeWeb.Helpers.Style
 
       # Shortcut for generating JS commands

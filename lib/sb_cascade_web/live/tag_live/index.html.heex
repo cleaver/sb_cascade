@@ -24,8 +24,8 @@
   row_id={fn tag -> "tags-#{tag.id}" end}
   row_click={fn tag -> JS.navigate(~p"/tags/#{tag.id}") end}
 >
-  <:col :let={tag} label="Name" field={:name}><%= tag.name %></:col>
-  <:col :let={tag} label="Slug" field={:slug}><%= tag.slug %></:col>
+  <:col :let={tag} label="Name" field={:name}>{tag.name}</:col>
+  <:col :let={tag} label="Slug" field={:slug}>{tag.slug}</:col>
   <:col :let={tag} label="Created" field={:inserted_at}>
     <.time datetime={tag.inserted_at} />
   </:col>

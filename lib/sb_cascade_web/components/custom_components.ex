@@ -14,7 +14,7 @@ defmodule SbCascadeWeb.Components.CustomComponents do
 
   def time(assigns) do
     ~H"""
-    <time datetime={@datetime}><%= DateTime.to_string(@datetime) %></time>
+    <time datetime={@datetime}>{DateTime.to_string(@datetime)}</time>
     """
   end
 
@@ -53,10 +53,10 @@ defmodule SbCascadeWeb.Components.CustomComponents do
         class="mt-1 rounded-md border border-gray-300 bg-body dark:bg-body_bg_dark shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
         {@rest}
       >
-        <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Phoenix.HTML.Form.options_for_select(@options, @field.value) %>
+        <option :if={@prompt} value="">{@prompt}</option>
+        {Phoenix.HTML.Form.options_for_select(@options, @field.value)}
       </select>
-      <CoreComponents.error :for={msg <- @errors}><%= msg %></CoreComponents.error>
+      <CoreComponents.error :for={msg <- @errors}>{msg}</CoreComponents.error>
     </div>
     """
   end

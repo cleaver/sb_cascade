@@ -80,7 +80,7 @@ defmodule SbCascadeWeb.Components.MediaBrowser do
               class="flex flex-col items-center cursor-pointer"
             >
               <img src={file.url} alt={file.name} class="rounded-lg" />
-              <p class="my-2"><%= file.name %></p>
+              <p class="my-2">{file.name}</p>
             </div>
           </li>
         </ul>

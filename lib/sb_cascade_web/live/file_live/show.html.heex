@@ -1,5 +1,5 @@
 <.header>
-  Media File: <%= @file.name %>
+  Media File: {@file.name}
   <:subtitle>This is a media record from your database.</:subtitle>
   <:actions>
     <.link patch={~p"/files/#{@file}/show/edit"} phx-click={JS.push_focus()}>
@@ -9,7 +9,7 @@
 </.header>
 
 <.list>
-  <:item title="Name"><%= @file.name %></:item>
+  <:item title="Name">{@file.name}</:item>
   <:item title="Image"><img src={"#{@file.url}"} class="max-w-lg w-full h-auto" /></:item>
 </.list>
 

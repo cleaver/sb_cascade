@@ -10,7 +10,7 @@ defmodule SbCascadeWeb.TagLive.FormComponent do
     ~H"""
     <div class="p-6 rounded bg-light_bg dark:bg-light_bg_dark">
       <.header>
-        <%= @title %>
+        {@title}
       </.header>
 
       <.simple_form

@@ -24,9 +24,9 @@
   row_id={fn page -> "pages-#{page.id}" end}
   row_click={fn page -> JS.navigate(~p"/pages/#{page.id}") end}
 >
-  <:col :let={page} label="Title"><%= page.title %></:col>
-  <:col :let={page} label="Slug"><%= page.slug %></:col>
-  <:col :let={page} label="Meta description"><%= page.meta_description %></:col>
+  <:col :let={page} label="Title">{page.title}</:col>
+  <:col :let={page} label="Slug">{page.slug}</:col>
+  <:col :let={page} label="Meta description">{page.meta_description}</:col>
   <:action :let={page}>
     <div class="sr-only">
       <.link navigate={~p"/pages/#{page}"}>Show</.link>

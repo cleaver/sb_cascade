@@ -1,5 +1,5 @@
 <.header>
-  Page: <%= @page.title %>
+  Page: {@page.title}
   <:subtitle>This is a page record from your database.</:subtitle>
   <:actions>
     <.link patch={~p"/pages/#{@page}/show/edit"} phx-click={JS.push_focus()}>
@@ -9,11 +9,11 @@
 </.header>
 
 <.list>
-  <:item title="Title"><%= @page.title %></:item>
-  <:item title="Body"><%= @page.body %></:item>
-  <:item title="Slug"><%= @page.slug %></:item>
-  <:item title="Meta description"><%= @page.meta_description %></:item>
-  <:item title="Image alt text"><%= @page.image_alt_text %></:item>
+  <:item title="Title">{@page.title}</:item>
+  <:item title="Body">{@page.body}</:item>
+  <:item title="Slug">{@page.slug}</:item>
+  <:item title="Meta description">{@page.meta_description}</:item>
+  <:item title="Image alt text">{@page.image_alt_text}</:item>
 </.list>
 
 <.back navigate={~p"/pages"}>Back to pages</.back>

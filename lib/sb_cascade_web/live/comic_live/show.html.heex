@@ -1,5 +1,5 @@
 <.header>
-  Comic: <%= @comic.title %>
+  Comic: {@comic.title}
   <:subtitle>This is a comic record from your database.</:subtitle>
   <:actions>
     <.link patch={~p"/comics/#{@comic}/show/edit"} phx-click={JS.push_focus()}>
@@ -9,21 +9,21 @@
 </.header>
 
 <.list>
-  <:item title="Title"><%= @comic.title %></:item>
-  <:item title="Body"><%= @comic.body %></:item>
+  <:item title="Title">{@comic.title}</:item>
+  <:item title="Body">{@comic.body}</:item>
   <:item title="Tags">
     <ul>
-      <li :for={tag <- @comic.tags}><%= tag.name %></li>
+      <li :for={tag <- @comic.tags}>{tag.name}</li>
     </ul>
   </:item>
-  <:item title="Slug"><%= @comic.slug %></:item>
-  <:item title="Published"><%= @comic.published %></:item>
-  <:item title="Post date"><%= @comic.post_date %></:item>
-  <:item title="Meta description"><%= @comic.meta_description %></:item>
+  <:item title="Slug">{@comic.slug}</:item>
+  <:item title="Published">{@comic.published}</:item>
+  <:item title="Post date">{@comic.post_date}</:item>
+  <:item title="Meta description">{@comic.meta_description}</:item>
   <:item title="Media">
     <img :if={@comic.media} src={@comic.media.url} class="max-w-lg h-auto" />
   </:item>
-  <:item title="Image alt text"><%= @comic.image_alt_text %></:item>
+  <:item title="Image alt text">{@comic.image_alt_text}</:item>
 </.list>
 
 <.back navigate={~p"/comics"}>Back to comics</.back>

@@ -36,6 +36,7 @@ defmodule SbCascade.MixProject do
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},
+      {:ecto, "~> 3.13", override: true},
       # {:ecto_sqlite3, ">= 0.0.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 4.1"},
@@ -65,7 +66,7 @@ defmodule SbCascade.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dotenvy, "~> 1.0"},
-      {:flop_phoenix, "~> 0.22.9"},
+      {:flop_phoenix, "~> 0.25.3"},
       {:git_hooks, "~> 0.8.0", only: [:dev], runtime: false},
       {:machete, "~> 0.3.11"},
       {:mix_test_watch, "~> 1.3", only: [:dev, :test], runtime: false}

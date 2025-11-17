@@ -36,11 +36,11 @@ defmodule SbCascadeWeb.UI.Image do
         <img :if={@src} src={@src} class="max-w-56 h-auto" />
       </figure>
       <progress :if={@entry != %{}} value={@entry.progress} max="100" class="w-full drop-shadow-lg">
-        <%= @entry.progress %>%
+        {@entry.progress}%
       </progress>
       <%= if @entry != %{} do %>
         <%= for err <- upload_errors(@uploads, @entry) do %>
-          <p class="alert alert-danger"><%= error_to_string(err) %></p>
+          <p class="alert alert-danger">{error_to_string(err)}</p>
         <% end %>
       <% end %>
     </article>
