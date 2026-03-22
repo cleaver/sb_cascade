@@ -27,4 +27,4 @@ jobs:
           keep-n-tagged: 0 # we’re ignoring tagged cleanup for now
 
           # Use the default GITHUB_TOKEN if it has delete:packages; otherwise:
-          token: ${{ secrets.PACKAGES_ADMIN_PAT }}
+          token: ${{ secrets.GHCR_PAT }}
