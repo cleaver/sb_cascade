@@ -1,0 +1,30 @@
+name: GHCR cleanup untagged images
+
+on:
+  schedule:
+    - cron: "17 3 * * 0" # weekly; adjust as needed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  cleanup-untagged:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup untagged images for this repo
+        uses: dataaxiom/ghcr-cleanup-action@v1
+        with:
+          # All image names (packages) under cleaver/sb_cascade, comma-separated
+          # e.g. ghcr.io/cleaver/sb_cascade/<image-name>
+          packages: "ghcr.io/cleaver/sb_cascade/sb_exe2e,ghcr.io/cleaver/sb_cascade/sb_dbe2e,ghcr.io/cleaver/sb_cascade/sb_prod"
+          owner: cleaver
+          repository: sb_cascade
+
+          # Only care about untagged right now
+          keep-n-untagged: 3 # keep last 3 untagged per image
+          keep-n-tagged: 0 # we’re ignoring tagged cleanup for now
+
+          # Use the default GITHUB_TOKEN if it has delete:packages; otherwise:
+          token: ${{ secrets.PACKAGES_ADMIN_PAT }}
