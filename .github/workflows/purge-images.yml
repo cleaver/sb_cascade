@@ -18,7 +18,7 @@ jobs:
         with:
           # All image names (packages) under cleaver/sb_cascade, comma-separated
           # e.g. ghcr.io/cleaver/sb_cascade/<image-name>
-          packages: sb_prod
+          # packages: sb_prod
           # packages: "sb_exe2e,sb_dbe2e,sb_prod"
           # owner: cleaver
           # repository: sb_cascade
