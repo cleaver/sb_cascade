@@ -16,18 +16,15 @@ jobs:
       - name: Cleanup untagged images for this repo
         uses: dataaxiom/ghcr-cleanup-action@v1
         with:
-          dry-run: true
+          # dry-run: true
           # All image names (packages) under cleaver/sb_cascade, comma-separated
           # e.g. ghcr.io/cleaver/sb_cascade/<image-name>
-          # packages: "*"
-          # expand-packages: true
           packages: "sb_cascade/sb_exe2e,sb_cascade/sb_dbe2e,sb_cascade/sb_prod"
           owner: cleaver
           repository: sb_cascade
 
           # Only care about untagged right now
-          keep-n-untagged: 3 # keep last 3 untagged per image
-          # keep-n-tagged: 0 # we’re ignoring tagged cleanup for now
+          keep-n-untagged: 8 # keep last 3 untagged per image
 
           # Use the default GITHUB_TOKEN if it has delete:packages; otherwise:
           token: ${{ secrets.GHCR_PAT }}
