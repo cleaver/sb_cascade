@@ -21,8 +21,8 @@ jobs:
           packages: "*"
           expand-packages: true
           # packages: "sb_exe2e,sb_dbe2e,sb_prod"
-          owner: cleaver
-          repository: sb_cascade
+          # owner: cleaver
+          # repository: sb_cascade
 
           # Only care about untagged right now
           keep-n-untagged: 3 # keep last 3 untagged per image
