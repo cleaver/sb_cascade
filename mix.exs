@@ -13,6 +13,21 @@ defmodule SbCascade.MixProject do
     ]
   end
 
+  # Run `mix test` in the `:test` environment, even when invoked
+  # as part of an alias chain (e.g. `mix precommit`)
+  def cli do
+    [
+      preferred_envs: [
+        precommit: :test,
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test,
+        "coveralls.cobertura": :test
+      ]
+    ]
+  end
+
   # Configuration for the OTP application.
   #
   # Type `mix help compile.app` for more information.
