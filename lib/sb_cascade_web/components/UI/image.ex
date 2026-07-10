@@ -28,7 +28,7 @@ defmodule SbCascadeWeb.UI.Image do
       >
         <.icon
           name="hero-x-circle-solid"
-          class="w-5 h-5 text-light_bg_text dark:text-light_text_dark"
+          class="w-5 h-5 text-light_text dark:text-light_text_dark"
         />
       </button>
       <figure class="drop-shadow-lg">

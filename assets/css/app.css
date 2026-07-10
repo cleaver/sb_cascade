@@ -1,6 +1,44 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss" source(none);
+@plugin "@tailwindcss/forms";
+@source "../css";
+@source "../js";
+@source "../../lib/sb_cascade_web";
+
+@custom-variant phx-click-loading (.phx-click-loading&, .phx-click-loading &);
+@custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
+@custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
+
+@theme {
+  --color-body_bg: #F2F2F4;
+  --color-body_bg_dark: #181826;
+  --color-body_text: #0F172A;
+  --color-body_text_dark: #E2E8F0;
+  --color-border: #D9D9E3;
+  --color-border_dark: #32324D;
+  --color-brand: #3935C6;
+  --color-brand_dark: #54548C;
+  --color-light_bg: #FFFFFF;
+  --color-light_bg_dark: #212134;
+  --color-light_text: #666687;
+  --color-light_text_dark: #B1B1CC;
+  --color-nav_bg: #FFFFFF;
+  --color-nav_bg_dark: #212134;
+  --color-nav_border: #E3E3E8;
+  --color-nav_border_dark: #32324D;
+  --color-nav_text: #666687;
+  --color-nav_text_dark: #B1B1CC;
+  --color-nav_text_hover: #5E5E87;
+  --color-nav_text_hover_dark: #C1C1CC;
+  --color-outline: #E3E3E8;
+  --color-outline_dark: #32324D;
+  --color-primary: #3935C6;
+  --color-primary_dark: #4D4CA2;
+  --color-secondary: #475569;
+  --color-secondary_dark: #2F3946;
+  --max-height-screen-3\/5: 60vh;
+  --max-height-screen-3\/4: 75vh;
+  --max-height-screen-4\/5: 80vh;
+}
 
 /* This file is for your main application CSS */
 

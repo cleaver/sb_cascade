@@ -13,11 +13,13 @@ defmodule SbCascadeWeb.ComicLive.Index do
 
   @impl true
   def handle_params(params, _url, socket) when socket.assigns.live_action in [:edit, :new] do
+    socket = assign(socket, :page_title, page_title(socket.assigns.live_action))
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
   def handle_params(params, _url, socket) do
     socket
+    |> assign(:page_title, page_title(:index))
     |> assign(params: params)
     |> fetch_data()
   end
@@ -34,21 +36,17 @@ defmodule SbCascadeWeb.ComicLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Comic")
     |> assign(:comic, Content.get_comic!(id, preload: [:comic_tags]))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Comic")
     |> assign(:comic, %Comic{})
   end
 
-  defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, "Listing Comics")
-    |> assign(:comic, nil)
-  end
+  defp page_title(:index), do: "Listing Comics"
+  defp page_title(:edit), do: "Edit Comic"
+  defp page_title(:new), do: "New Comic"
 
   @impl true
   def handle_info({SbCascadeWeb.ComicLive.FormComponent, {:saved, _comic}}, socket) do

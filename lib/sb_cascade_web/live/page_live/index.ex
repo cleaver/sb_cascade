@@ -13,11 +13,13 @@ defmodule SbCascadeWeb.PageLive.Index do
 
   @impl true
   def handle_params(params, _url, socket) when socket.assigns.live_action in [:edit, :new] do
+    socket = assign(socket, :page_title, page_title(socket.assigns.live_action))
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
   def handle_params(params, _url, socket) do
     socket
+    |> assign(:page_title, page_title(:index))
     |> assign(params: params)
     |> fetch_data()
   end
@@ -34,21 +36,17 @@ defmodule SbCascadeWeb.PageLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Page")
     |> assign(:page, Content.get_page!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Page")
     |> assign(:page, %Page{})
   end
 
-  defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, "Listing Pages")
-    |> assign(:page, nil)
-  end
+  defp page_title(:index), do: "Listing Pages"
+  defp page_title(:edit), do: "Edit Page"
+  defp page_title(:new), do: "New Page"
 
   @impl true
   def handle_info({SbCascadeWeb.PageLive.FormComponent, {:saved, _page}}, socket) do

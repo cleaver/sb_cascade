@@ -46,6 +46,29 @@ defmodule SbCascadeWeb.ComicLiveTest do
   describe "Index" do
     setup [:create_comic, :create_tag]
 
+    test "sets page title for index and modal actions", %{conn: conn, comic: comic} do
+      {:ok, index_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/comics")
+
+      assert page_title(index_live) =~ "Listing Comics"
+
+      {:ok, new_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/comics/new")
+
+      assert page_title(new_live) =~ "New Comic"
+
+      {:ok, edit_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/comics/#{comic}/edit")
+
+      assert page_title(edit_live) =~ "Edit Comic"
+    end
+
     test "lists all comics", %{conn: conn, comic: comic} do
       {:ok, _index_live, html} =
         conn
@@ -122,6 +145,22 @@ defmodule SbCascadeWeb.ComicLiveTest do
 
   describe "Show" do
     setup [:create_comic, :create_tag]
+
+    test "sets page title for show and edit modal", %{conn: conn, comic: comic} do
+      {:ok, show_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/comics/#{comic}")
+
+      assert page_title(show_live) =~ "Show Comic"
+
+      {:ok, show_edit_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/comics/#{comic}/show/edit")
+
+      assert page_title(show_edit_live) =~ "Edit Comic"
+    end
 
     test "displays comic", %{conn: conn, comic: comic} do
       {:ok, _show_live, html} =

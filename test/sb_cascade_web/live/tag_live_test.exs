@@ -17,6 +17,29 @@ defmodule SbCascadeWeb.TagLiveTest do
   describe "Index" do
     setup [:create_tag]
 
+    test "sets page title for index and modal actions", %{conn: conn, tag: tag} do
+      {:ok, index_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/tags")
+
+      assert page_title(index_live) =~ "Listing Tags"
+
+      {:ok, new_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/tags/new")
+
+      assert page_title(new_live) =~ "New Tag"
+
+      {:ok, edit_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/tags/#{tag}/edit")
+
+      assert page_title(edit_live) =~ "Edit Tag"
+    end
+
     test "lists all tags", %{conn: conn, tag: tag} do
       {:ok, _index_live, html} =
         conn
@@ -92,6 +115,22 @@ defmodule SbCascadeWeb.TagLiveTest do
 
   describe "Show" do
     setup [:create_tag]
+
+    test "sets page title for show and edit modal", %{conn: conn, tag: tag} do
+      {:ok, show_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/tags/#{tag}")
+
+      assert page_title(show_live) =~ "Show Tag"
+
+      {:ok, show_edit_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/tags/#{tag}/show/edit")
+
+      assert page_title(show_edit_live) =~ "Edit Tag"
+    end
 
     test "displays tag", %{conn: conn, tag: tag} do
       {:ok, _show_live, html} =

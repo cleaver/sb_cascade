@@ -45,6 +45,21 @@ defmodule SbCascadeWeb.FileLiveTest do
   describe "Index" do
     setup [:create_file, :clean_upload_directory]
 
+    test "sets page title for index and modal actions", %{conn: conn, file_fixture: file} do
+      {:ok, index_live, _html} = conn |> log_in_user(user_fixture()) |> live(~p"/files")
+
+      assert page_title(index_live) =~ "Listing Files"
+
+      {:ok, new_live, _html} = conn |> log_in_user(user_fixture()) |> live(~p"/files/new")
+
+      assert page_title(new_live) =~ "New File"
+
+      {:ok, edit_live, _html} =
+        conn |> log_in_user(user_fixture()) |> live(~p"/files/#{file}/edit")
+
+      assert page_title(edit_live) =~ "Edit File"
+    end
+
     test "lists all files", %{conn: conn, file_fixture: file} do
       {:ok, _index_live, html} = conn |> log_in_user(user_fixture()) |> live(~p"/files")
 
@@ -111,6 +126,17 @@ defmodule SbCascadeWeb.FileLiveTest do
 
   describe "Show" do
     setup [:create_file]
+
+    test "sets page title for show and edit modal", %{conn: conn, file_fixture: file} do
+      {:ok, show_live, _html} = conn |> log_in_user(user_fixture()) |> live(~p"/files/#{file}")
+
+      assert page_title(show_live) =~ "Show File"
+
+      {:ok, show_edit_live, _html} =
+        conn |> log_in_user(user_fixture()) |> live(~p"/files/#{file}/show/edit")
+
+      assert page_title(show_edit_live) =~ "Edit File"
+    end
 
     test "displays file", %{conn: conn, file_fixture: file} do
       {:ok, _show_live, html} = conn |> log_in_user(user_fixture()) |> live(~p"/files/#{file}")

@@ -50,7 +50,7 @@ defmodule SbCascadeWeb.Components.CustomComponents do
       <select
         id={@field.id}
         name={@field.name}
-        class="mt-1 rounded-md border border-gray-300 bg-body dark:bg-body_bg_dark shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        class="mt-1 rounded-md border border-gray-300 bg-body_bg dark:bg-body_bg_dark shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
         {@rest}
       >
         <option :if={@prompt} value="">{@prompt}</option>

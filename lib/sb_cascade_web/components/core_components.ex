@@ -348,7 +348,7 @@ defmodule SbCascadeWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="mt-2 block w-full rounded-md border border-gray-300 bg-body dark:bg-body_bg_dark shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        class="mt-2 block w-full rounded-md border border-gray-300 bg-body_bg dark:bg-body_bg_dark shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
         multiple={@multiple}
         {@rest}
       >
@@ -626,8 +626,7 @@ defmodule SbCascadeWeb.CoreComponents do
   You can customize the size and colors of the icons by setting
   width, height, and background color classes.
 
-  Icons are extracted from the `deps/heroicons` directory and bundled within
-  your compiled app.css by the plugin in your `assets/tailwind.config.js`.
+  Icons are rendered inline from the `deps/heroicons` SVG files.
 
   ## Examples
 
@@ -638,10 +637,60 @@ defmodule SbCascadeWeb.CoreComponents do
   attr :class, :string, default: nil
   attr :rest, :global
 
-  def icon(%{name: "hero-" <> _} = assigns) do
+  def icon(%{name: "hero-" <> icon_name} = assigns) do
+    assigns = assign(assigns, :icon_svg, SbCascadeWeb.CoreComponents.icon_svg(icon_name))
+
     ~H"""
-    <span class={[@name, @class]} {@rest} />
+    <span class={@class} {@rest}>
+      <span class="inline-block h-5 w-5">
+        {Phoenix.HTML.raw(@icon_svg)}
+      </span>
+    </span>
     """
+  end
+
+  @doc """
+  Returns inline SVG markup for a given heroicon name.
+  Reads the SVG file from the `deps/heroicons` directory based on the icon suffix.
+  """
+  @doc type: :module
+  def icon_svg(icon_name) do
+    {dir, file_name} = icon_path(icon_name)
+    path = Path.expand("../../../deps/heroicons/optimized/#{dir}/#{file_name}.svg", __DIR__)
+
+    case File.read(path) do
+      {:ok, svg} ->
+        svg
+        |> String.replace(~r/^.*?<svg[^>]*>/i, "")
+        |> String.replace(~r/<\/svg>.*/i, "")
+        |> String.trim()
+
+      {:error, _} ->
+        ~s{<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>}
+    end
+  end
+
+  defp icon_path(icon_name) do
+    cond do
+      String.ends_with?(icon_name, "-micro") ->
+        dir = "16/solid"
+        name = String.replace_suffix(icon_name, "-micro", "")
+        {dir, name}
+
+      String.ends_with?(icon_name, "-mini") ->
+        dir = "20/solid"
+        name = String.replace_suffix(icon_name, "-mini", "")
+        {dir, name}
+
+      String.ends_with?(icon_name, "-solid") ->
+        dir = "24/solid"
+        name = String.replace_suffix(icon_name, "-solid", "")
+        {dir, name}
+
+      true ->
+        dir = "24/outline"
+        {dir, icon_name}
+    end
   end
 
   ## JS Commands

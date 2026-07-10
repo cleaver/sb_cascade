@@ -30,7 +30,7 @@ config :sb_cascade, SbCascadeWeb.Endpoint,
   secret_key_base: "K8zCJT70z8drJDrn0xFkJWk6uzsMnZyzIrdxs0FlN/ObFtZXmWXrUOje4ZtdwLmk",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:sb_cascade, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:sb_cascade, ~w(--watch)]}
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support

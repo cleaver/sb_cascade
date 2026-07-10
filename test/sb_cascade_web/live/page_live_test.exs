@@ -29,6 +29,29 @@ defmodule SbCascadeWeb.PageLiveTest do
   describe "Index" do
     setup [:create_page]
 
+    test "sets page title for index and modal actions", %{conn: conn, page: page} do
+      {:ok, index_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/pages")
+
+      assert page_title(index_live) =~ "Listing Pages"
+
+      {:ok, new_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/pages/new")
+
+      assert page_title(new_live) =~ "New Page"
+
+      {:ok, edit_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/pages/#{page}/edit")
+
+      assert page_title(edit_live) =~ "Edit Page"
+    end
+
     test "lists all pages", %{conn: conn, page: page} do
       {:ok, _index_live, html} =
         conn
@@ -104,6 +127,22 @@ defmodule SbCascadeWeb.PageLiveTest do
 
   describe "Show" do
     setup [:create_page]
+
+    test "sets page title for show and edit modal", %{conn: conn, page: page} do
+      {:ok, show_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/pages/#{page}")
+
+      assert page_title(show_live) =~ "Show Page"
+
+      {:ok, show_edit_live, _html} =
+        conn
+        |> log_in_user(user_fixture())
+        |> live(~p"/pages/#{page}/show/edit")
+
+      assert page_title(show_edit_live) =~ "Edit Page"
+    end
 
     test "displays page", %{conn: conn, page: page} do
       {:ok, _show_live, html} =

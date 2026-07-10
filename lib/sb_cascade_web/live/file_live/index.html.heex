@@ -34,7 +34,7 @@
       <.link navigate={~p"/files/#{file}"}>Show</.link>
     </div>
     <.link patch={~p"/files/#{file}/edit"}>
-      <.icon name="hero-pencil-square-solid" class="h5 w-5" />
+      <.icon name="hero-pencil-square-solid" class="h-5 w-5" />
       <span class="sr-only">Edit</span>
     </.link>
   </:action>
@@ -43,7 +43,7 @@
       phx-click={JS.push("delete", value: %{id: file.id}) |> hide("#files#{file.id}")}
       data-confirm="Are you sure?"
     >
-      <.icon name="hero-trash-solid" class="h5 w-5" />
+      <.icon name="hero-trash-solid" class="h-5 w-5" />
       <span class="sr-only">Delete</span>
     </.link>
   </:action>
