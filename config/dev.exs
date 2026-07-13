@@ -1,14 +1,12 @@
 import Config
 
-# Configure your database
+# Configure your database — matches `make db` container:
+#   POSTGRES_USER=postgres  POSTGRES_PASSWORD=postgres  port=5432
 config :sb_cascade, SbCascade.Repo,
-  # database: Path.expand("../sb_cascade_dev.db", __DIR__),
-  # pool_size: 5,
-  # stacktrace: true,
-  # show_sensitive_data_on_connection_error: true
   username: "postgres",
-  password: "postgres",
+  password: "password",
   hostname: "localhost",
+  port: 5432,
   database: "sb_cascasde_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,

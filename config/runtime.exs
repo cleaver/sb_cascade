@@ -80,7 +80,8 @@ if config_env() == :prod do
     end
     |> Enum.reject(&is_nil/1)
 
-  config :sb_cascade, SbCascadeWeb.Endpoint, check_origin: if(origins == [], do: true, else: origins)
+  config :sb_cascade, SbCascadeWeb.Endpoint,
+    check_origin: if(origins == [], do: true, else: origins)
 
   # ## SSL Support
   #

@@ -6,18 +6,17 @@ config :bcrypt_elixir, :log_rounds, 1
 config :sb_cascade,
   uploads_path: "priv/static/test_uploads"
 
-# Configure your database
+# Configure your database — matches `make db` container:
+#   POSTGRES_USER=postgres  POSTGRES_PASSWORD=postgres  port=5432
 #
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :sb_cascade, SbCascade.Repo,
-  # database: Path.expand("../sb_cascade_test.db", __DIR__),
-  # pool_size: 5,
-  # pool: Ecto.Adapters.SQL.Sandbox
   username: "postgres",
-  password: "postgres",
+  password: "password",
   hostname: "localhost",
+  port: 5432,
   database: "sb_cascade_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
