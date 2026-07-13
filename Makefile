@@ -4,6 +4,8 @@
 .PHONY: help
 help:
 	@echo "Available commands:"
+	@echo "  make db            - Start postgres container for local dev"
+	@echo "  make db-stop       - Stop postgres container"
 	@echo "  make build-testdb  - Build the database Docker image"
 	@echo "  make build-testex  - Build the Elixir Docker image"
 	@echo "  make build         - Build both Docker images"
@@ -23,6 +25,17 @@ build-testex:
 # Build both Docker images
 .PHONY: build
 build: build-testdb build-testex
+
+# Start a standalone postgres container for local Elixir dev.
+# On first run it creates the container; subsequent runs restart it.
+.PHONY: db
+db:
+	docker start sb-postgres 2>/dev/null || docker run -d --name sb-postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:17
+
+# Stop the standalone postgres container
+.PHONY: db-stop
+db-stop:
+	docker stop sb-postgres
 
 # Run e2e test environment using Docker Compose
 .PHONY: test-start

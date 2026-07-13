@@ -2,30 +2,89 @@
 
 Elixir/Phoenix CMS powering sorrowbacon.com. Serves a REST API consumed by the NextJS frontend and hosts the admin UI at `sbcms.pimpsmooth.com`.
 
-## Quickstart (local dev)
+## Development Workflows
+
+### Developing the CMS (Elixir)
+
+**Option A — Local (hot-reload + debugging)**
 
 ```bash
-mix setup        # deps.get + ecto.setup + assets.setup + assets.build
-mix phx.server   # starts on :4000
+# Terminal 1 — Postgres (if not already running)
+make db           # starts postgres container on port 5432
+# (run again later with just `make db` to restart it)
+
+# Terminal 1 — CMS server
+mix setup        # deps.get + ecto.create + ecto.migrate + seeds + assets
+iex -S mix phx.server   # starts on http://localhost:4000 with live reload + iex
 ```
 
-Requires a local Postgres instance. Set `DATABASE_URL` in config or use defaults.
-
-## Docker
-
-| Image | Dockerfile | Registry |
-|---|---|---|
-| `sb_prod` | `Dockerfile` | `ghcr.io/cleaver/sb_cascade/sb_prod` |
-| `sb_exe2e` | `Dockerfile.test.elixir` | `ghcr.io/cleaver/sb_cascade/sb_exe2e` |
-| `sb_dbe2e` | `Dockerfile.test.pgsql` | `ghcr.io/cleaver/sb_cascade/sb_dbe2e` |
+**Option B — Containerized (prod-like, requires rebuild on code changes)**
 
 ```bash
-make build-testdb   # build sb_dbe2e
-make build-testex   # build sb_exe2e
-make build          # both
+make build-testex   # build sb_exe2e from local code
+make test-start     # start stack
+make test-stop      # tear down
+```
+
+See [Docker Build & Test](#docker-build--test-e2e) below for details.
+
+Then point the NextJS frontend at it:
+
+```bash
+# Terminal 2 — NextJS (from ../sorrowbacon-next-ts/)
+API_SERVER=http://localhost:4000 yarn dev
+```
+
+### Developing the NextJS frontend only
+
+The CMS can be either local or containerized — doesn't matter. Default config falls back to `http://cascade:4000` (Docker service name), so override it:
+
+```bash
+# Terminal 1 — CMS (any of these):
+mix phx.server                  # local Elixir
+make build-testex && make test-start   # containerized (see Docker section)
+pushd ../sb-site && make up && popd    # full production stack
+
+# Terminal 2 — NextJS (from ../sorrowbacon-next-ts/)
+API_SERVER=http://localhost:4000 yarn dev --turbo
+```
+
+## Docker Build & Test (E2E)
+
+Rebuild and run the containerized test stack from your **local code**. This is how you test changes to `config/`, `lib/`, or `mix.exs` in a production-like environment.
+
+### Quick reference
+
+```bash
+make db             # start postgres container for local dev (creates on first run, restarts after)
+make db-stop        # stop the postgres container
+make build-testdb   # build sb_dbe2e (Postgres with test seed data)
+make build-testex   # build sb_exe2e (Elixir release from local code)
+make build          # both of the above
 make test-start     # docker compose -f docker-compose.test.yml up -d
 make test-stop      # docker compose -f docker-compose.test.yml down
 ```
+
+Typical local dev flow: `make db` then `iex -S mix phx.server`.
+Typical containerized flow: `make build-testex && make test-start`.
+
+**Important**: `make build-testex` builds the image locally and tags it as `ghcr.io/cleaver/sb_cascade/sb_exe2e:latest`. The `docker-compose.test.yml` uses this tag, so Docker will use your locally-built image instead of pulling from GHCR. Rebuild after any changes to `config/`, `lib/`, or `mix.exs`.
+
+### Images
+
+| Image | Dockerfile | Registry | Purpose |
+|---|---|---|---|
+| `sb_prod` | `Dockerfile` | `ghcr.io/cleaver/sb_cascade/sb_prod` | Production deployment |
+| `sb_exe2e` | `Dockerfile.test.elixir` | `ghcr.io/cleaver/sb_cascade/sb_exe2e` | E2E test Elixir server |
+| `sb_dbe2e` | `Dockerfile.test.pgsql` | `ghcr.io/cleaver/sb_cascade/sb_dbe2e` | E2E test DB with seed data |
+
+## Prerequisites
+
+- **Postgres** — local install or `docker run postgres:17` on port 5432
+- **Elixir 1.17+ / OTP 27** — via `asdf` or your package manager
+- **Node.js** — for asset compilation
+
+## Quickstart (local dev)
 
 ## Tests
 
