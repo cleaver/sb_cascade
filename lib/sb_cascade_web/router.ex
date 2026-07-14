@@ -122,6 +122,18 @@ defmodule SbCascadeWeb.Router do
 
       live "/site_settings", SiteLive.Settings, :edit
     end
+
+    live_session :require_super_user,
+      on_mount: [
+        {SbCascadeWeb.UserAuth, :ensure_authenticated},
+        {SbCascadeWeb.UserAuth, :ensure_super_user}
+      ] do
+      live "/admin/users", UserLive.Index, :index
+      live "/admin/users/new", UserLive.Index, :new
+      live "/admin/users/:id/edit", UserLive.Index, :edit
+
+      live "/admin/api_tokens", ApiTokenLive.Index, :index
+    end
   end
 
   scope "/", SbCascadeWeb do

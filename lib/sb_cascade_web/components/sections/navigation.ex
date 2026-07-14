@@ -58,6 +58,24 @@ defmodule SbCascadeWeb.Components.Sections.Navigation do
                   <span class="pr-2"><.icon name="hero-globe-alt-solid" class="h-5 w-5" /></span> Site
                 </.link>
               </li>
+              <%= if @current_user.super_user do %>
+                <li class="">
+                  <.link
+                    href={~p"/admin/users"}
+                    class="leading-6 font-semibold hover:text-nav_text_hover dark:hover:text-nav_text_hover_dark"
+                  >
+                    <span class="pr-2"><.icon name="hero-users-solid" class="h-5 w-5" /></span> Users
+                  </.link>
+                </li>
+                <li class="">
+                  <.link
+                    href={~p"/admin/api_tokens"}
+                    class="leading-6 font-semibold hover:text-nav_text_hover dark:hover:text-nav_text_hover_dark"
+                  >
+                    <span class="pr-2"><.icon name="hero-key-solid" class="h-5 w-5" /></span> API Keys
+                  </.link>
+                </li>
+              <% end %>
             <% end %>
           </ul>
         </div>

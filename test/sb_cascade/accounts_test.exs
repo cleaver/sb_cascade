@@ -514,4 +514,55 @@ defmodule SbCascade.AccountsTest do
       assert Accounts.fetch_user_by_api_token("invalid") == :error
     end
   end
+
+  describe "list_api_tokens/0" do
+    test "returns all API tokens ordered by most recent first" do
+      user = user_fixture()
+      _token1 = Accounts.create_user_api_token(user)
+
+      # Ensure a different second by waiting
+      Process.sleep(1_500)
+      _token2 = Accounts.create_user_api_token(user)
+
+      tokens = Accounts.list_api_tokens()
+
+      assert length(tokens) == 2
+      assert Enum.at(tokens, 0).inserted_at >= Enum.at(tokens, 1).inserted_at
+    end
+
+    test "preloads user association" do
+      user = user_fixture(%{email: "preload-test@example.com"})
+      Accounts.create_user_api_token(user)
+
+      [token] = Accounts.list_api_tokens()
+      assert token.user.id == user.id
+      assert token.user.email == "preload-test@example.com"
+    end
+
+    test "does not return non-api tokens" do
+      user = user_fixture()
+      Accounts.generate_user_session_token(user)
+      Accounts.create_user_api_token(user)
+
+      tokens = Accounts.list_api_tokens()
+      assert length(tokens) == 1
+    end
+  end
+
+  describe "delete_api_token/1" do
+    test "deletes an API token by id" do
+      user = user_fixture()
+      Accounts.create_user_api_token(user)
+
+      [token] = Accounts.list_api_tokens()
+      assert {:ok, %UserToken{}} = Accounts.delete_api_token(token.id)
+      assert Accounts.list_api_tokens() == []
+    end
+
+    test "raises if token does not exist" do
+      assert_raise Ecto.NoResultsError, fn ->
+        Accounts.delete_api_token(-1)
+      end
+    end
+  end
 end

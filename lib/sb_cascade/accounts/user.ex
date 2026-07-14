@@ -12,6 +12,7 @@ defmodule SbCascade.Accounts.User do
     field :hashed_password, :string, redact: true
     field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :utc_datetime
+    field :super_user, :boolean, default: false
 
     timestamps(type: :utc_datetime)
   end
@@ -41,7 +42,7 @@ defmodule SbCascade.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :super_user])
     |> validate_email(opts)
     |> validate_password(opts)
   end
@@ -63,6 +64,39 @@ defmodule SbCascade.Accounts.User do
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
     # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
     |> maybe_hash_password(opts)
+  end
+
+  @doc """
+  A user changeset for admin creation and editing.
+
+  Unlike `registration_changeset`, this allows setting `super_user`
+  and makes the password optional (leave blank to keep current).
+
+  ## Options
+
+    * `:hash_password` - Hashes the password so it can be stored securely
+      in the database and ensures the password field is cleared to prevent
+      leaks in the logs. Defaults to `true`.
+
+    * `:validate_email` - Validates the uniqueness of the email. Defaults to `true`.
+  """
+  def admin_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:email, :password, :super_user])
+    |> validate_email(opts)
+    |> validate_admin_password(opts)
+  end
+
+  defp validate_admin_password(changeset, opts) do
+    password = get_change(changeset, :password)
+
+    if password do
+      changeset
+      |> validate_length(:password, min: 12, max: 72)
+      |> maybe_hash_password(opts)
+    else
+      changeset
+    end
   end
 
   defp maybe_hash_password(changeset, opts) do

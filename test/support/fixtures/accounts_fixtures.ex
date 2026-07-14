@@ -23,6 +23,16 @@ defmodule SbCascade.AccountsFixtures do
     user
   end
 
+  def super_user_fixture(attrs \\ %{}) do
+    {:ok, user} =
+      attrs
+      |> Enum.into(%{super_user: true})
+      |> valid_user_attributes()
+      |> SbCascade.Accounts.register_user()
+
+    user
+  end
+
   def api_user_fixture(attrs \\ %{}) do
     user = user_fixture(attrs)
     token = SbCascade.Accounts.create_user_api_token(user)

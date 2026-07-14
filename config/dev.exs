@@ -7,7 +7,7 @@ config :sb_cascade, SbCascade.Repo,
   password: "password",
   hostname: "localhost",
   port: 5432,
-  database: "sb_cascasde_dev",
+  database: "sb_cascade_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

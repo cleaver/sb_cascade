@@ -59,6 +59,19 @@ defmodule SbCascade.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  @doc """
+  Lists all users.
+
+  ## Examples
+
+      iex> list_users()
+      [%User{}, ...]
+
+  """
+  def list_users do
+    Repo.all(User)
+  end
+
   ## User registration
 
   @doc """
@@ -90,6 +103,72 @@ defmodule SbCascade.Accounts do
   """
   def change_user_registration(%User{} = user, attrs \\ %{}) do
     User.registration_changeset(user, attrs, hash_password: false, validate_email: false)
+  end
+
+  @doc """
+  Creates a user via the admin panel. The user is auto-confirmed
+  (no email verification needed).
+
+  ## Examples
+
+      iex> create_admin_user(%{field: value})
+      {:ok, %User{}}
+
+      iex> create_admin_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_admin_user(attrs) do
+    %User{}
+    |> User.admin_changeset(attrs)
+    |> User.confirm_changeset()
+    |> Repo.insert()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking admin user changes.
+
+  ## Examples
+
+      iex> change_admin_user(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+  def change_admin_user(%User{} = user, attrs \\ %{}) do
+    User.admin_changeset(user, attrs, hash_password: false, validate_email: false)
+  end
+
+  @doc """
+  Updates a user via the admin panel.
+
+  Password is optional — leave blank to keep the current password.
+
+  ## Examples
+
+      iex> update_admin_user(user, %{field: value})
+      {:ok, %User{}}
+
+      iex> update_admin_user(user, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_admin_user(%User{} = user, attrs) do
+    user
+    |> User.admin_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a user.
+
+  ## Examples
+
+      iex> delete_user(user)
+      {:ok, %User{}}
+
+  """
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
   end
 
   ## Settings
@@ -372,5 +451,39 @@ defmodule SbCascade.Accounts do
     else
       _ -> :error
     end
+  end
+
+  @doc """
+  Lists all API tokens, most recent first.
+  Preloads the associated user.
+
+  ## Examples
+
+      iex> list_api_tokens()
+      [%UserToken{}, ...]
+
+  """
+  def list_api_tokens do
+    UserToken
+    |> where(context: "api-token")
+    |> order_by(desc: :inserted_at)
+    |> preload(:user)
+    |> Repo.all()
+  end
+
+  @doc """
+  Deletes an API token by ID.
+
+  Raises `Ecto.NoResultsError` if the token does not exist
+  or is not an API token.
+
+  ## Examples
+
+      iex> delete_api_token(123)
+      {:ok, %UserToken{}}
+
+  """
+  def delete_api_token(id) do
+    Repo.get_by!(UserToken, id: id, context: "api-token") |> Repo.delete()
   end
 end

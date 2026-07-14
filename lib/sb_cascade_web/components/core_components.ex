@@ -638,16 +638,28 @@ defmodule SbCascadeWeb.CoreComponents do
   attr :rest, :global
 
   def icon(%{name: "hero-" <> icon_name} = assigns) do
+    {dir, _file_name} = icon_path(icon_name)
     assigns = assign(assigns, :icon_svg, SbCascadeWeb.CoreComponents.icon_svg(icon_name))
+    assigns = assign(assigns, :view_box, view_box_for_dir(dir))
 
     ~H"""
-    <span class={@class} {@rest}>
-      <span class="inline-block h-5 w-5">
+    <span {@rest}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={@view_box}
+        fill="currentColor"
+        aria-hidden="true"
+        class={["inline-block h-5 w-5", @class]}
+      >
         {Phoenix.HTML.raw(@icon_svg)}
-      </span>
+      </svg>
     </span>
     """
   end
+
+  defp view_box_for_dir("16/solid"), do: "0 0 16 16"
+  defp view_box_for_dir("20/solid"), do: "0 0 20 20"
+  defp view_box_for_dir(_dir), do: "0 0 24 24"
 
   @doc """
   Returns inline SVG markup for a given heroicon name.

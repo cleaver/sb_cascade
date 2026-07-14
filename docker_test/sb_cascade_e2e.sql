@@ -2,14 +2,13 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.1
--- Dumped by pg_dump version 16.4
-
--- Started on 2024-10-05 22:27:47 EDT
+-- Dumped from database version 17.0 (Debian 17.0-1.pgdg120+1)
+-- Dumped by pg_dump version 17.0 (Debian 17.0-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -19,7 +18,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 2 (class 3079 OID 26246)
 -- Name: citext; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -27,8 +25,6 @@ CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
 
 
 --
--- TOC entry 3804 (class 0 OID 0)
--- Dependencies: 2
 -- Name: EXTENSION citext; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -40,7 +36,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 228 (class 1259 OID 26429)
 -- Name: comic_tags; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -57,7 +52,6 @@ CREATE TABLE public.comic_tags (
 ALTER TABLE public.comic_tags OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 26428)
 -- Name: comic_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -72,8 +66,6 @@ CREATE SEQUENCE public.comic_tags_id_seq
 ALTER SEQUENCE public.comic_tags_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3805 (class 0 OID 0)
--- Dependencies: 227
 -- Name: comic_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -81,7 +73,6 @@ ALTER SEQUENCE public.comic_tags_id_seq OWNED BY public.comic_tags.id;
 
 
 --
--- TOC entry 222 (class 1259 OID 26378)
 -- Name: comics; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -104,7 +95,6 @@ CREATE TABLE public.comics (
 ALTER TABLE public.comics OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 26377)
 -- Name: comics_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -119,8 +109,6 @@ CREATE SEQUENCE public.comics_id_seq
 ALTER SEQUENCE public.comics_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3806 (class 0 OID 0)
--- Dependencies: 221
 -- Name: comics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -128,7 +116,6 @@ ALTER SEQUENCE public.comics_id_seq OWNED BY public.comics.id;
 
 
 --
--- TOC entry 224 (class 1259 OID 26394)
 -- Name: files; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -144,7 +131,6 @@ CREATE TABLE public.files (
 ALTER TABLE public.files OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 26393)
 -- Name: files_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -159,8 +145,6 @@ CREATE SEQUENCE public.files_id_seq
 ALTER SEQUENCE public.files_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3807 (class 0 OID 0)
--- Dependencies: 223
 -- Name: files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -168,7 +152,6 @@ ALTER SEQUENCE public.files_id_seq OWNED BY public.files.id;
 
 
 --
--- TOC entry 230 (class 1259 OID 26920)
 -- Name: pages; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -188,7 +171,6 @@ CREATE TABLE public.pages (
 ALTER TABLE public.pages OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 26919)
 -- Name: pages_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -203,8 +185,6 @@ CREATE SEQUENCE public.pages_id_seq
 ALTER SEQUENCE public.pages_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3808 (class 0 OID 0)
--- Dependencies: 229
 -- Name: pages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -212,7 +192,6 @@ ALTER SEQUENCE public.pages_id_seq OWNED BY public.pages.id;
 
 
 --
--- TOC entry 216 (class 1259 OID 26221)
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -225,7 +204,6 @@ CREATE TABLE public.schema_migrations (
 ALTER TABLE public.schema_migrations OWNER TO postgres;
 
 --
--- TOC entry 232 (class 1259 OID 26962)
 -- Name: settings; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -241,7 +219,6 @@ CREATE TABLE public.settings (
 ALTER TABLE public.settings OWNER TO postgres;
 
 --
--- TOC entry 231 (class 1259 OID 26961)
 -- Name: settings_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -256,8 +233,6 @@ CREATE SEQUENCE public.settings_id_seq
 ALTER SEQUENCE public.settings_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3809 (class 0 OID 0)
--- Dependencies: 231
 -- Name: settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -265,7 +240,6 @@ ALTER SEQUENCE public.settings_id_seq OWNED BY public.settings.id;
 
 
 --
--- TOC entry 226 (class 1259 OID 26403)
 -- Name: tags; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -281,7 +255,6 @@ CREATE TABLE public.tags (
 ALTER TABLE public.tags OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 26402)
 -- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -296,8 +269,6 @@ CREATE SEQUENCE public.tags_id_seq
 ALTER SEQUENCE public.tags_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3810 (class 0 OID 0)
--- Dependencies: 225
 -- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -305,7 +276,6 @@ ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
 
 
 --
--- TOC entry 218 (class 1259 OID 26352)
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -315,14 +285,14 @@ CREATE TABLE public.users (
     hashed_password character varying(255) NOT NULL,
     confirmed_at timestamp(0) without time zone,
     inserted_at timestamp(0) without time zone NOT NULL,
-    updated_at timestamp(0) without time zone NOT NULL
+    updated_at timestamp(0) without time zone NOT NULL,
+    super_user boolean DEFAULT false NOT NULL
 );
 
 
 ALTER TABLE public.users OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 26351)
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -337,8 +307,6 @@ CREATE SEQUENCE public.users_id_seq
 ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3811 (class 0 OID 0)
--- Dependencies: 217
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -346,7 +314,6 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- TOC entry 220 (class 1259 OID 26362)
 -- Name: users_tokens; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -363,7 +330,6 @@ CREATE TABLE public.users_tokens (
 ALTER TABLE public.users_tokens OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 26361)
 -- Name: users_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -378,8 +344,6 @@ CREATE SEQUENCE public.users_tokens_id_seq
 ALTER SEQUENCE public.users_tokens_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3812 (class 0 OID 0)
--- Dependencies: 219
 -- Name: users_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -387,7 +351,6 @@ ALTER SEQUENCE public.users_tokens_id_seq OWNED BY public.users_tokens.id;
 
 
 --
--- TOC entry 3601 (class 2604 OID 26432)
 -- Name: comic_tags id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -395,7 +358,6 @@ ALTER TABLE ONLY public.comic_tags ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
--- TOC entry 3597 (class 2604 OID 26381)
 -- Name: comics id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -403,7 +365,6 @@ ALTER TABLE ONLY public.comics ALTER COLUMN id SET DEFAULT nextval('public.comic
 
 
 --
--- TOC entry 3599 (class 2604 OID 26397)
 -- Name: files id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -411,7 +372,6 @@ ALTER TABLE ONLY public.files ALTER COLUMN id SET DEFAULT nextval('public.files_
 
 
 --
--- TOC entry 3602 (class 2604 OID 26923)
 -- Name: pages id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -419,7 +379,6 @@ ALTER TABLE ONLY public.pages ALTER COLUMN id SET DEFAULT nextval('public.pages_
 
 
 --
--- TOC entry 3603 (class 2604 OID 26965)
 -- Name: settings id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -427,7 +386,6 @@ ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.set
 
 
 --
--- TOC entry 3600 (class 2604 OID 26406)
 -- Name: tags id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -435,7 +393,6 @@ ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id
 
 
 --
--- TOC entry 3595 (class 2604 OID 26355)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -443,7 +400,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3596 (class 2604 OID 26365)
 -- Name: users_tokens id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -451,8 +407,6 @@ ALTER TABLE ONLY public.users_tokens ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3794 (class 0 OID 26429)
--- Dependencies: 228
 -- Data for Name: comic_tags; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -484,8 +438,6 @@ COPY public.comic_tags (id, ordinal, comic_id, tag_id, inserted_at, updated_at) 
 
 
 --
--- TOC entry 3788 (class 0 OID 26378)
--- Dependencies: 222
 -- Data for Name: comics; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -515,8 +467,6 @@ COPY public.comics (id, title, body, slug, published, post_date, meta_descriptio
 
 
 --
--- TOC entry 3790 (class 0 OID 26394)
--- Dependencies: 224
 -- Data for Name: files; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -554,8 +504,6 @@ COPY public.files (id, name, url, inserted_at, updated_at) FROM stdin;
 
 
 --
--- TOC entry 3796 (class 0 OID 26920)
--- Dependencies: 230
 -- Data for Name: pages; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -565,8 +513,6 @@ COPY public.pages (id, title, body, slug, meta_description, image_alt_text, medi
 
 
 --
--- TOC entry 3782 (class 0 OID 26221)
--- Dependencies: 216
 -- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -585,12 +531,11 @@ COPY public.schema_migrations (version, inserted_at) FROM stdin;
 20240913142044	2024-09-13 14:23:15
 20240918030145	2024-09-18 03:02:47
 20240918030306	2024-09-18 03:03:37
+20260713213554	2026-07-14 15:37:42
 \.
 
 
 --
--- TOC entry 3798 (class 0 OID 26962)
--- Dependencies: 232
 -- Data for Name: settings; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -602,8 +547,6 @@ COPY public.settings (id, key, value, inserted_at, updated_at) FROM stdin;
 
 
 --
--- TOC entry 3792 (class 0 OID 26403)
--- Dependencies: 226
 -- Data for Name: tags; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -627,20 +570,16 @@ COPY public.tags (id, name, inserted_at, updated_at, slug) FROM stdin;
 
 
 --
--- TOC entry 3784 (class 0 OID 26352)
--- Dependencies: 218
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, email, hashed_password, confirmed_at, inserted_at, updated_at) FROM stdin;
-1	webadmin@cleaver.ca	$2b$12$HFXdpYYklaGFqG826s7W4eL.Nv7zclKfqyWTD.L3N7ZKgFRUbF2n.	\N	2024-08-28 16:13:13	2024-08-28 16:13:13
-2	api-user@cleaver.ca	$2b$12$uhcpj6shjsvmYRKqnLUoQOFGUkDHm5eTMuZ5dCbmS8AlkiUnRZqR.	2024-09-18 22:05:30	2024-09-18 21:48:39	2024-09-18 22:05:30
+COPY public.users (id, email, hashed_password, confirmed_at, inserted_at, updated_at, super_user) FROM stdin;
+2	api-user@cleaver.ca	$2b$12$uhcpj6shjsvmYRKqnLUoQOFGUkDHm5eTMuZ5dCbmS8AlkiUnRZqR.	2024-09-18 22:05:30	2024-09-18 21:48:39	2024-09-18 22:05:30	f
+1	webadmin@cleaver.ca	$2b$12$HFXdpYYklaGFqG826s7W4eL.Nv7zclKfqyWTD.L3N7ZKgFRUbF2n.	\N	2024-08-28 16:13:13	2024-08-28 16:13:13	t
 \.
 
 
 --
--- TOC entry 3786 (class 0 OID 26362)
--- Dependencies: 220
 -- Data for Name: users_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -648,12 +587,12 @@ COPY public.users_tokens (id, user_id, token, context, sent_to, inserted_at) FRO
 1	1	\\xb37c5801ad371e793462924ed83c1ae1873acfa63d49ddc263c207fadb573a7e	confirm	webadmin@cleaver.ca	2024-08-28 16:13:13
 2	1	\\x0466654fdb33a4aaa8ce1ca1fbc5fca9978980f37f62d7689ceb44a35c1ec39a	session	\N	2024-08-28 16:13:13
 3	2	\\xe22c9db82f9023161d51deaa0ba3d01efbb59653aa7280d014e1486397be5a97	api-token	api-user@cleaver.ca	2024-09-18 22:06:37
+4	1	\\x33a36a85d0a915800813764a03c695e4e8a15fdfbcae88145092f7346014b48c	session	\N	2026-07-14 15:41:05
+5	2	\\x92bcdbf700f6c7114e928b407f1170f0729a0ca5a7a82ed088b65fdfe61b9de6	api-token	api-user@cleaver.ca	2026-07-14 15:41:55
 \.
 
 
 --
--- TOC entry 3813 (class 0 OID 0)
--- Dependencies: 227
 -- Name: comic_tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -661,8 +600,6 @@ SELECT pg_catalog.setval('public.comic_tags_id_seq', 19, true);
 
 
 --
--- TOC entry 3814 (class 0 OID 0)
--- Dependencies: 221
 -- Name: comics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -670,8 +607,6 @@ SELECT pg_catalog.setval('public.comics_id_seq', 3332, true);
 
 
 --
--- TOC entry 3815 (class 0 OID 0)
--- Dependencies: 223
 -- Name: files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -679,8 +614,6 @@ SELECT pg_catalog.setval('public.files_id_seq', 5790, true);
 
 
 --
--- TOC entry 3816 (class 0 OID 0)
--- Dependencies: 229
 -- Name: pages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -688,8 +621,6 @@ SELECT pg_catalog.setval('public.pages_id_seq', 1, true);
 
 
 --
--- TOC entry 3817 (class 0 OID 0)
--- Dependencies: 231
 -- Name: settings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -697,8 +628,6 @@ SELECT pg_catalog.setval('public.settings_id_seq', 20, true);
 
 
 --
--- TOC entry 3818 (class 0 OID 0)
--- Dependencies: 225
 -- Name: tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -706,8 +635,6 @@ SELECT pg_catalog.setval('public.tags_id_seq', 1109, true);
 
 
 --
--- TOC entry 3819 (class 0 OID 0)
--- Dependencies: 217
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -715,16 +642,13 @@ SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
--- TOC entry 3820 (class 0 OID 0)
--- Dependencies: 219
 -- Name: users_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_tokens_id_seq', 3, true);
+SELECT pg_catalog.setval('public.users_tokens_id_seq', 5, true);
 
 
 --
--- TOC entry 3625 (class 2606 OID 26434)
 -- Name: comic_tags comic_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -733,7 +657,6 @@ ALTER TABLE ONLY public.comic_tags
 
 
 --
--- TOC entry 3615 (class 2606 OID 26386)
 -- Name: comics comics_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -742,7 +665,6 @@ ALTER TABLE ONLY public.comics
 
 
 --
--- TOC entry 3619 (class 2606 OID 26401)
 -- Name: files files_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -751,7 +673,6 @@ ALTER TABLE ONLY public.files
 
 
 --
--- TOC entry 3629 (class 2606 OID 26927)
 -- Name: pages pages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -760,7 +681,6 @@ ALTER TABLE ONLY public.pages
 
 
 --
--- TOC entry 3605 (class 2606 OID 26225)
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -769,7 +689,6 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
--- TOC entry 3632 (class 2606 OID 26969)
 -- Name: settings settings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -778,7 +697,6 @@ ALTER TABLE ONLY public.settings
 
 
 --
--- TOC entry 3621 (class 2606 OID 26408)
 -- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -787,7 +705,6 @@ ALTER TABLE ONLY public.tags
 
 
 --
--- TOC entry 3608 (class 2606 OID 26359)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -796,7 +713,6 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3611 (class 2606 OID 26369)
 -- Name: users_tokens users_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -805,7 +721,6 @@ ALTER TABLE ONLY public.users_tokens
 
 
 --
--- TOC entry 3623 (class 1259 OID 26445)
 -- Name: comic_tags_comic_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -813,7 +728,6 @@ CREATE INDEX comic_tags_comic_id_index ON public.comic_tags USING btree (comic_i
 
 
 --
--- TOC entry 3626 (class 1259 OID 26446)
 -- Name: comic_tags_tag_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -821,7 +735,6 @@ CREATE INDEX comic_tags_tag_id_index ON public.comic_tags USING btree (tag_id);
 
 
 --
--- TOC entry 3613 (class 1259 OID 26907)
 -- Name: comics_media_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -829,7 +742,6 @@ CREATE INDEX comics_media_id_index ON public.comics USING btree (media_id);
 
 
 --
--- TOC entry 3616 (class 1259 OID 26981)
 -- Name: comics_slug_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -837,7 +749,6 @@ CREATE UNIQUE INDEX comics_slug_index ON public.comics USING btree (slug);
 
 
 --
--- TOC entry 3617 (class 1259 OID 26392)
 -- Name: comics_user_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -845,7 +756,6 @@ CREATE INDEX comics_user_id_index ON public.comics USING btree (user_id);
 
 
 --
--- TOC entry 3627 (class 1259 OID 26933)
 -- Name: pages_media_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -853,7 +763,6 @@ CREATE INDEX pages_media_id_index ON public.pages USING btree (media_id);
 
 
 --
--- TOC entry 3630 (class 1259 OID 26970)
 -- Name: settings_key_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -861,7 +770,6 @@ CREATE UNIQUE INDEX settings_key_index ON public.settings USING btree (key);
 
 
 --
--- TOC entry 3622 (class 1259 OID 26982)
 -- Name: tags_slug_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -869,7 +777,6 @@ CREATE UNIQUE INDEX tags_slug_index ON public.tags USING btree (slug);
 
 
 --
--- TOC entry 3606 (class 1259 OID 26360)
 -- Name: users_email_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -877,7 +784,6 @@ CREATE UNIQUE INDEX users_email_index ON public.users USING btree (email);
 
 
 --
--- TOC entry 3609 (class 1259 OID 26376)
 -- Name: users_tokens_context_token_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -885,7 +791,6 @@ CREATE UNIQUE INDEX users_tokens_context_token_index ON public.users_tokens USIN
 
 
 --
--- TOC entry 3612 (class 1259 OID 26375)
 -- Name: users_tokens_user_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -893,7 +798,6 @@ CREATE INDEX users_tokens_user_id_index ON public.users_tokens USING btree (user
 
 
 --
--- TOC entry 3636 (class 2606 OID 26435)
 -- Name: comic_tags comic_tags_comic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -902,7 +806,6 @@ ALTER TABLE ONLY public.comic_tags
 
 
 --
--- TOC entry 3637 (class 2606 OID 26440)
 -- Name: comic_tags comic_tags_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -911,7 +814,6 @@ ALTER TABLE ONLY public.comic_tags
 
 
 --
--- TOC entry 3634 (class 2606 OID 26908)
 -- Name: comics comics_media_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -920,7 +822,6 @@ ALTER TABLE ONLY public.comics
 
 
 --
--- TOC entry 3635 (class 2606 OID 26387)
 -- Name: comics comics_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -929,7 +830,6 @@ ALTER TABLE ONLY public.comics
 
 
 --
--- TOC entry 3638 (class 2606 OID 26928)
 -- Name: pages pages_media_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -938,15 +838,12 @@ ALTER TABLE ONLY public.pages
 
 
 --
--- TOC entry 3633 (class 2606 OID 26370)
 -- Name: users_tokens users_tokens_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users_tokens
     ADD CONSTRAINT users_tokens_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
-
--- Completed on 2024-10-05 22:27:47 EDT
 
 --
 -- PostgreSQL database dump complete
