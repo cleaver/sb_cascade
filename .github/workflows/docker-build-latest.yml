@@ -1,6 +1,6 @@
 name: Build Elixir Latest Image
 
-# Trigger the workflow on pushes or merges to the `main` branch after tests pass
+# Trigger the workflow on pushes or merges to the `main` branch after tests passsssssss
 on:
   workflow_run:
     workflows: ["Elixir CI"]
